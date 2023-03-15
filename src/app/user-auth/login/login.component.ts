@@ -32,7 +32,7 @@ export class LoginComponent {
     console.log(this.loginForm.value);
     this.http
       .post<any>(
-        'http://192.168.194.45:8080/accounts/login',
+        'https://192.168.194.45:8080/accounts/login',
         this.loginForm.value
       ) // pigtnt
       // .post<any>('http://192.168.194.97:8080/User/login', this.loginForm.value)  // nick
