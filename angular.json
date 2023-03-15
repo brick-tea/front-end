@@ -102,6 +102,14 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/front-end/",
+            "name": "bricktea",
+            "email": "ckkcle@gmail.com"
+          }
         }
       }
     }
