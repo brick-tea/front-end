@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -14,18 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  public loginForm!: FormGroup;
+  @Output() toReg = new EventEmitter<void>();
+  loginForm = this.formBuilder.group({
+    account: [
+      null,
+      [Validators.required, Validators.pattern('[46][0-9]{3}[0-9A-Z]{5}')],
+    ],
+    password: [null, [Validators.required, Validators.minLength(6)]],
+  });
+
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private router: Router
   ) {}
-  ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      account: new FormControl(),
-      password: new FormControl(),
-    });
-  }
 
   token: string = '';
   login() {

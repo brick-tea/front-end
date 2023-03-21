@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,22 +9,23 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  public signUpForm!: FormGroup;
+  @Output() toLog = new EventEmitter();
+  signUpForm = this.formBuilder.group({
+    account: [
+      null,
+      [Validators.required, Validators.pattern('[46][0-9]{3}[0-9A-Z]{5}')],
+    ],
+    password: [null, [Validators.required, Validators.minLength(6)]],
+    nickname: [null, [Validators.required, Validators.maxLength(30)]],
+  });
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.signUpForm = this.formBuilder.group({
-      account: new FormControl(),
-      password: new FormControl(),
-    });
-  }
-
   token: string = '';
-  login() {
+  signup() {
     console.log(this.signUpForm.value);
     this.http
       .post<any>(

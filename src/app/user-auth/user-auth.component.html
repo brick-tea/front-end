@@ -22,8 +22,8 @@
   </ul>
 </div>
 <div *ngIf="logMode; else regMode">
-  <app-login></app-login>
+  <app-login (toReg)="logMode=false"></app-login>
 </div>
 <ng-template #regMode>
-  <app-register></app-register>
+  <app-register (toLog)="logMode=true"></app-register>
 </ng-template>
