@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class UserAuthComponent {
   logMode: boolean = true;
-  switchMode(mode: boolean): void {
-    if (mode) {
-      this.logMode = true;
-    } else this.logMode = false;
-  }
 }

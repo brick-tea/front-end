@@ -1,38 +1,37 @@
-<div class="auth-form h-100 mx-auto">
-  <h3>token: </h3>
-  <p>{{token}}</p>
+<div class="auth-form h-100 mx-auto my-auto">
   <!-- Pills navs -->
   <div class=" d-flex justify-content-center mx-auto w-50">
 
     <!-- Pills content -->
     <div class="tab-content w-100">
       <div class="tab-pane fade show active" id="pills-login" role="tabpanel">
-        <form [formGroup]="signUpForm" (ngSubmit)="login()">
+        <form [formGroup]="signUpForm" (ngSubmit)="signup()">
           <h2 class="text-center text-muted ">Register</h2>
           <!-- Email input -->
           <div>
             <div class="input-group mb-3">
-              <input type="text" id="loginid" class="form-control" placeholder="Student id" formControlName="account"
+              <input type="text" id="loginid" class="form-control" placeholder="Student ID" formControlName="account"
                 required />
               <span class="input-group-text">@gms.ndhu.edu.tw</span>
             </div>
             <!-- Password input -->
-            <mdb-form-control class="form-outline mb-4">
-              <input mdbInput type="password" id="loginPassword" class="form-control" formControlName="password"
-                required />
+            <mdb-form-control class="form-outline mb-3">
+              <input mdbInput type="password" class="form-control" formControlName="password" required />
               <label mdbLabel class="form-label" for="loginPassword">Password</label>
+            </mdb-form-control>
+            <!-- Nickname input-->
+            <mdb-form-control class="form-outline mb-3">
+              <input mdbInput type="text" id="nickname" class="form-control" formControlName="nickname" />
+              <label mdbLabel class="form-label" for="nickname">Nickname</label>
             </mdb-form-control>
           </div>
 
-
-
-
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-block mx-auto mb-4">Register</button>
-
+          <button type="submit" class="btn btn-primary btn-block mx-auto mb-4"
+            [disabled]="!signUpForm.valid">Register</button>
           <!-- Register buttons -->
           <div class="text-center">
-            <p>Already have a account? <a routerLink="">Login</a></p>
+            <p>Already have a account? <a class="active" (click)="toLog.emit()">Login</a></p>
           </div>
         </form>
       </div>
