@@ -1,12 +1,22 @@
 <!-- Pills navs -->
 <div class="auth h-100 mx-auto">
   <ul class="nav nav-pills nav-justified mb-3 w-50 mx-auto" role="tablist">
-    <li class="nav-item" role="presentation">
-      <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab" (click)="switchMode(true)">Login</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="tab-register" data-mdb-toggle="pill" role="tab" (click)="switchMode(false)">Register</a>
-    </li>
+    <ng-container *ngIf="logMode; else registerMode">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab">Login</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab-register" data-mdb-toggle="pill" role="tab" (click)="switchMode(false)">Register</a>
+      </li>
+    </ng-container>
+    <ng-template #registerMode>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link " id="tab-login" data-mdb-toggle="pill" role="tab" (click)="switchMode(true)">Login</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="tab-register" data-mdb-toggle="pill" role="tab">Register</a>
+      </li>
+    </ng-template>
   </ul>
 </div>
 <div *ngIf="logMode; else regMode">
