@@ -1,23 +1,22 @@
 //import { WelcomePageComponent } from './layout/welcome-page/welcome-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './user-auth/login/login.component';
-import { RegisterComponent } from './user-auth/register/register.component';
 import { UserAuthComponent } from './user-auth/user-auth.component';
+import { ProductPageComponent } from './product/product-page/product-page.component';
 
 const routes: Routes = [
   {
     path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'auth',
     component: UserAuthComponent,
   },
   {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
+    path: 'home',
+    component: ProductPageComponent,
   },
   /*{
     path: '**',

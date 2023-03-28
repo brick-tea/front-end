@@ -2,7 +2,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserAuthService } from '../../service/user-auth.service';
-import { UserStorageService } from '../../service/user-storage.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,16 +20,18 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: UserAuthService,
-    private storageService: UserStorageService
-  ) {}
+    private authService: UserAuthService
+  ) {
+    if (this.authService.loginStatus() === true) {
+      this.router.navigate(['/home']);
+    }
+  }
 
-  token: string = '';
   login() {
     this.authService.login(this.loginForm.value).subscribe(
       (res) => {
         alert('SIGNIN SUCCESSFUL');
-        localStorage.setItem('access_token', res.token);
+        this.authService.setToken(res.token);
         this.router.navigate(['/home']);
         console.log(res);
       },
@@ -39,7 +40,7 @@ export class LoginComponent {
         if (err.status === 0) {
           alert('Server No Response');
         } else if (err.status === 401) {
-          alert('account not exist or wrong password');
+          alert('Account Not Exist or Wrong Password');
         } else alert('Unknown Error');
       }
     );
