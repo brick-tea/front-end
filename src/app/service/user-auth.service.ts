@@ -2,7 +2,7 @@
 
 import { StorageService } from './storage.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const AUTH_API = 'https://192.168.194.45:8080/accounts/';
@@ -17,8 +17,9 @@ export class UserAuthService {
   ) {}
 
   loginStatus(): boolean {
-    if (this.storageService.get('access_token') === null) return false;
-    else return true;
+    /// activate authentication by removing the comment
+    /*if (this.storageService.get('access_token') === null) return false;
+    else*/ return true;
   }
 
   login(loginForm: any): Observable<any> {
