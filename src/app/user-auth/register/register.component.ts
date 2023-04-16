@@ -33,15 +33,12 @@ export class RegisterComponent {
         this.signUpForm.value
       ) // pigtnt
       // .post<any>('http://192.168.194.97:8080/User/login', this.loginForm.value)  // nick
-      // .post<any>('http://localhost:3000/signupUsersList', this.loginForm.value) // >json-server --watch db.json
       .subscribe(
         (res) => {
-          alert('SIGNIN SUCCESSFUL');
+          alert('REGISTER SUCCESSFUL');
           this.signUpForm.reset();
           this.router.navigate(['/home']);
           this.token = res.token;
-          console.log(res);
-          console.log('token: ' + res.token);
         },
 
         (err) => {

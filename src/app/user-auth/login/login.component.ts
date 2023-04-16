@@ -35,6 +35,7 @@ export class LoginComponent {
         this.router.navigate(['/home']);
         console.log(res);
       },
+
       (err) => {
         console.log(err);
         if (err.status === 0) {
