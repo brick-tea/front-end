@@ -25,10 +25,10 @@ export class VerifyComponent implements OnInit {
 
   ngOnInit(): void {
     this.account = this.user.catchUserAccount();
-    /*if (this.account == 'null') {
+    if (this.account == 'null') {
       alert('Please login or register to continue!');
       this.router.navigate(['/auth']);
-    }*/
+    }
     this.code = ['', '', '', '', '', '', '', ''];
   }
   isDoubleBack: boolean = false;
