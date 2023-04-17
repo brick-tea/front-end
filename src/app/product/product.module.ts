@@ -18,8 +18,9 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LayoutModule } from '../layout/layout.module';
+import { BoardComponent } from './board/board.component';
 @NgModule({
-  declarations: [ProductPageComponent],
+  declarations: [ProductPageComponent, BoardComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,

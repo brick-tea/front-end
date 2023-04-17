@@ -1,40 +1,53 @@
-// for auth module
+/**
+ * @file user-auth.service.ts
+ * @brief service for authorization
+ * 登入登出的驗證與快取處理
+ */
 
-import { StorageService } from './storage.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-const AUTH_API = 'https://192.168.194.45:8080/accounts/';
-
+import { StorageService } from './storage.service';
+import { UserService } from './user.service';
+const AUTH_API = 'https://192.168.194.45:8080/account/';
+const TOKEN = 'access_token';
 @Injectable({
   providedIn: 'root',
 })
 export class UserAuthService {
   constructor(
     private http: HttpClient,
-    private storageService: StorageService
+    private storage: StorageService,
+    private user: UserService //
   ) {}
 
   loginStatus(): boolean {
-    if (this.storageService.get('access_token') === null) return false;
+    /// activate authentication by removing the comment
+    console.log('access_token: ' + this.storage.get(TOKEN));
+    if (this.storage.get('access_token') === 'null') return false;
     else return true;
   }
 
   login(loginForm: any): Observable<any> {
+    this.user.saveUserAccount(loginForm.account);
     return this.http.post(AUTH_API + 'login', loginForm);
   }
 
-  setToken(token: string) {
-    this.storageService.set('access_token', token);
+  register(signUpForm: any): Observable<any> {
+    this.user.saveUserAccount(signUpForm.account);
+    return this.http.post(AUTH_API + 'signup', signUpForm);
   }
 
-  register(signUpForm: any): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', signUpForm);
+  verify(verifyForm: any) {
+    return this.http.post(AUTH_API + 'verify', verifyForm);
   }
 
   logout() {
     // const log: any = this.http.post(AUTH_API + 'logout');
-    this.storageService.clearAll();
+    this.storage.clearAll();
+  }
+
+  setToken(token: string) {
+    this.storage.set(this.storage.accessToken, token);
   }
 }

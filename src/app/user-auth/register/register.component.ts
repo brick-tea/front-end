@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { UserAuthService } from 'src/app/service/user-auth.service';
 
 @Component({
   selector: 'app-register',
@@ -21,33 +22,30 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private auth: UserAuthService
   ) {}
 
   token: string = '';
   signup() {
     console.log(this.signUpForm.value);
-    this.http
-      .post<any>(
-        'https://192.168.194.45:8080/accounts/signup',
-        this.signUpForm.value
-      ) // pigtnt
-      // .post<any>('http://192.168.194.97:8080/User/login', this.loginForm.value)  // nick
-      // .post<any>('http://localhost:3000/signupUsersList', this.loginForm.value) // >json-server --watch db.json
-      .subscribe(
-        (res) => {
-          alert('SIGNIN SUCCESSFUL');
-          this.signUpForm.reset();
-          this.router.navigate(['/home']);
-          this.token = res.token;
-          console.log(res);
-          console.log('token: ' + res.token);
-        },
+    this.auth.register(this.signUpForm.value).subscribe(
+      (res) => {
+        alert(
+          'Register successful\n' +
+            'check ' +
+            this.signUpForm.value.account +
+            '@gms.ndhu.edt.tw' +
+            ' to verify !'
+        );
+        this.signUpForm.reset();
+        this.router.navigate(['/verify']);
+      },
 
-        (err) => {
-          alert('Something went wrong');
-          console.log(err);
-        }
-      );
+      (err) => {
+        alert('Something went wrong');
+        console.log(err);
+      }
+    );
   }
 }
