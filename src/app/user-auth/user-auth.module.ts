@@ -13,12 +13,20 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 import { JwtModule } from '@auth0/angular-jwt';
+import { VerifyComponent } from './verify/verify.component';
+import { UserService } from '../service/user.service';
+import { UserAuthService } from '../service/user-auth.service';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
 
 @NgModule({
-  declarations: [UserAuthComponent, RegisterComponent, LoginComponent],
+  declarations: [
+    UserAuthComponent,
+    RegisterComponent,
+    LoginComponent,
+    VerifyComponent,
+  ],
   imports: [
     CommonModule,
     BrowserModule,
@@ -36,5 +44,6 @@ export function tokenGetter() {
     MatIconModule,
     MdbFormsModule,
   ],
+  providers: [UserService, UserAuthService],
 })
 export class UserAuthModule {}

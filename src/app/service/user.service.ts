@@ -4,8 +4,7 @@
  */
 
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StorageService } from './storage.service';
 
 const USER_API = 'https://192.168.194.45:8080/user/';
@@ -29,11 +28,7 @@ const userGrade: string = 'user_grade'; // variable to get/store user grade
 export class UserService implements OnInit {
   profile: any = {};
 
-  constructor(
-    private http: HttpClient,
-    private header: HttpHeaders,
-    private storage: StorageService
-  ) {}
+  constructor(private http: HttpClient, private storage: StorageService) {}
 
   /**
    * @ngdoc method
@@ -81,7 +76,7 @@ export class UserService implements OnInit {
 
   /* store data catch */
 
-  private saveUserAccount(account: string) {
+  saveUserAccount(account: string) {
     this.storage.set(userAccount, account);
   }
 

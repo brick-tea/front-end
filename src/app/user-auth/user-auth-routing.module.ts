@@ -1,13 +1,17 @@
 import { UserAuthComponent } from './user-auth.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { VerifyComponent } from './verify/verify.component';
 import { RegisterComponent } from './register/register.component';
 
 const USER_AUTH_ROUTES: Routes = [
   {
     path: 'auth',
     component: UserAuthComponent,
+  },
+  {
+    path: 'verify',
+    component: VerifyComponent,
   },
   {
     path: 'home',
