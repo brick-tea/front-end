@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./reset.css"; //再搞事就拔掉
+$font-color: #948c97;
 html,
 body {
   max-height: 1080px;
   max-width: 1920px;
-
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 p {
-  color: #bbb5bd;
+  color: $font-color;
 }
 
 /* Importing mdbootstrap SCSS file. */

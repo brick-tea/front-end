@@ -1,0 +1,28 @@
+$bg-color: #d6d1d8;
+:host {
+  background-color: $bg-color;
+}
+
+ul {
+  display: block;
+  padding: 0 0;
+}
+li {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+li:hover {
+  background-color: $bg-color;
+}
+a {
+  display: flex;
+  align-items: center;
+  color: $bg-color;
+}
+p {
+  margin: 0;
+  font-weight: 500;
+}
