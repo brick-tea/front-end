@@ -42,7 +42,7 @@ export class VerifyComponent implements OnInit {
         this.isDoubleBack = false;
       } else this.isDoubleBack = true;
     } else if (next !== '') {
-      next.focus();
+      e.keytab();
     }
   }
   verify() {

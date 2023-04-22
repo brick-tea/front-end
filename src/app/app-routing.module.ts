@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserAuthComponent } from './user-auth/user-auth.component';
-import { ProductPageComponent } from './product/product-page/product-page.component';
 
 const routes: Routes = [
   {
@@ -16,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: ProductPageComponent,
+    loadChildren: () =>
+      import('./layout/layout.module').then((m) => m.LayoutModule),
   },
   /*{
     path: '**',

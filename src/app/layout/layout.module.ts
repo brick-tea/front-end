@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { LayoutRoutingModule } from './layout-routing.module';
 import { NgBoringAvatarsModule } from 'ng-boring-avatars';
 
 /// MDBOOTSTRAP
@@ -19,6 +21,7 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 
 /// ANGULAR MATERIAL
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 /// COMPONENTS
 import { LayoutComponent } from './layout.component';
@@ -35,6 +38,8 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
+    LayoutRoutingModule,
     MdbDropdownModule,
     MdbAccordionModule,
     MdbCarouselModule,
@@ -51,6 +56,7 @@ import { FooterComponent } from './footer/footer.component';
     MdbValidationModule,
     NgBoringAvatarsModule,
     MatToolbarModule,
+    MatSidenavModule,
   ],
   exports: [LayoutComponent],
 })
