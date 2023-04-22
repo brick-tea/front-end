@@ -24,7 +24,7 @@ export class UserAuthService {
   loginStatus(): boolean {
     /// activate authentication by removing the comment
     console.log('access_token: ' + this.storage.get(TOKEN));
-    if (this.storage.get('access_token') === 'null') return true;
+    if (this.storage.get('access_token') === 'null') return false;
     else return true;
   }
 

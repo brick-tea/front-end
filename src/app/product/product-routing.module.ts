@@ -8,6 +8,18 @@ const routes: Routes = [
     path: '',
     component: BoardComponent,
   },
+  {
+    path: 'board',
+    component: BoardComponent,
+  },
+  {
+    path: 'products',
+    component: ProductPageComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'board',
+  },
 ];
 
 @NgModule({

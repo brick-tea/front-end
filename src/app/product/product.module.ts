@@ -19,8 +19,9 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LayoutModule } from '../layout/layout.module';
 import { BoardComponent } from './board/board.component';
+import { ProductFilterComponent } from './product-page/product-filter/product-filter.component';
 @NgModule({
-  declarations: [ProductPageComponent, BoardComponent],
+  declarations: [ProductPageComponent, BoardComponent, ProductFilterComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
