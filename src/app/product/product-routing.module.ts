@@ -5,10 +5,6 @@ import { BoardComponent } from './board/board.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: BoardComponent,
-  },
-  {
     path: 'board',
     component: BoardComponent,
   },
