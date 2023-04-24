@@ -24,25 +24,26 @@ export class VerifyComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    console.log('verifyForm');
     this.account = this.user.catchUserAccount();
-    /*if (this.account == 'null') {
-      alert('Please login or register to continue!');
+    if (this.account == 'null') {
+      alert('無帳號資料，請先登入。');
       this.router.navigate(['/auth']);
-    }*/
+    }
     this.code = ['', '', '', '', '', '', '', ''];
   }
+
   isDoubleBack: boolean = false;
   moveFocus(e: any, back: any, current: any, next: any) {
     const length = current.value.length;
-    console.log(e);
 
     if (e.key === 'Backspace') {
-      if (this.isDoubleBack && back !== '') {
+      if (length == 0 && back !== '') {
         back.focus();
         this.isDoubleBack = false;
       } else this.isDoubleBack = true;
     } else if (next !== '') {
-      e.keytab();
+      next.focus();
     }
   }
   verify() {
@@ -54,12 +55,9 @@ export class VerifyComponent implements OnInit {
     this.verifyForm.code = verifyCode;
     let form = JSON.stringify(this.verifyForm);
     form = JSON.parse(form);
-    console.log(form);
     this.auth.verify(form).subscribe((res) => {
       console.log(res);
       alert('Verify Successful!\nPlease login again');
-
-      let response = res;
       this.router.navigate(['/auth']);
     });
   }

@@ -6,7 +6,8 @@ import { UserAuthComponent } from './user-auth/user-auth.component';
 const routes: Routes = [
   {
     path: 'auth',
-    component: UserAuthComponent,
+    loadChildren: () =>
+      import('./user-auth/user-auth.module').then((m) => m.UserAuthModule),
   },
   {
     path: 'home',

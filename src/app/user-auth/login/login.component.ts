@@ -43,7 +43,7 @@ export class LoginComponent {
         } else if (err.status === 401) {
           if (err.error.status == 'account not verified') {
             alert('verify first');
-            this.router.navigate(['/verify']);
+            this.router.navigate(['/auth/verify']);
           } else alert('Account Not Exist or Wrong Password');
         } else alert('Unknown Error');
       }
