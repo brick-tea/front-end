@@ -1,28 +1,44 @@
 $bg-color: #d6d1d8;
-:host {
-  background-color: $bg-color;
-}
 
 ul {
   display: block;
   padding: 0 0;
 }
-li {
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+.switch-page {
+  li {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  li:hover {
+    background-color: $bg-color;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    color: $bg-color;
+  }
 }
-li:hover {
-  background-color: $bg-color;
-}
-a {
-  display: flex;
-  align-items: center;
-  color: $bg-color;
-}
+
 p {
   margin: 0;
   font-weight: 500;
+}
+
+.new-post {
+  border: 2px solid #5ab1bb;
+  color: #5ab1bb;
+  margin: 1rem 0;
+  padding: 0.3rem 4rem;
+  &.hover {
+    // change background when hover to the button
+    background-color: #4e98a0;
+  }
+
+  p {
+    color: #5ab1bb;
+    font-size: 1.2rem;
+  }
 }

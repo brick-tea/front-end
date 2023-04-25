@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -20,26 +21,32 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 
 /// ANGULAR MATERIAL
+import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /// COMPONENTS
 import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { CreatePostDialog } from './sidebar/dialog/create-post-dialog/create-post-dialog';
+import { CreateProductDialog } from './sidebar/dialog/create-product-dialog/create-product-dialog';
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
     LayoutComponent,
+    CreatePostDialog,
+    CreateProductDialog,
   ],
   imports: [
     CommonModule,
     RouterModule,
     LayoutRoutingModule,
+    FormsModule,
     MdbDropdownModule,
     MdbAccordionModule,
     MdbCarouselModule,
@@ -55,8 +62,10 @@ import { FooterComponent } from './footer/footer.component';
     MdbTooltipModule,
     MdbValidationModule,
     NgBoringAvatarsModule,
+    MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatDialogModule,
   ],
   exports: [LayoutComponent],
 })
