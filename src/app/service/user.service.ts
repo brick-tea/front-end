@@ -35,12 +35,12 @@ export class UserService implements OnInit {
    * @description load jwt token from local storage(if have)
    */
   ngOnInit() {
-    this.api.getHeader(null);
+    this.api.getHeader('json');
     this.getUserInfo();
   }
 
   private getUserInfo() {
-    this.http.get(USER_API + 'profile' + this.api.getHeader(null)).subscribe(
+    this.http.get(USER_API + 'profile' + this.api.getHeader('json')).subscribe(
       (res) => {
         console.log(res);
         this.profile = res;

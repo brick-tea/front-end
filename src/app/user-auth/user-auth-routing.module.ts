@@ -2,7 +2,6 @@ import { UserAuthComponent } from './user-auth.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VerifyComponent } from './verify/verify.component';
-import { RegisterComponent } from './register/register.component';
 
 const USER_AUTH_ROUTES: Routes = [
   {

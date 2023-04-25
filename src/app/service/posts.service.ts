@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 
-const POSTS_API = 'https://192.168.194.45:8080/user/post/';
+const POSTS_API = 'https://192.168.194.45:8080/post/';
 
 @Injectable({
   providedIn: 'root',
@@ -11,40 +13,34 @@ export class PostsService {
   constructor(
     private http: HttpClient,
     // private storage: StorageService,
-    private api: ApiService
+    private api: ApiService,
+    private storage: StorageService
   ) {}
 
   /**
-   * @param post
-    {
-      "title": "string",
-      "content": "string",
-      "status": "string",
-      "productsId": [
-        "string"
-      ]
-    } */
-  addPost(post: any) {
-    return this.http.post(POSTS_API, post, this.api.getHeader(null));
+   * @param post post format
+   */
+  addPost(post: Post): Observable<any> {
+    return this.http.post(POSTS_API, post, this.api.getHeader('json'));
   }
 
   /**
    * @param postId
    * @param comment  {"content": "string"}
    */
-  addComment(postId: string, comment: string) {
+  addComment(postId: string, comment: string): Observable<any> {
     return this.http.post(
       POSTS_API + postId,
       comment,
-      this.api.getHeader(null)
+      this.api.getHeader('json')
     );
   }
 
-  deletePost(postId: string) {
-    return this.http.delete(POSTS_API + postId, this.api.getHeader(null));
+  deletePost(postId: string): Observable<any> {
+    return this.http.delete(POSTS_API + postId, this.api.getHeader('json'));
   }
 
-  deleteComment(postId: string, commentId: string) {
+  deleteComment(postId: string, commentId: string): Observable<any> {
     return this.http.delete(
       POSTS_API + postId + '/' + commentId,
       this.api.getHeader('text')
@@ -57,7 +53,7 @@ export class PostsService {
    * @param post edit content
    * @returns
    */
-  editPost(postId: string, post: any) {
+  editPost(postId: string, post: any): Observable<any> {
     return this.http.patch(
       POSTS_API + postId,
       post,
@@ -67,25 +63,31 @@ export class PostsService {
   /**
    * @description Get all users' posts
    */
-  getAllPosts() {
+  getAllPosts(): Observable<any> {
     return this.http.get(POSTS_API + 'all/', this.api.getHeader('json'));
   }
 
   /**
    * @description Get specific post's details
    */
-  getPostById(postId: string) {
+  getPostById(postId: string): Observable<any> {
     return this.http.get(POSTS_API + postId, this.api.getHeader('json'));
   }
 
-  getMyPost() {
+  getMyPost(): Observable<any> {
     return this.http.get(POSTS_API + 'my/', this.api.getHeader('json'));
   }
 
-  getPostComment(postId: string) {
+  getPostComment(postId: string): Observable<any> {
     return this.http.get(
       POSTS_API + postId + '/comment',
       this.api.getHeader('json')
     );
   }
+}
+export interface Post {
+  title: string;
+  content: string;
+  status: string;
+  productsId: string[];
 }

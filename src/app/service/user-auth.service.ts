@@ -38,7 +38,7 @@ export class UserAuthService {
     return this.http.post(AUTH_API + 'signup', signUpForm);
   }
 
-  verify(verifyForm: any) {
+  verify(verifyForm: any): Observable<any> {
     return this.http.post(AUTH_API + 'verify', verifyForm);
   }
 
