@@ -5,24 +5,19 @@ import { UserAuthComponent } from './user-auth/user-auth.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
-  },
-  {
     path: 'auth',
-    component: UserAuthComponent,
+    loadChildren: () =>
+      import('./user-auth/user-auth.module').then((m) => m.UserAuthModule),
   },
   {
     path: 'home',
     loadChildren: () =>
       import('./layout/layout.module').then((m) => m.LayoutModule),
   },
-  /*{
+  {
     path: '**',
-    redirectTo: 'AppComponent',
-    pathMatch: 'full',
-  },*/
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({

@@ -1,8 +1,26 @@
-<ul>
-  <li [routerLink]="['/board']"><a>
+<div>
+  <button class="btn btn-outline-primary rounded shadow-0 new-post" mdbRipple rippleColor="dark"
+    (click)="openCreatePostDialog()">
+    <p><b>發佈</b></p>
+  </button>
+</div>
+<!--div mdbDropdown class="dropdown">
+  <button class="btn btn-outline-primary rounded shadow-0 new-post" type="button" id="dropdownMenuButton"
+    mdbDropdownToggle>
+    發佈
+  </button>
+  <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" href="#">商品</a></li>
+    <li><a class="dropdown-item" (click)="openCreatePostDialog()">貼文</a></li>
+    <li><a class="dropdown-item">Something else here</a></li>
+  </ul>
+</div-->
+
+<ul class="switch-page">
+  <li [routerLink]="['/home/board']"><a>
       <p>貼文牆</p>
     </a></li>
-  <li [routerLink]="['/products']"><a>
+  <li [routerLink]="['/home/products']"><a>
       <p>商品牆</p>
     </a>
   </li>

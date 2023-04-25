@@ -4,18 +4,13 @@
  */
 
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
+import { ApiService } from './api.service';
 
 const USER_API = 'https://192.168.194.45:8080/user/';
 
 // https://angular.io/guide/http-send-data-to-server
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: 'my-auth-token',
-  }),
-};
 
 const userAccount: string = 'user_account'; // variable to get/store user id
 const userName: string = 'user_nickname'; // variable to get/store user nickname
@@ -28,7 +23,11 @@ const userGrade: string = 'user_grade'; // variable to get/store user grade
 export class UserService implements OnInit {
   profile: any = {};
 
-  constructor(private http: HttpClient, private storage: StorageService) {}
+  constructor(
+    private http: HttpClient,
+    private storage: StorageService,
+    private api: ApiService
+  ) {}
 
   /**
    * @ngdoc method
@@ -36,28 +35,12 @@ export class UserService implements OnInit {
    * @description load jwt token from local storage(if have)
    */
   ngOnInit() {
-    this.getHeader(null);
+    this.api.getHeader('json');
     this.getUserInfo();
   }
 
-  /**
-   * @description
-   * to generate a header for specific content type
-   * @param contentType, can be 'json' or 'text'
-   * @returns httpHeader
-   */
-  getHeader(contentType: string | null) {
-    if (contentType === 'json') {
-      httpOptions.headers.set('Content-Type', 'application/json');
-      return httpOptions;
-    } else if (contentType === 'text') {
-      httpOptions.headers.set('Content-Type', 'text/plain');
-      return httpOptions;
-    } else return httpOptions;
-  }
-
   private getUserInfo() {
-    this.http.get(USER_API + 'profile' + this.getHeader(null)).subscribe(
+    this.http.get(USER_API + 'profile' + this.api.getHeader('json')).subscribe(
       (res) => {
         console.log(res);
         this.profile = res;
