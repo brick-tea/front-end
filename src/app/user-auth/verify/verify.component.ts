@@ -30,10 +30,9 @@ export class VerifyComponent implements OnInit {
       alert('無帳號資料，請先登入。');
       this.router.navigate(['/auth']);
     }
-    this.code = ['', '', '', '', '', '', '', ''];
+    this.code = ['', '', '', '', '', ''];
   }
-
-  isDoubleBack: boolean = false;
+  isDoubleBack = false;
   moveFocus(e: any, back: any, current: any, next: any) {
     const length = current.value.length;
 
@@ -46,6 +45,32 @@ export class VerifyComponent implements OnInit {
       next.focus();
     }
   }
+  /*moveFocus(e: any) {
+    const input = e.target;
+    /*const nextInput = input.nextElementSibling;
+    if (nextInput && input.value) {
+      //      nextInput.focus();
+      if (nextInput.value) {
+        //nextInput.select();
+      }
+    }
+  }*/
+  onKeydown(event: KeyboardEvent): void {
+    console.log(event);
+  }
+  onPaste(event: ClipboardEvent) {
+    event.preventDefault();
+    let clipboardData = event.clipboardData || (window as any).clipboardData;
+    let pastedText: string = clipboardData.getData('text');
+    if (pastedText.length === 6) {
+      for (let i = 0; i < 6; i++) {
+        this.code[i] = pastedText[i];
+      }
+    } else {
+      alert('Invalid code!');
+    }
+  }
+
   verify() {
     let verifyCode: string = '';
     this.verifyForm.account = this.user.catchUserAccount();

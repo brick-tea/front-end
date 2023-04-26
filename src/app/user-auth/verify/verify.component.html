@@ -4,21 +4,17 @@
 <form class="verify" autocomplete="off">
   <ng-container>
     <input type="text" [(ngModel)]="code[0]" name='item_0' maxlength="1" (keyup)="moveFocus($event, '', item_0,item_1)"
-      class="verify-code" #item_0 />
+      (paste)="onPaste($event)" class="verify-code" #item_0 />
     <input type="text" [(ngModel)]="code[1]" name="item_1" maxlength="1"
-      (keyup)="moveFocus($event,  item_0, item_1,item_2)" class="verify-code" #item_1 />
+      (keyup)="moveFocus($event,  item_0, item_1,item_2)" (paste)="onPaste($event)" class="verify-code" #item_1 />
     <input type="text" [(ngModel)]="code[2]" name="item_2" maxlength="1"
-      (keyup)="moveFocus($event,  item_1, item_2,item_3)" class="verify-code" #item_2 />
+      (keyup)="moveFocus($event,  item_1, item_2,item_3)" (paste)="onPaste($event)" class="verify-code" #item_2 />
     <input type="text" [(ngModel)]="code[3]" name="item_3" maxlength="1"
-      (keyup)="moveFocus($event,  item_2, item_3,item_4)" class="verify-code" #item_3 />
+      (keyup)="moveFocus($event,  item_2, item_3,item_4)" (paste)="onPaste($event)" class="verify-code" #item_3 />
     <input type="text" [(ngModel)]="code[4]" name="item_4" maxlength="1"
-      (keyup)="moveFocus($event,  item_3, item_4,item_5)" class="verify-code" #item_4 />
-    <input type="text" [(ngModel)]="code[5]" name="item_5" maxlength="1"
-      (keyup)="moveFocus($event,  item_4, item_5,item_6)" class="verify-code" #item_5 />
-    <input type="text" [(ngModel)]="code[6]" name="item_6" maxlength="1"
-      (keyup)="moveFocus($event,  item_5, item_6,item_7)" class="verify-code" #item_6 />
-    <input type="text" [(ngModel)]="code[7]" name="item_7" maxlength="1" (keyup)="moveFocus($event, item_6, item_7,'')"
-      class="verify-code" #item_7 />
+      (keyup)="moveFocus($event,  item_3, item_4,item_5)" (paste)="onPaste($event)" class="verify-code" #item_4 />
+    <input type="text" [(ngModel)]="code[5]" name="item_5" maxlength="1" (keyup)="moveFocus($event,  item_4, item_5,'')"
+      (paste)="onPaste($event)" class="verify-code" #item_5 />
   </ng-container>
 
 

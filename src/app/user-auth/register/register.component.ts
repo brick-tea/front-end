@@ -39,7 +39,7 @@ export class RegisterComponent {
             ' to verify !'
         );
         this.signUpForm.reset();
-        this.router.navigate(['/verify']);
+        this.router.navigate(['auth/verify']);
       },
 
       (err) => {
