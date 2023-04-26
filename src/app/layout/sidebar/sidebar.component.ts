@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectCreateTypeDialog } from './dialog/select-create-type-dialog/select-create-type-dialog';
 import {
   CreatePostDialog,
   DialogData,
@@ -19,6 +20,8 @@ export class SidebarComponent {
     productId: [],
   };
 
+  openCreateProductDialog(): void {}
+
   openCreatePostDialog() {
     this.postContent.title = 'new';
 
@@ -32,6 +35,25 @@ export class SidebarComponent {
       if (data !== undefined) {
         this.postContent = data;
         console.log(this.postContent);
+      }
+    });
+  }
+  openSelectTypeDialog() {
+    const MatDialogRef = this.dialog.open(SelectCreateTypeDialog, {
+      data: { createType: 'none' },
+      height: '20rem',
+      width: '30rem',
+      disableClose: false,
+      panelClass: 'select-type-dialog-container', // in style.css
+      backdropClass: 'dialog-background',
+    });
+    MatDialogRef.afterClosed().subscribe((data) => {
+      console.log(data);
+      if (data.createType === 'none') return;
+      else if (data.createType === 'product') {
+        this.openCreateProductDialog;
+      } else if (data.createType === 'post') {
+        this.openCreatePostDialog();
       }
     });
   }

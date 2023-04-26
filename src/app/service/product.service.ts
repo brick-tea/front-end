@@ -24,3 +24,13 @@ export class ProductService {
     return this.http.get(PRODUCT_API + 'all/', this.api.getHeader('json'));
   }
 }
+
+export interface Product {
+  content: string;
+  status: string;
+  tag_Id: 0;
+  owner_Id: string;
+  price: 0;
+  image: string[];
+  title: string;
+}

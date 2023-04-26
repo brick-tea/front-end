@@ -31,6 +31,7 @@ import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
+import { SelectCreateTypeDialog } from './sidebar/dialog/select-create-type-dialog/select-create-type-dialog';
 import { CreatePostDialog } from './sidebar/dialog/create-post-dialog/create-post-dialog';
 import { CreateProductDialog } from './sidebar/dialog/create-product-dialog/create-product-dialog';
 @NgModule({
@@ -39,6 +40,7 @@ import { CreateProductDialog } from './sidebar/dialog/create-product-dialog/crea
     SidebarComponent,
     FooterComponent,
     LayoutComponent,
+    SelectCreateTypeDialog,
     CreatePostDialog,
     CreateProductDialog,
   ],
