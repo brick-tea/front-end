@@ -24,3 +24,20 @@ p {
 a {
   cursor: pointer;
 }
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: #ffffffc0;
+  box-shadow: none !important;
+}
+
+/*.select-type-dialog-container {
+  background-color: #948c97c0;
+  // border-radius: 50px;
+  box-shadow: none;
+}*/
+.dialog-background {
+  background-color: transparent;
+  backdrop-filter: blur(2px);
+}
+/*.cdk-overlay-dark-backdrop {
+  background: none !important;
+}*/
