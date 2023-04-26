@@ -1,8 +1,8 @@
-import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LayoutRoutingModule } from './layout-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgBoringAvatarsModule } from 'ng-boring-avatars';
 
 /// MDBOOTSTRAP
@@ -22,6 +22,7 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 
 /// ANGULAR MATERIAL
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -31,14 +32,19 @@ import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
+import { SelectCreateTypeDialog } from './sidebar/dialog/select-create-type-dialog/select-create-type-dialog';
 import { CreatePostDialog } from './sidebar/dialog/create-post-dialog/create-post-dialog';
 import { CreateProductDialog } from './sidebar/dialog/create-product-dialog/create-product-dialog';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
     LayoutComponent,
+    SelectCreateTypeDialog,
     CreatePostDialog,
     CreateProductDialog,
   ],
@@ -47,6 +53,7 @@ import { CreateProductDialog } from './sidebar/dialog/create-product-dialog/crea
     RouterModule,
     LayoutRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     MdbDropdownModule,
     MdbAccordionModule,
     MdbCarouselModule,
@@ -63,6 +70,10 @@ import { CreateProductDialog } from './sidebar/dialog/create-product-dialog/crea
     MdbValidationModule,
     NgBoringAvatarsModule,
     MatButtonModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatAutocompleteModule,
     MatToolbarModule,
     MatSidenavModule,
     MatDialogModule,

@@ -8,6 +8,10 @@ textarea {
 }
 .dialog {
   background-color: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .title {
   color: #4e6766;
@@ -34,4 +38,8 @@ textarea {
   ul {
     padding: 0;
   }
+}
+
+.example-chip-list {
+  width: 100%;
 }

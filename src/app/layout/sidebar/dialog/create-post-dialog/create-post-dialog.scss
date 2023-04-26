@@ -1,3 +1,7 @@
+.dialog {
+  background-color: #ffffff;
+  height: 100%;
+}
 h3 {
   padding: 0;
   margin: 1rem 0 0 0;
@@ -6,9 +10,7 @@ h3 {
 textarea {
   resize: none;
 }
-.dialog {
-  background-color: #ffffff;
-}
+
 .title {
   color: #4e6766;
   border-radius: 5px;

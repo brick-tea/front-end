@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductService } from 'src/app/service/product.service';
-import { PostsService } from 'src/app/service/posts.service';
+import { PostsService, Post } from 'src/app/service/posts.service';
+import { ProductService, Product } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-create-post-dialog',
@@ -12,16 +12,18 @@ export class CreatePostDialog implements OnInit {
   constructor(
     private product: ProductService,
     private postsService: PostsService,
-    public dialogRef: MatDialogRef<CreatePostDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    public dialogRef: MatDialogRef<CreatePostDialog>
   ) {}
+  proudctList: Product[] = [];
 
-  proudctList: any;
+  post: Post = {
+    title: '',
+    content: '',
+    status: '',
+    productsId: [],
+  };
 
   ngOnInit() {
-    console.log('data:');
-    console.log(this.data);
-
     this.product.getMyProducts().subscribe(
       (res) => {
         this.proudctList = res;
@@ -36,11 +38,4 @@ export class CreatePostDialog implements OnInit {
   onNoClick() {
     this.dialogRef.close();
   }
-}
-
-export class DialogData {
-  title: string = '';
-  content: string = '';
-  status: string = '';
-  productId: string[] = [];
 }
