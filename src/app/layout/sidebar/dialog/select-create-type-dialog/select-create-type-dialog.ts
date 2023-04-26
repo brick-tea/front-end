@@ -38,9 +38,6 @@ export class SelectCreateTypeDialog implements OnInit {
     }
     this.dialogRef.close();
   }
-  onNoClick() {
-    this.dialogRef.close();
-  }
 }
 
 export interface DialogData {

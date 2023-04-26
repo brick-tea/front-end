@@ -1,58 +1,70 @@
 <div class="dialog">
-  <h2 mat-dialog-title>建立貼文</h2>
+  <h2 mat-dialog-title>新增商品</h2>
   <div mat-dialog-content>
-    <!-- Post title -->
+    <!-- Product title -->
     <mdb-form-control>
-      <input mdbInput type="text" id="title" class="form-control title" [(ngModel)]="data.post.title" required />
-      <label mdbLabel class="form-label" for="title">標題</label>
+      <input mdbInput type="text" id="title" class="form-control title" [(ngModel)]="product.title" required />
+      <label mdbLabel class="form-label" for="title">商品名稱</label>
     </mdb-form-control>
 
-    <!-- Post content -->
+    <!-- Product content -->
     <mdb-form-control>
       <textarea mdbInput type="text" id="content" row="10" autocomplete="false" class="form-control content"
-        [(ngModel)]="data.post.content" maxlength="400" required></textarea>
-      <label mdbLabel class="form-label" for="content">內容</label>
+        [(ngModel)]="product.content" maxlength="100" required></textarea>
+      <label mdbLabel class="form-label" for="content">簡介</label>
     </mdb-form-control>
 
-    <!-- Post status -->
+    <mdb-form-control>
+      <input mdbInput type="number" id="title" class="form-control title" [(ngModel)]="product.price" required />
+      <label mdbLabel class="form-label" for="title">價格</label>
+    </mdb-form-control>
+
+    <!-- Product status -->
     <h3>商品狀態</h3>
     <div class="status">
       <div class="form-check">
         <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="sellingRadio" [checked]="true"
-          [(ngModel)]="data.post.status" value="selling" />
+          [(ngModel)]="product.status" value="selling" />
         <label class="form-check-label" for="sellingRadio">販售中</label>
       </div>
       <div class="form-check">
         <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="waitingRadio"
-          [(ngModel)]="data.post.status" value="temp_sold" />
+          [(ngModel)]="product.status" value="temp_sold" />
         <label class="form-check-label" for="waitingRadio">暫售</label>
       </div>
       <div class="form-check">
         <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="soldRadio"
-          [(ngModel)]="data.post.status" value="sold" />
+          [(ngModel)]="product.status" value="sold" />
         <label class="form-check-label" for="soldRadio"> 已售出 </label>
       </div>
     </div>
+    <!-- Product tags -->
+    <form>
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>還不能用</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Fruit selection">
+          <mat-chip-row *ngFor="let fruit of fruits" (removed)="remove(fruit)">
+            {{fruit}}
+            <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        </mat-chip-grid>
+        <input placeholder="就不能用" #fruitInput [formControl]="fruitCtrl" [matChipInputFor]="chipGrid"
+          [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)" />
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+            {{fruit}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
 
-    <!-- Post products -->
-    <h3>連結商品</h3>
-    <div class="form-check product-list">
-      <p *ngIf="proudctList==null">沒有商品</p>
-      <ul>
-        <li *ngFor="let product of proudctList; index as i;">
-          <div class="form-check">
-            <input mdbCheckbox class="form-check-input" type="checkbox" id="flexCheckDefault"
-              [(ngModel)]="data.post.productId[i]" />
-            <label class="form-check-label" for="flexCheckDefault">
-              {{product.id}}
-            </label>
-          </div>
-        </li>
-      </ul>
-    </div>
   </div>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">取消</button>
-  <button mat-button [mat-dialog-close]="data.post" cdkFocusInitial>發布</button>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">取消</button>
+    <button mat-button mat-dialog-close (click)="createProduct()">發布</button>
+  </div>
 </div>
