@@ -1,16 +1,16 @@
 <div class="dialog">
-  <h2 mat-dialog-title>建立貼文</h2>
+  <h2 mat-dialog-title>建立貼文(我還沒接api)</h2>
   <div mat-dialog-content>
     <!-- Post title -->
     <mdb-form-control>
-      <input mdbInput type="text" id="title" class="form-control title" [(ngModel)]="data.post.title" required />
+      <input mdbInput type="text" id="title" class="form-control title" [(ngModel)]="post.title" required />
       <label mdbLabel class="form-label" for="title">標題</label>
     </mdb-form-control>
 
     <!-- Post content -->
     <mdb-form-control>
       <textarea mdbInput type="text" id="content" row="10" autocomplete="false" class="form-control content"
-        [(ngModel)]="data.post.content" maxlength="400" required></textarea>
+        [(ngModel)]="post.content" maxlength="400" required></textarea>
       <label mdbLabel class="form-label" for="content">內容</label>
     </mdb-form-control>
 
@@ -19,17 +19,17 @@
     <div class="status">
       <div class="form-check">
         <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="sellingRadio" [checked]="true"
-          [(ngModel)]="data.post.status" value="selling" />
+          [(ngModel)]="post.status" value="selling" />
         <label class="form-check-label" for="sellingRadio">販售中</label>
       </div>
       <div class="form-check">
         <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="waitingRadio"
-          [(ngModel)]="data.post.status" value="temp_sold" />
+          [(ngModel)]="post.status" value="temp_sold" />
         <label class="form-check-label" for="waitingRadio">暫售</label>
       </div>
       <div class="form-check">
         <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="soldRadio"
-          [(ngModel)]="data.post.status" value="sold" />
+          [(ngModel)]="post.status" value="sold" />
         <label class="form-check-label" for="soldRadio"> 已售出 </label>
       </div>
     </div>
@@ -42,17 +42,18 @@
         <li *ngFor="let product of proudctList; index as i;">
           <div class="form-check">
             <input mdbCheckbox class="form-check-input" type="checkbox" id="flexCheckDefault"
-              [(ngModel)]="data.post.productId[i]" />
+              [(ngModel)]="post.productsId[i]" />
             <label class="form-check-label" for="flexCheckDefault">
-              {{product.id}}
+              {{product.title}}
             </label>
           </div>
         </li>
       </ul>
     </div>
   </div>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">取消</button>
-  <button mat-button [mat-dialog-close]="data.post" cdkFocusInitial>發布</button>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">取消</button>
+    <button mat-button mat-dialog-close>發布</button>
+  </div>
 </div>
