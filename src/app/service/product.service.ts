@@ -11,8 +11,9 @@ const PRODUCT_API = 'https://192.168.194.45:8080/product/';
 export class ProductService {
   constructor(private http: HttpClient, private api: ApiService) {}
 
-  createProduct(product: any): Observable<any> {
-    return this.http.post(PRODUCT_API, product, this.api.getHeader('json'));
+  createProduct(product: Product): Observable<any> {
+    const body = JSON.stringify(product);
+    return this.http.post(PRODUCT_API, body, this.api.getHeader('text'));
   }
 
   getMyProducts(): Observable<any> {
@@ -26,11 +27,9 @@ export class ProductService {
 }
 
 export interface Product {
-  content: string;
   status: string;
-  tag_Id: 0;
-  owner_Id: string;
-  price: 0;
-  image: string[];
   title: string;
+  content: string;
+  price: 0;
+  tag_Id: 0;
 }

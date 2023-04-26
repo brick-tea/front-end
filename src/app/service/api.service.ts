@@ -7,12 +7,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { StorageService } from './storage.service';
 
 // https://angular.io/guide/http-send-data-to-server
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': '', // request body's data type
-    Authorization: '',
-  }),
-};
 
 @Injectable({
   providedIn: 'root',
@@ -26,24 +20,22 @@ export class ApiService {
    * @param contentType, can be 'json' or 'text'
    * @returns httpHeader
    */
-  getHeader(contentType: string) {
-    httpOptions.headers = httpOptions.headers.set(
-      'Authorization',
-      'Bearer ' + this.storage.get(this.storage.accessToken)
-    );
-    if (contentType === 'json') {
-      httpOptions.headers = httpOptions.headers.set(
-        'Content-Type',
-        'application/json'
-      );
-      return httpOptions;
-    } else if (contentType === 'text') {
-      httpOptions.headers = httpOptions.headers.set(
-        'Content-Type',
-        'text/plain'
-      );
-      return httpOptions;
-    }
+  getHeader(resType: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', // request body's data type
+        Authorization: 'Bearer ' + this.storage.get(this.storage.accessToken),
+      }),
+      responseType: resType, // responseType?: "arraybuffer" | "blob" | "text" | "json"
+    };
     return httpOptions;
   }
+}
+
+// angular bug https://www.cnblogs.com/wangtingnoblog/p/10322483.html
+export namespace ResponseType {
+  export const Json = 'json' as 'json';
+  export const Text = 'text' as 'text';
+  export const Blob = 'blob' as 'blob';
+  export const Arraybuffer = 'arraybuffer' as 'arraybuffer';
 }
