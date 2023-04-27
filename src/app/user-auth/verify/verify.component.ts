@@ -32,33 +32,43 @@ export class VerifyComponent implements OnInit {
     }
     this.code = ['', '', '', '', '', ''];
   }
+  valLimit(e: KeyboardEvent): boolean {
+    e.stopImmediatePropagation();
+    const keyval =
+      (e.key >= 'a' && e.key <= 'z') ||
+      (e.key >= 'A' && e.key <= 'Z') ||
+      (e.key >= '0' && e.key <= '9');
+    console.log('keyValue: ' + keyval);
+    if (!keyval) {
+      e.preventDefault;
+      console.log('hi');
+      return false;
+    }
+    return true;
+  }
+
   isDoubleBack = false;
   moveFocus(e: any, back: any, current: any, next: any) {
+    e.preventDefault();
+
+    const keyval =
+      (e.key >= 'a' && e.key <= 'z') ||
+      (e.key >= 'A' && e.key <= 'Z') ||
+      (e.key >= '0' && e.key <= '9');
+
     const length = current.value.length;
 
     if (e.key === 'Backspace') {
-      if (length == 0 && back !== '') {
+      if (length === 0 && back !== '') {
         back.focus();
-        this.isDoubleBack = false;
-      } else this.isDoubleBack = true;
-    } else if (next !== '') {
+        back.value = '';
+      }
+    } else if (keyval && next !== '') {
       next.focus();
     }
   }
-  /*moveFocus(e: any) {
-    const input = e.target;
-    /*const nextInput = input.nextElementSibling;
-    if (nextInput && input.value) {
-      //      nextInput.focus();
-      if (nextInput.value) {
-        //nextInput.select();
-      }
-    }
-  }*/
-  onKeydown(event: KeyboardEvent): void {
-    console.log(event);
-  }
-  onPaste(event: ClipboardEvent) {
+
+  onPaste(event: any) {
     event.preventDefault();
     let clipboardData = event.clipboardData || (window as any).clipboardData;
     let pastedText: string = clipboardData.getData('text');
@@ -67,7 +77,7 @@ export class VerifyComponent implements OnInit {
         this.code[i] = pastedText[i];
       }
     } else {
-      alert('Invalid code!');
+      alert('貼上格式錯誤！');
     }
   }
 
