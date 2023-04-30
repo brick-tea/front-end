@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { PostsService, Post } from 'src/app/service/posts.service';
-import { ProductService, Product } from 'src/app/service/product.service';
+import { ProductService, ProductInfo } from 'src/app/service/product.service';
+import { Observable, tap } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-post-dialog',
@@ -14,7 +16,15 @@ export class CreatePostDialog implements OnInit {
     private postsService: PostsService,
     public dialogRef: MatDialogRef<CreatePostDialog>
   ) {}
-  proudctList: Product[] = [];
+  proudctList: ProductInfo[] = [];
+  isSelectProduct: boolean[] = [];
+  myProducts$: Observable<ProductInfo[]> = this.product.getMyProducts().pipe(
+    tap((products) => {
+      this.proudctList = products;
+      console.log(this.proudctList);
+    })
+  );
+  ngOnInit(): void {}
 
   post: Post = {
     title: '',
@@ -23,14 +33,16 @@ export class CreatePostDialog implements OnInit {
     productsId: [],
   };
 
-  ngOnInit() {
-    this.product.getMyProducts().subscribe(
+  onSubmit() {
+    this.postsService.addPost(this.post).subscribe(
       (res) => {
-        this.proudctList = res;
         console.log(res);
+        alert('成功發布！');
       },
       (err) => {
         console.log(err);
+        if (err.status === 403) {
+        }
       }
     );
   }

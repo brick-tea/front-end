@@ -11,25 +11,57 @@ const PRODUCT_API = 'https://192.168.194.45:8080/product/';
 export class ProductService {
   constructor(private http: HttpClient, private api: ApiService) {}
 
-  createProduct(product: Product): Observable<any> {
-    const body = JSON.stringify(product);
-    return this.http.post(PRODUCT_API, body, this.api.getHeader('text'));
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(
+      PRODUCT_API,
+      product,
+      this.api.getHeader('text')
+    );
   }
 
-  getMyProducts(): Observable<any> {
+  getMyProducts(): Observable<ProductInfo[]> {
     const header = this.api.getHeader('json');
-    return this.http.get(PRODUCT_API + 'my/', header);
+    return this.http.get<ProductInfo[]>(PRODUCT_API + 'my/', header);
   }
 
-  getAllProducts(): Observable<any> {
-    return this.http.get(PRODUCT_API + 'all/', this.api.getHeader('json'));
+  getAllProducts(): Observable<ProductInfo[]> {
+    return this.http.get<ProductInfo[]>(
+      PRODUCT_API + 'all/',
+      this.api.getHeader('json')
+    );
+  }
+
+  getTags(): Observable<ProductTag[]> {
+    return this.http.get<ProductTag[]>(
+      PRODUCT_API + 'tags',
+      this.api.getHeader('json')
+    );
   }
 }
 
 export interface Product {
-  status: string;
   title: string;
+  status: string;
   content: string;
-  price: 0;
-  tag_Id: 0;
+  price: number;
+  tagName: string;
+}
+
+/** use GET method to get */
+export interface ProductInfo extends Product {
+  productId: string;
+  account: string;
+  sellStatus: true;
+
+  image1: string;
+  image2: string;
+  image3: string;
+
+  postTime: string;
+  lastEdit: string;
+  visible: true;
+}
+export interface ProductTag {
+  id: number;
+  tagName: string;
 }

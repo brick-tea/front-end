@@ -1,70 +1,111 @@
 <div class="dialog">
   <h2 mat-dialog-title>新增商品</h2>
   <div mat-dialog-content>
-    <!-- Product title -->
-    <mdb-form-control>
-      <input mdbInput type="text" id="title" class="form-control title" [(ngModel)]="product.title" required />
-      <label mdbLabel class="form-label" for="title">商品名稱</label>
-    </mdb-form-control>
 
-    <!-- Product content -->
-    <mdb-form-control>
-      <textarea mdbInput type="text" id="content" row="10" autocomplete="false" class="form-control content"
-        [(ngModel)]="product.content" maxlength="100" required></textarea>
-      <label mdbLabel class="form-label" for="content">簡介</label>
-    </mdb-form-control>
+    <form [formGroup]="productForm" novalidate>
+      <mdb-form-control>
+        <input mdbValidate mdbInput type="text" id="title" class="form-control title" formControlName="title"
+          required />
+        <label mdbLabel class="form-label" for="title">商品名稱</label>
+      </mdb-form-control>
+      <mdb-form-control>
 
-    <mdb-form-control>
-      <input mdbInput type="number" id="title" class="form-control title" [(ngModel)]="product.price" required />
-      <label mdbLabel class="form-label" for="title">價格</label>
-    </mdb-form-control>
+        <textarea mdbValidate mdbInput type="text" id="content" row="10" autocomplete="false"
+          class="form-control content" formControlName="content" maxlength="100" required></textarea>
+        <label mdbLabel class="form-label" for="content">簡介</label>
+      </mdb-form-control>
+      <mdb-form-control>
 
-    <!-- Product status -->
-    <h3>商品狀態</h3>
-    <div class="status">
-      <div class="form-check">
-        <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="sellingRadio" [checked]="true"
-          [(ngModel)]="product.status" value="selling" />
-        <label class="form-check-label" for="sellingRadio">販售中</label>
+        <input mdbValidate mdbInput type="number" min="0" id="title" class="form-control title" formControlName="price"
+          required />
+        <label mdbLabel class="form-label" for="title">價格</label>
+      </mdb-form-control>
+
+      <!-- Product status -->
+      <h3>商品狀態</h3>
+      <div class="status">
+
+        <div class="form-check">
+          <input mdbRadio class="form-check-input" type="radio" name="status" id="sellingRadio" [checked]="true"
+            formControlName="status" value="selling" />
+          <label class="form-check-label" for="sellingRadio">販售中</label>
+        </div>
+
+        <div class="form-check">
+          <input mdbRadio class="form-check-input" type="radio" name="status" id="waitingRadio" formControlName="status"
+            value="temp_sold" />
+          <label class="form-check-label" for="waitingRadio">暫售</label>
+        </div>
+
+        <div class="form-check">
+          <input mdbRadio class="form-check-input" type="radio" name="status" id="soldRadio" formControlName="status"
+            value="sold" />
+          <label class="form-check-label" for="soldRadio"> 已售出 </label>
+        </div>
       </div>
-      <div class="form-check">
-        <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="waitingRadio"
-          [(ngModel)]="product.status" value="temp_sold" />
-        <label class="form-check-label" for="waitingRadio">暫售</label>
-      </div>
-      <div class="form-check">
-        <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="soldRadio"
-          [(ngModel)]="product.status" value="sold" />
-        <label class="form-check-label" for="soldRadio"> 已售出 </label>
-      </div>
-    </div>
-    <!-- Product tags -->
-    <form>
-      <mat-form-field class="example-chip-list" appearance="fill">
-        <mat-label>還不能用</mat-label>
-        <mat-chip-grid #chipGrid aria-label="Fruit selection">
-          <mat-chip-row *ngFor="let fruit of fruits" (removed)="remove(fruit)">
-            {{fruit}}
-            <button matChipRemove [attr.aria-label]="'remove ' + fruit">
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip-row>
-        </mat-chip-grid>
-        <input placeholder="就不能用" #fruitInput [formControl]="fruitCtrl" [matChipInputFor]="chipGrid"
-          [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add($event)" />
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-            {{fruit}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+
+      <!-- Product tags -->
+      <mat-chip-listbox>
+        <mat-chip-option *ngFor="let tag of tags$|async"
+          (selectionChange)="selectTag(tag.tagName)">{{tag.tagName}}</mat-chip-option>
+      </mat-chip-listbox>
+
+
+
+
     </form>
+    {{productForm.value}}
+    <p>{{productForm.status}}</p>
 
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">取消</button>
+      <button mat-button mat-dialog-close type="submit" [disabled]="!productForm.valid"
+        (click)="createProduct()">發布</button>
+    </div>
   </div>
 
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">取消</button>
-    <button mat-button mat-dialog-close (click)="createProduct()">發布</button>
-  </div>
-</div>
+
+  <!-- Product title -->
+  <!--mdb-form-control>
+    <input mdbInput type="text" id="title" class="form-control title" [(ngModel)]="product.title" required />
+    <label mdbLabel class="form-label" for="title">商品名稱</label>
+  </mdb-form-control-->
+
+  <!-- Product content >
+  <mdb-form-control>
+    <textarea mdbInput type="text" id="content" row="10" autocomplete="false" class="form-control content"
+      [(ngModel)]="product.content" maxlength="100" required></textarea>
+    <label mdbLabel class="form-label" for="content">簡介</label>
+  </mdb-form-control>
+
+  <mdb-form-control>
+    <input mdbInput type="number" id="title" class="form-control title" [(ngModel)]="product.price" required />
+    <label mdbLabel class="form-label" for="title">價格</label>
+  </mdb-form-control-->
+
+  <!-- Product status >
+  <h3>商品狀態</h3>
+  <div class="status">
+    <div class="form-check">
+      <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="sellingRadio" [checked]="true"
+        [(ngModel)]="product.status" value="selling" />
+      <label class="form-check-label" for="sellingRadio">販售中</label>
+    </div>
+    <div class="form-check">
+      <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="waitingRadio"
+        [(ngModel)]="product.status" value="temp_sold" />
+      <label class="form-check-label" for="waitingRadio">暫售</label>
+    </div>
+    <div class="form-check">
+      <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="soldRadio"
+        [(ngModel)]="product.status" value="sold" />
+      <label class="form-check-label" for="soldRadio"> 已售出 </label>
+    </div>
+  </div-->
+  <!-- Product tags >
+  <mat-chip-listbox>
+    <mat-chip-option *ngFor="let tag of fakeTags"
+      (selectionChange)="selectTag(tag.tagName)">{{tag.tagName}}</mat-chip-option>
+  </mat-chip-listbox>
+
+</div-->
