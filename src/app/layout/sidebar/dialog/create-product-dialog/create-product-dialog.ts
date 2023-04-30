@@ -1,14 +1,12 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductService, Product } from 'src/app/service/product.service';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, Validators } from '@angular/forms';
 
-/// for chip component
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import {
+  ProductService,
+  Product,
+  ProductTag,
+} from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-create-product-dialog',
@@ -16,85 +14,58 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['./create-product-dialog.scss'],
 })
 export class CreateProductDialog implements OnInit {
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl('');
-  filteredFruits!: Observable<string[]>;
-  fruits: string[] = ['test1'];
-  allFruits: string[] = ['test1', 'test2', 'test3', 'test4', 'test5'];
-
-  @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
-
   constructor(
+    private fb: FormBuilder,
     private productService: ProductService,
     public dialogRef: MatDialogRef<CreateProductDialog>
-  ) {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) =>
-        fruit ? this._filter(fruit) : this.allFruits.slice()
-      )
-    );
+  ) {}
+
+  productForm = this.fb.group({
+    title: ['', Validators.required],
+    content: ['', Validators.required],
+    status: ['selling', Validators.required],
+    price: [0, Validators.required],
+    tagName: [''],
+  });
+
+  tags$ = this.productService.getTags();
+  fakeTags: ProductTag[] = [
+    {
+      tagName: 'foo',
+      id: 1,
+    },
+    {
+      tagName: 'foo1',
+      id: 2,
+    },
+  ];
+
+  ngOnInit() {}
+
+  selectTag(tag: string) {
+    if (tag !== this.productForm.value.tagName)
+      this.productForm.patchValue({ tagName: tag });
+    else this.productForm.patchValue({ tagName: '' });
+    console.log(this.productForm.value);
   }
 
-  testProduct: Product = {
-    status: 'string',
-    title: 'string',
-    content: 'string',
-    price: 0,
-    tag_Id: 0,
-  };
   product: Product = {
-    status: '',
+    //  product to post
     title: '',
     content: '',
+    status: '',
     price: 0,
-    tag_Id: 0,
+    tagName: '',
   };
-
-  ngOnInit() {
-    //this.createProduct();
-  }
-
-  /// MatChips
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.fruits.push(value);
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.fruitCtrl.setValue(null);
-  }
-
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allFruits.filter((fruit) =>
-      fruit.toLowerCase().includes(filterValue)
-    );
-  }
-  ///
-
   createProduct(): void {
-    const body = JSON.stringify(this.product);
+    this.product = {
+      title: this.productForm.value.title ?? '',
+      content: this.productForm.value.content ?? '',
+      status: this.productForm.value.status ?? 'selling',
+      price: this.productForm.value.price ?? 0,
+      tagName: this.productForm.value.tagName ?? '',
+    };
+    console.log(this.product);
     this.productService.createProduct(this.product).subscribe(
       (res) => {
         console.log(res);
@@ -107,6 +78,6 @@ export class CreateProductDialog implements OnInit {
   }
 
   onNoClick() {
-    this.dialogRef.close();
+    if (confirm('Are you sure?')) this.dialogRef.close();
   }
 }

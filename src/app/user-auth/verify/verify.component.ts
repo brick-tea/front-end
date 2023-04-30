@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/service/user-auth.service';
 import { UserService } from 'src/app/service/user.service';
+const codeLength = 6;
 
 @Component({
   selector: 'app-verify',
@@ -72,8 +73,8 @@ export class VerifyComponent implements OnInit {
     event.preventDefault();
     let clipboardData = event.clipboardData || (window as any).clipboardData;
     let pastedText: string = clipboardData.getData('text');
-    if (pastedText.length === 6) {
-      for (let i = 0; i < 6; i++) {
+    if (pastedText.length === codeLength) {
+      for (let i = 0; i < codeLength; i++) {
         this.code[i] = pastedText[i];
       }
     } else {
@@ -84,7 +85,7 @@ export class VerifyComponent implements OnInit {
   verify() {
     let verifyCode: string = '';
     this.verifyForm.account = this.user.catchUserAccount();
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < codeLength; i++) {
       verifyCode = verifyCode + this.code[i];
     }
     this.verifyForm.code = verifyCode;
