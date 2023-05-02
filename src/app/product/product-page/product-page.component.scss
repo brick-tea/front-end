@@ -1,0 +1,14 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: min-content min-content 3fr;
+  grid-auto-flow: dense row;
+  column-gap: 2rem;
+  row-gap: 1rem;
+}
+.content {
+  //max-height: 10rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-self: center;
+}
