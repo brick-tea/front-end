@@ -20,8 +20,8 @@ export class PostsService {
   /**
    * @param post post format
    */
-  addPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(POSTS_API, post, this.api.getHeader('json'));
+  addPost(post: Post): Observable<string> {
+    return this.http.post<string>(POSTS_API, post, this.api.getHeader('text'));
   }
 
   /**

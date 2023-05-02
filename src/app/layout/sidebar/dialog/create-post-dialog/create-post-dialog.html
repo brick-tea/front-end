@@ -37,29 +37,32 @@
     <!-- Post products -->
     <h3>連結商品</h3>
     <div class="form-check product-list">
-      <ng-container *ngIf="proudctList==null; else isLoad"></ng-container>
-      <p *ngIf="proudctList==null">沒有商品</p>
-      <ng-template #isLoad>
+      <ng-container *ngIf="!isProductLoad; else isLoad;">
         <p *ngIf="!isProductLoad">商品載入中......</p>
+      </ng-container>
+      <ng-template #isLoad>
+        <ng-container>
+          <p *ngIf="proudctList==null else showProduct">沒有商品</p>
+        </ng-container>
+        <ng-template #showProduct>
+          <ul>
+            <li *ngFor="let product of proudctList; index as i;">
+              <div class="form-check">
+                <input mdbCheckbox class="form-check-input" type="checkbox" [id]="product.productId"
+                  [(ngModel)]="isSelectProduct[i]" (click)="debug()" />
+                <label class="form-check-label" [for]="product.productId">
+                  {{product.title}}
+                </label>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
       </ng-template>
-
-
-      <ul *ngIf="(myProducts$ | async)!==null" #showProduct>
-        <li *ngFor="let product of proudctList; index as i;">
-          <div class="form-check">
-            <input mdbCheckbox class="form-check-input" type="checkbox" [id]="product.productId"
-              [checked]="isSelectProduct[i]" />
-            <label class="form-check-label" [for]="product.productId">
-              {{product.title}}
-            </label>
-          </div>
-        </li>
-      </ul>
     </div>
   </div>
 
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">取消</button>
-    <button mat-button mat-dialog-close>發布</button>
+    <button mat-button (click)="onSubmit()">發布</button>
   </div>
 </div>
