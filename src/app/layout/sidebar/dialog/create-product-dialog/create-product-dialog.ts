@@ -6,6 +6,7 @@ import {
   ProductService,
   Product,
   ProductTag,
+  ProductImage,
 } from 'src/app/service/product.service';
 
 @Component({
@@ -29,18 +30,12 @@ export class CreateProductDialog implements OnInit {
   });
 
   tags$ = this.productService.getTags();
-  fakeTags: ProductTag[] = [
-    {
-      tagName: 'foo',
-      id: 1,
-    },
-    {
-      tagName: 'foo1',
-      id: 2,
-    },
-  ];
 
-  ngOnInit() {}
+  ngOnInit() {
+    for (let i = 0; i < 3; i++) {
+      this.productImages.push({ ...this.initImage });
+    }
+  }
 
   selectTag(tag: string) {
     if (tag !== this.productForm.value.tagName)
@@ -57,6 +52,54 @@ export class CreateProductDialog implements OnInit {
     price: 0,
     tagName: '',
   };
+
+  /**  Create image  **/
+
+  initImage: Image = {
+    name: '',
+    img: undefined,
+  };
+  productImages: Image[] = [];
+
+  onImageUpload(i: number, event: any) {
+    const file: File = event.target.files[0];
+    this.productImages[i].img = file;
+    /*const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      if (reader.result)
+        this.productImages[i].file = (reader.result as string)
+          .split(',')
+          .pop()!;
+    };*/
+
+    this.productImages[i].name = file.name;
+  }
+  onImageRemove(i: number): void {
+    this.productImages[i] = { ...this.initImage };
+  }
+
+  packImage(id: string): FormData {
+    const formData = new FormData();
+    formData.append('productId', id);
+    for (let i = 0; i < this.productImages.length; i++) {
+      formData.append('images', this.productImages[i].img as Blob);
+    }
+    let productImages: ProductImage = {
+      productId: id,
+      images: [],
+    };
+    for (let i = 0; i < this.productImages.length; i++) {
+      if (this.productImages[i].name !== '')
+        productImages.images.push(this.productImages[i].img!);
+    }
+
+    return formData;
+  }
+
+  isCreated?: boolean = true;
   createProduct(): void {
     this.product = {
       title: this.productForm.value.title ?? '',
@@ -69,10 +112,27 @@ export class CreateProductDialog implements OnInit {
     this.productService.createProduct(this.product).subscribe(
       (res) => {
         console.log(res);
-        alert('成功發布！');
+        this.packImage(res);
+        this.uploadImage(this.packImage(res));
+        // this.dialogRef.close();
       },
       (err) => {
         console.log(err);
+        this.isCreated = false;
+      }
+    );
+  }
+
+  uploadImage(packedImage: FormData) {
+    this.productService.createProductImage(packedImage).subscribe(
+      (res) => {
+        console.log(res);
+        alert('發布成功！');
+        this.dialogRef.close();
+      },
+      (err) => {
+        console.log(err);
+        this.isCreated = false;
       }
     );
   }
@@ -80,4 +140,9 @@ export class CreateProductDialog implements OnInit {
   onNoClick() {
     if (confirm('Are you sure?')) this.dialogRef.close();
   }
+}
+
+interface Image {
+  name: string;
+  img?: File;
 }

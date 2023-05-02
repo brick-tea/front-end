@@ -1,3 +1,8 @@
+$danger: #dc4c64;
+h2 {
+  margin: 0 !important;
+  padding-top: 1rem;
+}
 h3 {
   padding: 0;
   margin: 1rem 0 0 0;
@@ -6,12 +11,13 @@ h3 {
 textarea {
   resize: none;
 }
+
 .dialog {
   background-color: #ffffff;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 .title {
   color: #4e6766;
@@ -37,6 +43,25 @@ textarea {
   padding: 0;
   ul {
     padding: 0;
+  }
+}
+
+.upload-image {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  .upload {
+    display: flex;
+    cursor: pointer;
+    flex-grow: 1;
+    justify-content: start;
+    align-items: center;
+  }
+  .remove {
+    margin-right: 5em;
+    &:hover {
+      color: $danger;
+    }
   }
 }
 

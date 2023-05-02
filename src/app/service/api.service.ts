@@ -21,7 +21,7 @@ export class ApiService {
    * @returns httpHeader
    */
   getHeader(resType: any) {
-    const httpOptions = {
+    const httpOptions: Object = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json', // request body's data type
         Authorization: 'Bearer ' + this.storage.get(this.storage.accessToken),
