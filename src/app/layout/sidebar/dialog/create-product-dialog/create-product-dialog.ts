@@ -63,18 +63,11 @@ export class CreateProductDialog implements OnInit {
 
   onImageUpload(i: number, event: any) {
     const file: File = event.target.files[0];
+    if (file.size > 3 * 1024 * 1024) {
+      alert('limit image size 3mb!');
+      return;
+    }
     this.productImages[i].img = file;
-    /*const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-
-    reader.onload = () => {
-      if (reader.result)
-        this.productImages[i].file = (reader.result as string)
-          .split(',')
-          .pop()!;
-    };*/
-
     this.productImages[i].name = file.name;
   }
   onImageRemove(i: number): void {
@@ -98,8 +91,10 @@ export class CreateProductDialog implements OnInit {
 
     return formData;
   }
-
   isCreated?: boolean = true;
+  isProductCreated?: boolean = false;
+  isImageCreated?: boolean = false;
+  productId!: string;
   createProduct(): void {
     this.product = {
       title: this.productForm.value.title ?? '',
@@ -109,18 +104,23 @@ export class CreateProductDialog implements OnInit {
       tagName: this.productForm.value.tagName ?? '',
     };
     console.log(this.product);
-    this.productService.createProduct(this.product).subscribe(
-      (res) => {
-        console.log(res);
-        this.packImage(res);
-        this.uploadImage(this.packImage(res));
-        // this.dialogRef.close();
-      },
-      (err) => {
-        console.log(err);
-        this.isCreated = false;
-      }
-    );
+    if (this.isProductCreated === true) {
+      this.uploadImage(this.packImage(this.productId));
+    } else {
+      this.productService.createProduct(this.product).subscribe(
+        (res) => {
+          console.log(res);
+          this.packImage(res);
+          this.uploadImage(this.packImage(res));
+          // this.dialogRef.close();
+          this.isProductCreated = true;
+        },
+        (err) => {
+          console.log(err);
+          this.isCreated = false;
+        }
+      );
+    }
   }
 
   uploadImage(packedImage: FormData) {
@@ -129,6 +129,7 @@ export class CreateProductDialog implements OnInit {
         console.log(res);
         alert('發布成功！');
         this.dialogRef.close();
+        this.isImageCreated = true;
       },
       (err) => {
         console.log(err);

@@ -25,19 +25,11 @@ export class ProductService {
   }
 
   createProductImage(image: FormData): Observable<string> {
-    const httpOptions: Object = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.storage.get(this.storage.accessToken),
-        'Content-Type': 'multipart/form-data',
-      }),
-      responseType: 'text/plain',
-    };
-
-    console.log(httpOptions);
-    console.log(image.get('productId'));
-    console.log(image.getAll('images'));
-    console.log(image);
-    return this.http.post<string>(PRODUCT_API + 'image', image, httpOptions);
+    return this.http.post<string>(
+      PRODUCT_API + 'image',
+      image,
+      this.api.getHeader('text')
+    );
   }
 
   getMyProducts(): Observable<ProductInfo[]> {

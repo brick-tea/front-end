@@ -36,6 +36,7 @@
     "mdb-angular-ui-kit": "^4.0.0",
     "mdbootstrap": "^4.3.2",
     "ng-boring-avatars": "^1.0.0",
+    "ngx-image-compress": "^13.1.16",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
