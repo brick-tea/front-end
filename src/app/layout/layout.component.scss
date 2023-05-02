@@ -1,10 +1,13 @@
 $bg-color: gray;
 :host {
-  height: 100rem;
+  height: 100vh;
   background-color: #fff;
 }
 a {
   cursor: pointer;
+}
+header {
+  height: 12vh;
 }
 
 mat-drawer {
@@ -12,6 +15,7 @@ mat-drawer {
   width: 15rem;
 }
 mat-drawer-container {
-  height: 32rem;
+  height: 88vh;
+  flex-grow: 1;
   background-color: #fff;
 }
