@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 
 const PRODUCT_API = 'https://192.168.194.45:8080/product/';
 
@@ -9,12 +10,24 @@ const PRODUCT_API = 'https://192.168.194.45:8080/product/';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient, private api: ApiService) {}
+  constructor(
+    private http: HttpClient,
+    private api: ApiService,
+    private storage: StorageService
+  ) {}
 
-  createProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(
+  createProduct(product: Product): Observable<string> {
+    return this.http.post<string>(
       PRODUCT_API,
       product,
+      this.api.getHeader('text')
+    );
+  }
+
+  createProductImage(image: FormData): Observable<string> {
+    return this.http.post<string>(
+      PRODUCT_API + 'image',
+      image,
       this.api.getHeader('text')
     );
   }
@@ -64,4 +77,9 @@ export interface ProductInfo extends Product {
 export interface ProductTag {
   id: number;
   tagName: string;
+}
+
+export interface ProductImage {
+  productId: string; // ID of the product
+  images: File[];
 }

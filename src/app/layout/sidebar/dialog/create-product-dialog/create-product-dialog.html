@@ -1,5 +1,5 @@
 <div class="dialog">
-  <h2 mat-dialog-title>新增商品</h2>
+  <h2 mat-dialog-title>上傳商品</h2>
   <div mat-dialog-content>
 
     <form [formGroup]="productForm" novalidate>
@@ -43,69 +43,44 @@
           <label class="form-check-label" for="soldRadio"> 已售出 </label>
         </div>
       </div>
-
       <!-- Product tags -->
       <mat-chip-listbox>
         <mat-chip-option *ngFor="let tag of tags$|async"
           (selectionChange)="selectTag(tag.tagName)">{{tag.tagName}}</mat-chip-option>
       </mat-chip-listbox>
-
-
-
-
     </form>
-    {{productForm.value}}
-    <p>{{productForm.status}}</p>
 
-    <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">取消</button>
-      <button mat-button mat-dialog-close type="submit" [disabled]="!productForm.valid"
-        (click)="createProduct()">發布</button>
-    </div>
+    <h3>附加圖片（可選）</h3>
+
+    <!-- display upload icon -->
+    <ul class="p-0">
+      <li class="upload-image" *ngFor="let image of productImages; index as i;">
+        <input type="file" accept="image/jpg, image/jpeg, image/png" id="image{{i}}" #uploadImage
+          (change)="onImageUpload(i, $event)" hidden />
+        <ng-container *ngIf="productImages[i].name!=='' else imageEmpty">
+          <i class="fas fa-check-circle"></i>
+        </ng-container>
+        <ng-template #imageEmpty><i class="far fa-check-circle"></i></ng-template>
+
+        <button class="btn shadow-0 upload" (click)="uploadImage.click()">
+          <i class="me-2 fas fa-file-upload fa-2x"></i>
+          {{ productImages[i].name || "尚無檔案" }}
+        </button>
+
+        <button class="btn shadow-0 remove" (click)="onImageRemove(i)">
+          <i class="fas fa-trash-alt fa-lg"></i>
+        </button>
+      </li>
+    </ul>
+    <!-- display upload icon -->
+    <p *ngIf="!productForm.valid">尚未完成！</p>
+
   </div>
 
-
-  <!-- Product title -->
-  <!--mdb-form-control>
-    <input mdbInput type="text" id="title" class="form-control title" [(ngModel)]="product.title" required />
-    <label mdbLabel class="form-label" for="title">商品名稱</label>
-  </mdb-form-control-->
-
-  <!-- Product content >
-  <mdb-form-control>
-    <textarea mdbInput type="text" id="content" row="10" autocomplete="false" class="form-control content"
-      [(ngModel)]="product.content" maxlength="100" required></textarea>
-    <label mdbLabel class="form-label" for="content">簡介</label>
-  </mdb-form-control>
-
-  <mdb-form-control>
-    <input mdbInput type="number" id="title" class="form-control title" [(ngModel)]="product.price" required />
-    <label mdbLabel class="form-label" for="title">價格</label>
-  </mdb-form-control-->
-
-  <!-- Product status >
-  <h3>商品狀態</h3>
-  <div class="status">
-    <div class="form-check">
-      <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="sellingRadio" [checked]="true"
-        [(ngModel)]="product.status" value="selling" />
-      <label class="form-check-label" for="sellingRadio">販售中</label>
-    </div>
-    <div class="form-check">
-      <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="waitingRadio"
-        [(ngModel)]="product.status" value="temp_sold" />
-      <label class="form-check-label" for="waitingRadio">暫售</label>
-    </div>
-    <div class="form-check">
-      <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="soldRadio"
-        [(ngModel)]="product.status" value="sold" />
-      <label class="form-check-label" for="soldRadio"> 已售出 </label>
-    </div>
-  </div-->
-  <!-- Product tags >
-  <mat-chip-listbox>
-    <mat-chip-option *ngFor="let tag of fakeTags"
-      (selectionChange)="selectTag(tag.tagName)">{{tag.tagName}}</mat-chip-option>
-  </mat-chip-listbox>
-
-</div-->
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">取消</button>
+    <button mat-button type="submit" [disabled]="!productForm.valid" (click)="createProduct()">發布</button>
+  </div>
+  <ng-container *ngIf="!isCreated">
+    <p class="text-danger">發布失敗，請重試</p>
+  </ng-container>
