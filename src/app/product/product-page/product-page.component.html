@@ -1,29 +1,47 @@
-<app-product-filter></app-product-filter>
+<!--app-product-filter></app-product-filter-->
 
 <h2>商品牆</h2>
 
-<div class="content">
+<div class="wrapper">
 
-  <div class="card m-2" style="width: 16rem ;max-height: 30rem;"
-    *ngFor="let product of (allProducts$|async); index as i">
-    <div class="bg-image hover-overlay" mdbRipple rippleColor="light">
+  <div class="card m-2 product" *ngFor="let product of (allProducts$|async); index as i">
+    <div class="bg-image hover-overlay image" mdbRipple rippleColor="light">
       <img *ngIf="product.image1; else empty" src="{{'data:image/jpg;base64,' + product.image1}}" class="img-thumbnail"
-        style="height: 15rem;" />
+        style="height: 10rem;" />
       <ng-template #empty>
-        <div style=""></div>
+        <div class="image"></div>
       </ng-template>
       <a href="#!">
         <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
       </a>
     </div>
-    <div class="card-body">
-      <h5 class="fw-bolder card-title">{{ product.title }}</h5>
-      <p class="card-text">{{product.content}}</p>
+    <div class="card-body content">
+      <div mdbDropdown class="dropdown d-flex justify-content-end">
+        <button class="option btn " type="button " id="dropdownMenuButton" aria-expanded="false" mdbDropdownToggle>
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
+        <ul mdbDropdownMenu class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>
+
+      <h5 class="fw-bolder card-title my-0">{{ product.title }}</h5>
+      <p class="my-1 ">$ {{product.price}}</p>
+
     </div>
   </div>
 
-
-
-
-
 </div>
+<ul class="pagination justify-content-center">
+  <li class="page-item disabled">
+    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+  </li>
+  <li class="page-item"><a class="page-link" href="#">1</a></li>
+  <li class="page-item"><a class="page-link" href="#">2</a></li>
+  <li class="page-item"><a class="page-link" href="#">3</a></li>
+  <li class="page-item">
+    <a class="page-link" href="#">Next</a>
+  </li>
+</ul>

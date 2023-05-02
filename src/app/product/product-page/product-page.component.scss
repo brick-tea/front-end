@@ -1,14 +1,59 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: min-content min-content 3fr;
-  grid-auto-flow: dense row;
-  column-gap: 2rem;
-  row-gap: 1rem;
-}
-.content {
+.wrapper {
   //max-height: 10rem;
-  display: flex;
+  /*display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-self: center;
+  justify-self: center;*/
+  /**column-count: 2;
+  column-gap: 0;*/
+  margin: 8px;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: space-between;
+  height: 60rem;
+}
+.product {
+  //align-content: flex-end;
+  width: 32%;
+  //min-height: 10rem;
+  //max-height: 30rem;
+  break-inside: avoid;
+  .image {
+  }
+  .content {
+    .card-title {
+      font-size: medium;
+    }
+    .card-text {
+      //max-height: 18rem;
+      //font-size: 1rem;
+    }
+    .option {
+      box-shadow: none;
+      border-radius: 50px;
+      &:hover {
+        background-color: #bbb;
+      }
+    }
+    //margin-bottom: 1rem;
+    //max-height: 20rem;
+    text-align: left;
+  }
+}
+.product:nth-child(3n + 1) {
+  order: 1;
+}
+.product:nth-child(3n + 2) {
+  order: 2;
+}
+.product:nth-child(3n) {
+  order: 3;
+}
+
+.wrapper::before,
+.wrapper::after {
+  content: "";
+  flex-basis: 100%;
+  width: 0;
+  order: 2;
 }
