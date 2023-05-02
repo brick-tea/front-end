@@ -37,15 +37,19 @@
     <!-- Post products -->
     <h3>連結商品</h3>
     <div class="form-check product-list">
-
+      <ng-container *ngIf="proudctList==null; else isLoad"></ng-container>
       <p *ngIf="proudctList==null">沒有商品</p>
+      <ng-template #isLoad>
+        <p *ngIf="!isProductLoad">商品載入中......</p>
+      </ng-template>
+
 
       <ul *ngIf="(myProducts$ | async)!==null" #showProduct>
-        <li *ngFor="let product of myProducts$| async; index as i;">
+        <li *ngFor="let product of proudctList; index as i;">
           <div class="form-check">
-            <input mdbCheckbox class="form-check-input" type="checkbox" id="flexCheckDefault"
+            <input mdbCheckbox class="form-check-input" type="checkbox" [id]="product.productId"
               [checked]="isSelectProduct[i]" />
-            <label class="form-check-label" for="flexCheckDefault">
+            <label class="form-check-label" [for]="product.productId">
               {{product.title}}
             </label>
           </div>

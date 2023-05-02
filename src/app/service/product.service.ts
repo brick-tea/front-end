@@ -66,9 +66,9 @@ export interface ProductInfo extends Product {
   account: string;
   sellStatus: true;
 
-  image1: string;
-  image2: string;
-  image3: string;
+  image1: Blob;
+  image2: Blob;
+  image3: Blob;
 
   postTime: string;
   lastEdit: string;

@@ -1,3 +1,4 @@
+import { Product } from './../../../../service/product.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { PostsService, Post } from 'src/app/service/posts.service';
@@ -16,12 +17,21 @@ export class CreatePostDialog implements OnInit {
     private postsService: PostsService,
     public dialogRef: MatDialogRef<CreatePostDialog>
   ) {}
-  proudctList: ProductInfo[] = [];
+  proudctList: ProductEssansial[] = [];
   isSelectProduct: boolean[] = [];
+  isProductLoad: boolean = false;
   myProducts$: Observable<ProductInfo[]> = this.product.getMyProducts().pipe(
     tap((products) => {
-      this.proudctList = products;
+      this.proudctList = [];
+      for (let { productId: id, title: name } of products) {
+        this.proudctList.push({
+          productId: id,
+          title: name,
+        } as ProductEssansial);
+      }
+
       console.log(this.proudctList);
+      this.isProductLoad = true;
     })
   );
   ngOnInit(): void {}
@@ -50,4 +60,9 @@ export class CreatePostDialog implements OnInit {
   onNoClick() {
     this.dialogRef.close();
   }
+}
+
+interface ProductEssansial {
+  productId: string;
+  title: string;
 }
