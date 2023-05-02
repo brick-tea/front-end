@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 
-const POSTS_API = 'https://192.168.194.45:8080/post/';
+const POSTS_API = 'https://20.210.209.85:8080/post/';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +20,8 @@ export class PostsService {
   /**
    * @param post post format
    */
-  addPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(POSTS_API, post, this.api.getHeader('json'));
+  addPost(post: Post): Observable<string> {
+    return this.http.post<string>(POSTS_API, post, this.api.getHeader('text'));
   }
 
   /**

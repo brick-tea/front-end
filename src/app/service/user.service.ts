@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { ApiService } from './api.service';
 
-const USER_API = 'https://192.168.194.45:8080/user/';
+const USER_API = 'https://20.210.209.85:8080/user/';
 
 // https://angular.io/guide/http-send-data-to-server
 

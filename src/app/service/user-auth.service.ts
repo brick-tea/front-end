@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
-const AUTH_API = 'https://192.168.194.45:8080/account/';
+const AUTH_API = 'https://20.210.209.85:8080/account/';
 const TOKEN = 'access_token';
 @Injectable({
   providedIn: 'root',

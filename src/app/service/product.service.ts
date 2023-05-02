@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 
-const PRODUCT_API = 'https://192.168.194.45:8080/product/';
+const PRODUCT_API = 'https://20.210.209.85:8080/product/';
 
 @Injectable({
   providedIn: 'root',
@@ -66,9 +66,9 @@ export interface ProductInfo extends Product {
   account: string;
   sellStatus: true;
 
-  image1: string;
-  image2: string;
-  image3: string;
+  image1: Blob;
+  image2: Blob;
+  image3: Blob;
 
   postTime: string;
   lastEdit: string;

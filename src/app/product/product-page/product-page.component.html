@@ -1,2 +1,29 @@
 <app-product-filter></app-product-filter>
-<p>product-page works!</p>
+
+<h2>商品牆</h2>
+
+<div class="content">
+
+  <div class="card m-2" style="width: 16rem ;max-height: 30rem;"
+    *ngFor="let product of (allProducts$|async); index as i">
+    <div class="bg-image hover-overlay" mdbRipple rippleColor="light">
+      <img *ngIf="product.image1; else empty" src="{{'data:image/jpg;base64,' + product.image1}}" class="img-thumbnail"
+        style="height: 15rem;" />
+      <ng-template #empty>
+        <div style=""></div>
+      </ng-template>
+      <a href="#!">
+        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+      </a>
+    </div>
+    <div class="card-body">
+      <h5 class="fw-bolder card-title">{{ product.title }}</h5>
+      <p class="card-text">{{product.content}}</p>
+    </div>
+  </div>
+
+
+
+
+
+</div>
