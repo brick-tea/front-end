@@ -58,6 +58,11 @@ export class ProductInfoDialog implements OnInit {
         productId: this.product.productId,
       },
     });
+    MatDialogRef.afterClosed().subscribe((res) => {
+      console.log(res);
+      this.product = Object.assign(this.product, res);
+      console.log(this.product);
+    });
   }
 }
 

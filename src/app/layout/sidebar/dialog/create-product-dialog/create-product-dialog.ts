@@ -35,8 +35,9 @@ export class CreateProductDialog implements OnInit {
 
   productForm!: FormGroup;
 
-  tags$ = this.productService.getTags();
+  tags: ProductTag[] = [];
   isCreated?: boolean = false; // is edit mode or create mode
+  isSending: boolean = false; // is waiting for api response
 
   ngOnInit() {
     if (this.data) {
@@ -56,6 +57,9 @@ export class CreateProductDialog implements OnInit {
       price: [this.productBox.price, Validators.required],
       tagName: [this.productBox.tagName],
     });
+    this.productService
+      .getTags()
+      .subscribe((res: ProductTag[]) => (this.tags = res));
   }
 
   selectTag(tag: string) {
@@ -114,6 +118,7 @@ export class CreateProductDialog implements OnInit {
   }
   isImageCreated?: boolean = false;
   createProduct(): void {
+    this.isSending = true;
     this.product = {
       title: this.productForm.value.title ?? '',
       content: this.productForm.value.content ?? '',
@@ -138,6 +143,7 @@ export class CreateProductDialog implements OnInit {
         (err) => {
           console.log(err);
           this.isCreated = false;
+          this.isSending = false;
         }
       );
     }
@@ -154,6 +160,7 @@ export class CreateProductDialog implements OnInit {
       (err) => {
         console.log(err);
         this.isCreated = false;
+        this.isSending = false;
       }
     );
   }
@@ -169,9 +176,12 @@ export class CreateProductDialog implements OnInit {
         (res) => {
           console.log(res);
           alert('更新成功！');
+          this.dialogRef.close(updateData);
         },
         (err) => {
           console.log(err);
+          this.isCreated = false;
+          this.isSending = false;
         }
       );
   }

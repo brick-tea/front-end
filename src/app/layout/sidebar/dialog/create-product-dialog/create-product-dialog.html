@@ -48,13 +48,13 @@
         <div class="form-check">
           <input mdbRadio class="form-check-input" type="radio" name="status" id="soldRadio" formControlName="status"
             value="sold" />
-          <label class="form-check-label" for="soldRadio"> 已售出 </label>
+          <label class="form-check-label" for="soldRadio"> 在架 </label>
         </div>
       </div>
       <!-- Product tags -->
       <mat-chip-listbox>
-        <mat-chip-option *ngFor="let tag of tags$|async"
-          (selectionChange)="selectTag(tag.tagName)">{{tag.tagName}}</mat-chip-option>
+        <mat-chip-option *ngFor="let tag of tags" (click)="selectTag(tag.tagName)"
+          [selected]="tag.tagName==this.productForm.value.tagName">{{tag.tagName}}</mat-chip-option>
       </mat-chip-listbox>
     </form>
 
@@ -87,7 +87,7 @@
 
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">取消</button>
-    <button mat-button type="submit" [disabled]="!productForm.valid" (click)="createProduct()">發布</button>
+    <button mat-button type="submit" [disabled]="!productForm.valid || isSending" (click)="createProduct()">發布</button>
   </div>
   <ng-container *ngIf="!isCreated">
     <p class="text-danger">發布失敗，請重試</p>
