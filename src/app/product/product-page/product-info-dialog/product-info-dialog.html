@@ -1,0 +1,41 @@
+<!--h2 mat-dialog-title>選擇發布</h2-->
+<div class="wrapper d-flex flex-column">
+  <h2 mat-dialog-title>{{product.title}}</h2>
+  <div mat-dialog-content class="flex-grow-1" style="max-height: none !important;">
+    <div class="info">
+      <p class="text-muted time">最後編輯：{{product.lastEdit}}</p>
+      <p>{{product.content}}</p>
+      <p class="font-weight-bolder">商品狀態：{{product.status}}</p>
+
+      <mdb-carousel *ngIf="imageNum>1" [controls]="true" [indicators]="true" [interval]="0" [dark]="true">
+        <mdb-carousel-item *ngIf="product.image1!==null">
+          <img src="{{'data:image/jpg;base64,' + product.image1}}" class="d-block w-auto img" alt="..." />
+        </mdb-carousel-item>
+        <mdb-carousel-item *ngIf="product.image2!==null">
+          <img src="{{'data:image/jpg;base64,' + product.image2}}" class="d-block w-auto img" alt="..." />
+        </mdb-carousel-item>
+        <mdb-carousel-item *ngIf="product.image3!==null">
+          <img src="{{'data:image/jpg;base64,' + product.image3}}" class="d-block w-auto img" alt="..." />
+        </mdb-carousel-item>
+      </mdb-carousel>
+
+      <!-- Dealt image only has one error -->
+      <mdb-carousel *ngIf="imageNum==1" [indicators]="true" [interval]="0" [dark]="true">
+        <mdb-carousel-item *ngIf="product.image1!==null">
+          <img src="{{'data:image/jpg;base64,' + product.image1}}" class="d-block w-auto img mx-auto" alt="..." />
+        </mdb-carousel-item>
+        <mdb-carousel-item *ngIf="product.image2!==null">
+          <img src="{{'data:image/jpg;base64,' + product.image2}}" class="d-block w-auto img" alt="..." />
+        </mdb-carousel-item>
+        <mdb-carousel-item *ngIf="product.image3!==null">
+          <img src="{{'data:image/jpg;base64,' + product.image3}}" class="d-block w-auto img" alt="..." />
+        </mdb-carousel-item>
+      </mdb-carousel>
+
+
+
+
+    </div>
+  </div>
+
+</div>

@@ -44,6 +44,13 @@ export class ProductService {
     );
   }
 
+  getProduct(id: string): Observable<ProductInfo> {
+    return this.http.get<ProductInfo>(
+      PRODUCT_API + id,
+      this.api.getHeader('json')
+    );
+  }
+
   getTags(): Observable<ProductTag[]> {
     return this.http.get<ProductTag[]>(
       PRODUCT_API + 'tags',
