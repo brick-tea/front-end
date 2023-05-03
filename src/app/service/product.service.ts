@@ -32,6 +32,16 @@ export class ProductService {
     );
   }
 
+  /** PATCH API */
+  updateProduct(product: ProductUpdate, productId: string): Observable<string> {
+    return this.http.patch<string>(
+      PRODUCT_API + productId,
+      product,
+      this.api.getHeader('text')
+    );
+  }
+  /** PATCH API */
+
   getMyProducts(): Observable<ProductInfo[]> {
     const header = this.api.getHeader('json');
     return this.http.get<ProductInfo[]>(PRODUCT_API + 'my/', header);
@@ -67,8 +77,12 @@ export interface Product {
   tagName: string;
 }
 
+export interface ProductUpdate extends Product {
+  sellStatus: boolean;
+}
+
 /** use GET method to get */
-export interface ProductInfo extends Product {
+export interface ProductInfo extends ProductUpdate {
   productId: string;
   account: string;
   sellStatus: true;

@@ -1,6 +1,13 @@
 <div class="dialog">
   <h2 mat-dialog-title>上傳商品</h2>
   <div mat-dialog-content>
+    <div class="form-check" *ngIf="isCreated">
+      <input mdbCheckbox class="form-check-input" type="checkbox" value="" id="sell_status"
+        [(ngModel)]="productSellStatus" />
+      <label class="form-check-label" for="sell_status">
+        已售出
+      </label>
+    </div>
 
     <form [formGroup]="productForm" novalidate>
       <mdb-form-control>
@@ -8,6 +15,7 @@
           required />
         <label mdbLabel class="form-label" for="title">商品名稱</label>
       </mdb-form-control>
+
       <mdb-form-control>
 
         <textarea mdbValidate mdbInput type="text" id="content" row="10" autocomplete="false"

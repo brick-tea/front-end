@@ -1,3 +1,6 @@
+:host {
+  cursor: default;
+}
 .wrapper {
   height: 100%;
   padding: 0 2rem;
@@ -9,10 +12,14 @@
     padding-top: 1rem;
   }
   .info {
-    .time {
-      font-size: small;
-      // text-align: end;
+    .info-bar {
+      display: flex;
+      .time {
+        font-size: small;
+        // text-align: end;
+      }
     }
+
     .img {
       max-height: 15rem;
       margin: 0 auto;
