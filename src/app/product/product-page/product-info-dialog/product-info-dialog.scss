@@ -1,0 +1,24 @@
+.wrapper {
+  height: 100%;
+  padding: 0 2rem;
+  background-color: white;
+  h2 {
+    font-weight: bolder;
+    font-size: large;
+    margin: 0 !important;
+    padding-top: 1rem;
+  }
+  .info {
+    .time {
+      font-size: small;
+      // text-align: end;
+    }
+    .img {
+      max-height: 15rem;
+      margin: 0 auto;
+    }
+  }
+}
+mdb-carousel-item {
+  height: 20rem !important;
+}

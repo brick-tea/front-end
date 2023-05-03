@@ -16,12 +16,20 @@ import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LayoutModule } from '../layout/layout.module';
 import { BoardComponent } from './board/board.component';
 import { ProductFilterComponent } from './product-page/product-filter/product-filter.component';
+import { ProductInfoDialog } from './product-page/product-info-dialog/product-info-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
-  declarations: [ProductPageComponent, BoardComponent, ProductFilterComponent],
+  declarations: [
+    ProductPageComponent,
+    BoardComponent,
+    ProductFilterComponent,
+    ProductInfoDialog,
+  ],
   imports: [
     CommonModule,
     ProductRoutingModule,
@@ -41,6 +49,8 @@ import { ProductFilterComponent } from './product-page/product-filter/product-fi
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
+    MatDialogModule,
+    MatGridListModule,
     LayoutModule,
   ],
   exports: [ProductPageComponent],

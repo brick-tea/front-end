@@ -2,7 +2,7 @@
 
 <h2>商品牆</h2>
 
-<div class="wrapper">
+<!--div class="wrapper">
 
   <div class="card m-2 product" *ngFor="let product of (allProducts$|async); index as i">
     <div class="bg-image hover-overlay image" mdbRipple rippleColor="light">
@@ -33,7 +33,32 @@
     </div>
   </div>
 
-</div>
+</div-->
+
+<mat-grid-list cols="3" rowHeight="340px">
+  <mat-grid-tile *ngFor="let product of (allProducts$|async);" [colspan]="1">
+    <div class="card m-2 product flex-grow-1" (click)="expandProduct(product)">
+      <div class="bg-image hover-overlay image" mdbRipple rippleColor="light">
+        <img *ngIf="product.image1; else empty" src="{{'data:image/jpg;base64,' + product.image1}}"
+          class="img-thumbnail w-auto" style="max-height: 10rem;" />
+        <ng-template #empty>
+          <div class="image"></div>
+        </ng-template>
+        <a>
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
+      </div>
+      <div class="card-body content">
+        <h5 class="fw-bolder card-title my-0">{{ product.title }}</h5>
+        <p class="my-1 ">$ {{product.price}}</p>
+      </div>
+      <div class="card-footer text-muted time">最後編輯：{{product.lastEdit}}</div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+
 <ul class="pagination justify-content-center">
   <li class="page-item disabled">
     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -45,3 +70,13 @@
     <a class="page-link" href="#">Next</a>
   </li>
 </ul>
+
+<i class="far fa-comment"></i>
+
+
+<!-- Grid List Example-->
+<!--mat-grid-list cols="3" rowHeight="100px">
+    <mat-grid-tile *ngFor="let tile of tiles" [colspan]="1" [rowspan]="tile.rows" [style.background]="tile.color">
+      {{tile.text}}
+    </mat-grid-tile>
+  </mat-grid-list-->

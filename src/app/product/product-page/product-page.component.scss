@@ -15,19 +15,14 @@
 .product {
   //align-content: flex-end;
   width: 32%;
-  //min-height: 10rem;
-  //max-height: 30rem;
   break-inside: avoid;
-  .image {
-  }
+  cursor: pointer;
+
   .content {
     .card-title {
       font-size: medium;
     }
-    .card-text {
-      //max-height: 18rem;
-      //font-size: 1rem;
-    }
+
     .option {
       box-shadow: none;
       border-radius: 50px;
@@ -36,24 +31,11 @@
       }
     }
     //margin-bottom: 1rem;
-    //max-height: 20rem;
+    max-height: 12rem;
     text-align: left;
+    padding: 0.5rem 1.2rem;
   }
 }
-.product:nth-child(3n + 1) {
-  order: 1;
-}
-.product:nth-child(3n + 2) {
-  order: 2;
-}
-.product:nth-child(3n) {
-  order: 3;
-}
-
-.wrapper::before,
-.wrapper::after {
-  content: "";
-  flex-basis: 100%;
-  width: 0;
-  order: 2;
+.time {
+  font-size: smaller;
 }
