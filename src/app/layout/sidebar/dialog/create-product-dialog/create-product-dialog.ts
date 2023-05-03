@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import {
   ProductService,
   Product,
   ProductTag,
+  ProductInfo,
   ProductImage,
+  ProductUpdate,
 } from 'src/app/service/product.service';
 
 @Component({
@@ -18,23 +20,46 @@ export class CreateProductDialog implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    public dialogRef: MatDialogRef<CreateProductDialog>
+    public dialogRef: MatDialogRef<CreateProductDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
-  productForm = this.fb.group({
-    title: ['', Validators.required],
-    content: ['', Validators.required],
-    status: ['selling', Validators.required],
-    price: [0, Validators.required],
-    tagName: [''],
-  });
+  productBox: Product = {
+    title: '',
+    content: '',
+    status: 'selling',
+    price: 0,
+    tagName: '',
+  };
+  productSellStatus: boolean = false;
 
-  tags$ = this.productService.getTags();
+  productForm!: FormGroup;
+
+  tags: ProductTag[] = [];
+  isCreated?: boolean = false; // is edit mode or create mode
+  isSending: boolean = false; // is waiting for api response
 
   ngOnInit() {
-    for (let i = 0; i < 3; i++) {
-      this.productImages.push({ ...this.initImage });
+    if (this.data) {
+      /// in edit mode
+      this.isCreated = true;
+      this.productBox = this.data.product as Product;
+      this.productSellStatus = this.data.product.sellStatus;
+    } else {
+      for (let i = 0; i < 3; i++) {
+        this.productImages.push({ ...this.initImage });
+      }
     }
+    this.productForm = this.fb.group({
+      title: [this.productBox.title, Validators.required],
+      content: [this.productBox.content, Validators.required],
+      status: [this.productBox.status, Validators.required],
+      price: [this.productBox.price, Validators.required],
+      tagName: [this.productBox.tagName],
+    });
+    this.productService
+      .getTags()
+      .subscribe((res: ProductTag[]) => (this.tags = res));
   }
 
   selectTag(tag: string) {
@@ -87,15 +112,13 @@ export class CreateProductDialog implements OnInit {
     for (let i = 0; i < this.productImages.length; i++) {
       if (this.productImages[i].name !== '')
         productImages.images.push(this.productImages[i].img!);
+      else productImages.images.push(new File([], '', { type: 'image/jpeg' }));
     }
-
     return formData;
   }
-  isCreated?: boolean = true;
-  isProductCreated?: boolean = false;
   isImageCreated?: boolean = false;
-  productId!: string;
   createProduct(): void {
+    this.isSending = true;
     this.product = {
       title: this.productForm.value.title ?? '',
       content: this.productForm.value.content ?? '',
@@ -104,8 +127,10 @@ export class CreateProductDialog implements OnInit {
       tagName: this.productForm.value.tagName ?? '',
     };
     console.log(this.product);
-    if (this.isProductCreated === true) {
-      this.uploadImage(this.packImage(this.productId));
+    if (this.isCreated === true) {
+      this.updateProduct();
+      //this.productService.updateProduct(this.product, this.productId);
+      //this.uploadImage(this.packImage(this.productId));
     } else {
       this.productService.createProduct(this.product).subscribe(
         (res) => {
@@ -113,11 +138,12 @@ export class CreateProductDialog implements OnInit {
           this.packImage(res);
           this.uploadImage(this.packImage(res));
           // this.dialogRef.close();
-          this.isProductCreated = true;
+          this.isCreated = true;
         },
         (err) => {
           console.log(err);
           this.isCreated = false;
+          this.isSending = false;
         }
       );
     }
@@ -134,16 +160,43 @@ export class CreateProductDialog implements OnInit {
       (err) => {
         console.log(err);
         this.isCreated = false;
+        this.isSending = false;
       }
     );
   }
+  updateProduct() {
+    const updateData: ProductUpdate = {
+      sellStatus: this.productSellStatus,
+      ...this.product,
+    };
+
+    this.productService
+      .updateProduct(updateData, this.data.productId)
+      .subscribe(
+        (res) => {
+          console.log(res);
+          alert('更新成功！');
+          this.dialogRef.close(updateData);
+        },
+        (err) => {
+          console.log(err);
+          this.isCreated = false;
+          this.isSending = false;
+        }
+      );
+  }
 
   onNoClick() {
-    if (confirm('Are you sure?')) this.dialogRef.close();
+    if (confirm('你要確定ㄟ')) this.dialogRef.close();
   }
 }
 
 interface Image {
   name: string;
   img?: File;
+}
+
+interface DialogData {
+  product: ProductUpdate;
+  productId: string;
 }

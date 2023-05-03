@@ -3,7 +3,11 @@
   <h2 mat-dialog-title>{{product.title}}</h2>
   <div mat-dialog-content class="flex-grow-1" style="max-height: none !important;">
     <div class="info">
-      <p class="text-muted time">最後編輯：{{product.lastEdit}}</p>
+      <div class="info-bar">
+        <p class="text-muted time">最後編輯：{{product.lastEdit}}</p>
+        <button class="btn ms-auto shadow-none" *ngIf="user==product.account" (click)="onEdit()"><i
+            class="fas fa-pen m-1"></i>編輯商品</button>
+      </div>
       <p>{{product.content}}</p>
       <p class="font-weight-bolder">商品狀態：{{product.status}}</p>
 

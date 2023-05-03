@@ -40,6 +40,6 @@ export class SelectCreateTypeDialog implements OnInit {
   }
 }
 
-export interface DialogData {
+interface DialogData {
   createType: string;
 }

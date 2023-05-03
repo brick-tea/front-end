@@ -4,9 +4,13 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { ProductService, ProductInfo } from 'src/app/service/product.service';
-
+import {
+  ProductService,
+  ProductInfo,
+  ProductUpdate,
+} from 'src/app/service/product.service';
+import { UserService } from 'src/app/service/user.service';
+import { CreateProductDialog } from 'src/app/layout/sidebar/dialog/create-product-dialog/create-product-dialog';
 @Component({
   selector: 'app-product-info-dialog',
   templateUrl: './product-info-dialog.html',
@@ -17,7 +21,11 @@ export class ProductInfoDialog implements OnInit {
   isLoad: boolean = false;
   imageNum: number = 0;
 
+  /** viewer role */
+  user: string = this.userService.catchUserAccount();
+
   constructor(
+    private userService: UserService,
     private productService: ProductService,
     public dialogRef: MatDialogRef<ProductInfoDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -40,8 +48,21 @@ export class ProductInfoDialog implements OnInit {
       (err) => console.log(err)
     );*/
   }
-  selectType(type: string) {
-    this.dialogRef.close();
+  onEdit() {
+    const MatDialogRef = this.dialog.open(CreateProductDialog, {
+      width: '40rem',
+      height: '35rem',
+      disableClose: true,
+      data: {
+        product: this.product as ProductUpdate,
+        productId: this.product.productId,
+      },
+    });
+    MatDialogRef.afterClosed().subscribe((res) => {
+      console.log(res);
+      this.product = Object.assign(this.product, res);
+      console.log(this.product);
+    });
   }
 }
 
