@@ -38,6 +38,7 @@ export class CreateProductDialog implements OnInit {
   tags: ProductTag[] = [];
   isCreated?: boolean = false; // is edit mode or create mode
   isSending: boolean = false; // is waiting for api response
+  isFailure: boolean = false;
 
   ngOnInit() {
     if (this.data) {
@@ -144,6 +145,7 @@ export class CreateProductDialog implements OnInit {
           console.log(err);
           this.isCreated = false;
           this.isSending = false;
+          this.isFailure = true;
         }
       );
     }
@@ -161,6 +163,7 @@ export class CreateProductDialog implements OnInit {
         console.log(err);
         this.isCreated = false;
         this.isSending = false;
+        this.isFailure = true;
       }
     );
   }
@@ -182,6 +185,7 @@ export class CreateProductDialog implements OnInit {
           console.log(err);
           this.isCreated = false;
           this.isSending = false;
+          this.isFailure = true;
         }
       );
   }

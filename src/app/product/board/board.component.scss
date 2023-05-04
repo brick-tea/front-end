@@ -1,0 +1,53 @@
+$danger: #dc4c64;
+
+.page-title {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+  padding: 1rem 0;
+  hr {
+    margin: 0.5rem;
+  }
+}
+
+h2 {
+  font-size: larger;
+}
+
+.info-bar {
+  display: flex;
+  padding: 0;
+  margin-left: auto;
+  justify-content: end;
+  align-items: baseline;
+  .time {
+    font-size: small;
+    margin: 0;
+    // text-align: end;
+  }
+  .delete {
+    &:hover {
+      color: $danger;
+    }
+  }
+}
+
+.content {
+  text-align: left !important;
+}
+mat-grid-list {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+.post {
+  border-bottom: 1.2px solid #ccc;
+}
+.post-block {
+  border-bottom: 1px solid #ccc;
+  padding: 0 3rem;
+}
+.comment-block {
+  box-shadow: none !important;
+  text-align: left;
+}

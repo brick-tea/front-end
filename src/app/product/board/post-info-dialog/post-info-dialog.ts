@@ -9,73 +9,59 @@ import {
   ProductInfo,
   ProductUpdate,
 } from 'src/app/service/product.service';
+import { PostsService, Post, PostInfo } from 'src/app/service/posts.service';
+import { CreatePostDialog } from 'src/app/layout/sidebar/dialog/create-post-dialog/create-post-dialog';
 import { UserService } from 'src/app/service/user.service';
-import { CreateProductDialog } from 'src/app/layout/sidebar/dialog/create-product-dialog/create-product-dialog';
 @Component({
-  selector: 'app-product-info-dialog',
-  templateUrl: './product-info-dialog.html',
-  styleUrls: ['./product-info-dialog.scss'],
+  selector: 'app-post-info-dialog',
+  templateUrl: './post-info-dialog.html',
+  styleUrls: ['./post-info-dialog.scss'],
 })
-export class ProductInfoDialog implements OnInit {
-  product!: ProductInfo;
-  isLoad: boolean = false;
-  imageNum: number = 0;
-  isChanged: boolean = false;
-
-  /** viewer role */
-  user: string = this.userService.catchUserAccount();
-
+export class PostInfoDialog implements OnInit {
   constructor(
     private userService: UserService,
     private productService: ProductService,
-    public dialogRef: MatDialogRef<ProductInfoDialog>,
+    public dialogRef: MatDialogRef<PostInfoDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialog: MatDialog,
     private renderer: Renderer2
   ) {
     renderer.listen('window', 'click', (e: Event) => {
       const target = e.target as HTMLElement;
-      // 如果使用者點擊的目標是 Dialog 的背景，則關閉 Dialog 並返回值
       if (target.classList.contains('cdk-overlay-backdrop')) {
         this.dialogRef.close(this.isChanged);
       }
     });
   }
+  user: string = this.userService.catchUserAccount();
+  post!: PostInfo;
+  isLoad: boolean = false;
+  imageNum: number = 0;
+  isChanged: boolean = false;
 
   ngOnInit() {
     console.log(this.data);
-    this.product = this.data.product;
+    this.post = this.data.post;
     this.isLoad = true;
-    if (this.product.image1) this.imageNum++;
-    if (this.product.image2) this.imageNum++;
-    if (this.product.image3) this.imageNum++;
-
-    /*this.productService.getProduct(this.data.id).subscribe(
-      (data: ProductInfo) => {
-        this.product = data;
-        this.isLoad = true;
-      },
-      (err) => console.log(err)
-    );*/
   }
   onEdit() {
-    const MatDialogRef = this.dialog.open(CreateProductDialog, {
+    const MatDialogRef = this.dialog.open(CreatePostDialog, {
       width: '40rem',
       height: '35rem',
       disableClose: true,
       data: {
-        product: this.product as ProductUpdate,
-        productId: this.product.productId,
+        post: this.post,
+        productId: this.post.postId,
       },
     });
     MatDialogRef.afterClosed().subscribe((res) => {
-      this.product = Object.assign(this.product, res);
+      this.post = Object.assign(this.post, res);
       this.isChanged = true;
     });
   }
   onDelete() {
     if (confirm('確定刪除商品？')) {
-      this.productService.deleteProduct(this.product.productId).subscribe(
+      this.productService.deleteProduct(this.post.postId).subscribe(
         (res) => {
           alert('商品已刪除');
           this.isChanged = true;
@@ -90,6 +76,6 @@ export class ProductInfoDialog implements OnInit {
   }
 }
 
-export interface DialogData {
-  product: ProductInfo;
+interface DialogData {
+  post: PostInfo;
 }

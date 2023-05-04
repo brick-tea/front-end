@@ -32,6 +32,13 @@ export class ProductService {
     );
   }
 
+  deleteProduct(productId: string): Observable<string> {
+    return this.http.delete<string>(
+      PRODUCT_API + productId,
+      this.api.getHeader('text')
+    );
+  }
+
   /** PATCH API */
   updateProduct(product: ProductUpdate, productId: string): Observable<string> {
     return this.http.patch<string>(

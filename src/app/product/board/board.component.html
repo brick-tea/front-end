@@ -1,1 +1,61 @@
-<p>board works!</p>
+<div class="page-title">
+  <h2>商品牆</h2>
+  <hr>
+</div>
+
+<div class="post-block" *ngFor="let post of allPosts; index as i;">
+  <div class="card h-100 flex-grow-1 shadow-0">
+    <div class="card-body content">
+      <div mat-dialog-title class="card-title d-flex align-items-center">
+        <ng-boring-avatars-beam-avatar class="me-3" name={{post.account}}
+          [colors]="['#F6F6EF','#FFFFFF','#8B6262','#4DBCE9','#26ADE4']"
+          [inputSize]="30"></ng-boring-avatars-beam-avatar>
+        <h3 class="font-weight-normal my-0">{{ post.account }}</h3>
+        <div class="info-bar">
+          <p class="text-muted time px-1">最後編輯：{{post.lastEdit}}</p>
+          <button class="px-1 btn ms-auto shadow-none" *ngIf="user==post.account" (click)="onEdit(post)"><i
+              class="fas fa-pen m-1 "></i>編輯商品</button>
+
+          <button class="px-1 btn mx-1 shadow-none delete" *ngIf="user==post.account" (click)="onDelete(post.postId)"><i
+              class="fas fa-trash-alt"></i>刪除</button>
+
+        </div>
+
+
+      </div>
+
+      <h3 class="fw-bolder my-0">{{ post.title }}</h3>
+      <p class="my-1 " style="white-space:pre-wrap;">{{post.content}}</p>
+    </div>
+
+
+    <mat-expansion-panel class="card-footer text-muted comment-block p-0" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="justify-content-center border-bottom-2">
+          <i class="far fa-comment mx-2"></i>{{post.commentNumbers-post.hideNumbers}}
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+      <div class="comment" *ngFor="let comment of post.comment">
+        <p>{{comment.account}}: {{comment.content}}</p>
+      </div>
+      <mdb-form-control>
+        <input mdbInput type="text" id="comment" class="form-control" #comment
+          (keydown.enter)="onComment(i,post.postId,comment.value)" />
+        <label mdbLabel class="form-label" for="comment">發布回應</label>
+      </mdb-form-control>
+    </mat-expansion-panel>
+
+  </div>
+</div>
+
+
+
+
+
+<!-- Grid List Example-->
+<!--mat-grid-list cols="3" rowHeight="100px">
+    <mat-grid-tile *ngFor="let tile of tiles" [colspan]="1" [rowspan]="tile.rows" [style.background]="tile.color">
+      {{tile.text}}
+    </mat-grid-tile>
+  </mat-grid-list-->

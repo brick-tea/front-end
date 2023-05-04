@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/service/user-auth.service';
 import { ProductService, ProductInfo } from 'src/app/service/product.service';
 import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ProductInfoDialog } from './product-info-dialog/product-info-dialog';
 @Component({
   selector: 'app-product-page',
@@ -15,7 +15,8 @@ export class ProductPageComponent {
     private router: Router,
     public dialog: MatDialog,
     private authService: UserAuthService,
-    private productService: ProductService
+    private productService: ProductService,
+    private renderer: Renderer2
   ) {
     if (authService.loginStatus() !== true) {
       router.navigate(['/login']);
@@ -32,8 +33,13 @@ export class ProductPageComponent {
     const MatDialogRef = this.dialog.open(ProductInfoDialog, {
       height: '40rem',
       width: '40rem',
-      disableClose: false,
+      disableClose: true,
       data: { product: product },
+    });
+    MatDialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.allProducts$ = this.productService.getAllProducts();
+      }
     });
   }
 }
