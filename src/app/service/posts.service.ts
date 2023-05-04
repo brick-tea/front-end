@@ -20,16 +20,20 @@ export class PostsService {
   /**
    * @param post post format
    */
-  addPost(post: Post): Observable<string> {
-    return this.http.post<string>(POSTS_API, post, this.api.getHeader('text'));
+  createPost(post: Post): Observable<PostInfo> {
+    return this.http.post<PostInfo>(
+      POSTS_API,
+      post,
+      this.api.getHeader('json')
+    );
   }
 
   /**
    * @param postId
    * @param comment  {"content": "string"}
    */
-  addComment(postId: string, comment: Comment): Observable<string> {
-    return this.http.post<string>(
+  createComment(postId: string, comment: Comment): Observable<CommentInfo> {
+    return this.http.post<CommentInfo>(
       POSTS_API + postId + '/comment',
       comment,
       this.api.getHeader('text')
@@ -56,11 +60,11 @@ export class PostsService {
    * @param post edit content
    * @returns
    */
-  editPost(postId: string, post: Post): Observable<string> {
-    return this.http.patch<string>(
+  editPost(postId: string, post: Post): Observable<PostInfo> {
+    return this.http.patch<PostInfo>(
       POSTS_API + postId,
       post,
-      this.api.getHeader('text')
+      this.api.getHeader('json')
     );
   }
   /**

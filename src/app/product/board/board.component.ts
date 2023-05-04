@@ -50,7 +50,7 @@ export class BoardComponent implements OnInit {
       disableClose: true,
       data: {
         post: post as Post,
-        productId: post.postId,
+        postId: post.postId,
       },
     });
     MatDialogRef.afterClosed().subscribe((res) => {
@@ -68,7 +68,7 @@ export class BoardComponent implements OnInit {
 
   onComment(i: number, postId: string, comment: string) {
     const pack: Comment = { content: comment };
-    this.postsService.addComment(postId, pack).subscribe(
+    this.postsService.createComment(postId, pack).subscribe(
       (res) => {
         console.log(res);
         this.loadPosts();
