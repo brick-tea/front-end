@@ -1,6 +1,5 @@
-import { Product } from './../../../../service/product.service';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PostsService, Post } from 'src/app/service/posts.service';
 import { ProductService, ProductInfo } from 'src/app/service/product.service';
 import { Observable, tap } from 'rxjs';
@@ -15,12 +14,20 @@ export class CreatePostDialog implements OnInit {
   constructor(
     private product: ProductService,
     private postsService: PostsService,
-    public dialogRef: MatDialogRef<CreatePostDialog>
+    public dialogRef: MatDialogRef<CreatePostDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: MatDialogData
   ) {}
+  isEdit: boolean = false; // create or update
   proudctList: ProductEssansial[] = [];
-  isSelectProduct: boolean[] = [false];
+  isSelectProduct: boolean[] = [];
   isProductLoad: boolean = false;
 
+  post: Post = {
+    title: '',
+    content: '',
+    status: '',
+    productsId: [],
+  };
   ngOnInit(): void {
     this.product.getMyProducts().subscribe(
       (products) => {
@@ -31,6 +38,17 @@ export class CreatePostDialog implements OnInit {
             title: name,
           } as ProductEssansial);
         }
+        if (this.data) {
+          this.isEdit = true;
+          this.post = this.data.post;
+          for (let i = 0; i < this.post.productsId.length; i++) {
+            for (let j = 0; j < this.proudctList.length; j++) {
+              if (this.post.productsId[i] === this.proudctList[j].productId) {
+                this.isSelectProduct[j] = true;
+              }
+            }
+          }
+        }
 
         console.log(this.proudctList);
         this.isProductLoad = true;
@@ -38,13 +56,6 @@ export class CreatePostDialog implements OnInit {
       (err) => console.log(err)
     );
   }
-
-  post: Post = {
-    title: '',
-    content: '',
-    status: '',
-    productsId: [],
-  };
 
   debug() {
     console.log(this.isSelectProduct);
@@ -77,10 +88,13 @@ export class CreatePostDialog implements OnInit {
     this.dialogRef.close();
   }
 }
-
 interface ProductEssansial {
   productId: string;
   title: string;
+}
+interface MatDialogData {
+  postId: string;
+  post: Post;
 }
 
 /** for async pipe version */
