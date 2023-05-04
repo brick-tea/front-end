@@ -3,36 +3,26 @@
   <div mat-dialog-content>
     <!-- Post title -->
     <mdb-form-control>
-      <input mdbInput type="text" id="title" class="form-control title" [(ngModel)]="post.title" required />
+      <input mdbInput type="text" id="title" class="form-control title" maxlength="10" [(ngModel)]="post.title"
+        required />
       <label mdbLabel class="form-label" for="title">標題</label>
     </mdb-form-control>
 
     <!-- Post content -->
     <mdb-form-control>
       <textarea mdbInput type="text" id="content" row="10" autocomplete="false" class="form-control content"
-        [(ngModel)]="post.content" maxlength="400" required></textarea>
+        [(ngModel)]="post.content" maxlength="1200" required></textarea>
       <label mdbLabel class="form-label" for="content">內容</label>
     </mdb-form-control>
 
     <!-- Post status -->
-    <h3>商品狀態</h3>
-    <div class="status">
-      <div class="form-check">
-        <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="sellingRadio" [checked]="true"
-          [(ngModel)]="post.status" value="selling" />
-        <label class="form-check-label" for="sellingRadio">販售中</label>
-      </div>
-      <div class="form-check">
-        <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="waitingRadio"
-          [(ngModel)]="post.status" value="temp_sold" />
-        <label class="form-check-label" for="waitingRadio">暫售</label>
-      </div>
-      <div class="form-check">
-        <input mdbRadio class="form-check-input" type="radio" name="sellOptionsRadio" id="soldRadio"
-          [(ngModel)]="post.status" value="sold" />
-        <label class="form-check-label" for="soldRadio"> 已售出 </label>
-      </div>
-    </div>
+    <h3 class="mb-1">狀態描述</h3>
+    <mdb-form-control>
+      <textarea mdbInput type="text" id="status" row="3" autocomplete="false" class="form-control"
+        [(ngModel)]="post.status" maxlength="40" required></textarea>
+      <label mdbLabel class="form-label" for="status">大致描述商品狀況</label>
+    </mdb-form-control>
+
 
     <!-- Post products -->
     <h3>連結商品</h3>

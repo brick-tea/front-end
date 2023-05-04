@@ -1,20 +1,25 @@
 <!--h2 mat-dialog-title>選擇發布</h2-->
 <div class="wrapper d-flex flex-column">
-  <h2 mat-dialog-title>{{product.title}}</h2>
+  <div mat-dialog-title class="d-flex">
+    <ng-boring-avatars-beam-avatar class="mx-2" [name]="post.account"
+      [colors]="['#F6F6EF','#FFFFFF','#8B6262','#4DBCE9','#26ADE4']" [inputSize]="30"></ng-boring-avatars-beam-avatar>
+    <h2>{{post.account}}</h2>
+  </div>
   <div mat-dialog-content class="flex-grow-1" style="max-height: none !important;">
+    <h2>{{post.title}}</h2>
     <div class="info">
       <div class="info-bar">
-        <p class="text-muted time">最後編輯：{{product.lastEdit}}</p>
-        <button class="btn ms-auto shadow-none" *ngIf="user==product.account" (click)="onEdit()"><i
+        <p class="text-muted time">最後編輯：{{post.lastEdit}}</p>
+        <button class="btn ms-auto shadow-none" *ngIf="user==post.account" (click)="onEdit()"><i
             class="fas fa-pen m-1"></i>編輯商品</button>
-        <button class="btn mx-1 shadow-none delete" *ngIf="user==product.account" (click)="onDelete()"><i
+        <button class="btn mx-1 shadow-none delete" *ngIf="user==post.account" (click)="onDelete()"><i
             class="fas fa-trash-alt"></i>刪除</button>
 
       </div>
-      <p style="white-space: pre-wrap;">{{product.content}}</p>
-      <p class="font-weight-bolder">商品狀態：{{product.status}}</p>
+      <p style="white-space: pre-wrap;">{{post.content}}</p>
+      <p class="font-weight-bolder">商品狀態：{{post.status}}</p>
 
-      <mdb-carousel *ngIf="imageNum>1" [controls]="true" [indicators]="true" [interval]="0" [dark]="true">
+      <!--mdb-carousel *ngIf="imageNum>1" [controls]="true" [indicators]="true" [interval]="0" [dark]="true">
         <mdb-carousel-item *ngIf="product.image1!==null">
           <img src="{{'data:image/jpg;base64,' + product.image1}}" class="d-block w-auto img" alt="..." />
         </mdb-carousel-item>
@@ -26,7 +31,7 @@
         </mdb-carousel-item>
       </mdb-carousel>
 
-      <!-- Dealt image only has one error -->
+      <!-- Dealt image only has one error >
       <mdb-carousel *ngIf="imageNum==1" [indicators]="true" [interval]="0" [dark]="true">
         <mdb-carousel-item *ngIf="product.image1!==null">
           <img src="{{'data:image/jpg;base64,' + product.image1}}" class="d-block w-auto img mx-auto" alt="..." />
@@ -37,7 +42,7 @@
         <mdb-carousel-item *ngIf="product.image3!==null">
           <img src="{{'data:image/jpg;base64,' + product.image3}}" class="d-block w-auto img" alt="..." />
         </mdb-carousel-item>
-      </mdb-carousel>
+      </mdb-carousel-->
 
 
 

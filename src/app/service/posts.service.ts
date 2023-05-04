@@ -28,20 +28,23 @@ export class PostsService {
    * @param postId
    * @param comment  {"content": "string"}
    */
-  addComment(postId: string, comment: string): Observable<any> {
-    return this.http.post(
-      POSTS_API + postId,
+  addComment(postId: string, comment: Comment): Observable<string> {
+    return this.http.post<string>(
+      POSTS_API + postId + '/comment',
       comment,
-      this.api.getHeader('json')
+      this.api.getHeader('text')
     );
   }
 
-  deletePost(postId: string): Observable<any> {
-    return this.http.delete(POSTS_API + postId, this.api.getHeader('json'));
+  deletePost(postId: string): Observable<string> {
+    return this.http.delete<string>(
+      POSTS_API + postId,
+      this.api.getHeader('text')
+    );
   }
 
-  deleteComment(postId: string, commentId: string): Observable<any> {
-    return this.http.delete(
+  deleteComment(postId: string, commentId: Comment): Observable<string> {
+    return this.http.delete<string>(
       POSTS_API + postId + '/' + commentId,
       this.api.getHeader('text')
     );
@@ -53,8 +56,8 @@ export class PostsService {
    * @param post edit content
    * @returns
    */
-  editPost(postId: string, post: any): Observable<any> {
-    return this.http.patch(
+  editPost(postId: string, post: Post): Observable<string> {
+    return this.http.patch<string>(
       POSTS_API + postId,
       post,
       this.api.getHeader('text')
@@ -63,19 +66,28 @@ export class PostsService {
   /**
    * @description Get all users' posts
    */
-  getAllPosts(): Observable<any> {
-    return this.http.get(POSTS_API + 'all/', this.api.getHeader('json'));
+  getAllPosts(): Observable<PostInfo[]> {
+    return this.http.get<PostInfo[]>(
+      POSTS_API + 'all/',
+      this.api.getHeader('json')
+    );
   }
 
   /**
    * @description Get specific post's details
    */
-  getPostById(postId: string): Observable<any> {
-    return this.http.get(POSTS_API + postId, this.api.getHeader('json'));
+  getPost(postId: string): Observable<PostInfo> {
+    return this.http.get<PostInfo>(
+      POSTS_API + postId,
+      this.api.getHeader('json')
+    );
   }
 
-  getMyPost(): Observable<any> {
-    return this.http.get(POSTS_API + 'my/', this.api.getHeader('json'));
+  getMyPosts(): Observable<PostInfo[]> {
+    return this.http.get<PostInfo[]>(
+      POSTS_API + 'my/',
+      this.api.getHeader('json')
+    );
   }
 
   getPostComment(postId: string): Observable<any> {
@@ -90,4 +102,44 @@ export interface Post {
   content: string;
   status: string;
   productsId: string[];
+}
+
+export interface PostInfo extends Post {
+  postId: string;
+  account: string;
+  commentNumbers: number;
+  hideNumbers: number;
+  comment: [
+    {
+      commentId: string;
+      postId: string;
+      account: string;
+      content: string;
+      createAt: string;
+      lastEdit: string;
+      display: boolean;
+      parentId: string;
+    }
+  ];
+  createdAt: string;
+  lastEdit: string;
+  edit: {
+    title: string;
+    content: string;
+    status: string;
+    productsId: string[];
+  };
+}
+
+export interface Comment {
+  content: string;
+}
+export interface CommentInfo extends Comment {
+  commentId: string;
+  postId: string;
+  account: string;
+  createAt: string;
+  lastEdit: string;
+  display: boolean;
+  parentId: string;
 }
