@@ -6,7 +6,7 @@
 <div class="post-block" *ngFor="let post of allPosts; index as i;">
   <div class="card h-100 flex-grow-1 shadow-0">
     <div class="card-body content">
-      <div mat-dialog-title class="card-title d-flex align-items-center">
+      <div mat-dialog-title class="p-0 my-2 d-flex align-items-center">
         <ng-boring-avatars-beam-avatar class="me-3" name={{post.account}}
           [colors]="['#F6F6EF','#FFFFFF','#8B6262','#4DBCE9','#26ADE4']"
           [inputSize]="30"></ng-boring-avatars-beam-avatar>
