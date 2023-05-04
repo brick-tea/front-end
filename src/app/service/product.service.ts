@@ -16,11 +16,11 @@ export class ProductService {
     private storage: StorageService
   ) {}
 
-  createProduct(product: Product): Observable<string> {
-    return this.http.post<string>(
+  createProduct(product: Product): Observable<ProductInfo> {
+    return this.http.post<ProductInfo>(
       PRODUCT_API,
       product,
-      this.api.getHeader('text')
+      this.api.getHeader('json')
     );
   }
 
@@ -40,8 +40,11 @@ export class ProductService {
   }
 
   /** PATCH API */
-  updateProduct(product: ProductUpdate, productId: string): Observable<string> {
-    return this.http.patch<string>(
+  updateProduct(
+    product: ProductUpdate,
+    productId: string
+  ): Observable<ProductInfo> {
+    return this.http.patch<ProductInfo>(
       PRODUCT_API + productId,
       product,
       this.api.getHeader('text')
