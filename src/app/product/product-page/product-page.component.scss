@@ -12,6 +12,16 @@
   align-content: space-between;
   height: 60rem;
 }
+.page-title {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+  padding: 1rem 0;
+  hr {
+    margin: 0.5rem;
+  }
+}
 .product {
   //align-content: flex-end;
   width: 32%;
