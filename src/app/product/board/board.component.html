@@ -11,7 +11,7 @@
           [colors]="['#F6F6EF','#FFFFFF','#8B6262','#4DBCE9','#26ADE4']"
           [inputSize]="30"></ng-boring-avatars-beam-avatar>
         <h3 class="font-weight-normal my-0">{{ post.account }}</h3>
-        <div class="info-bar">
+        <div class="info-bar ms-auto d-flex">
           <p class="text-muted time px-1">最後編輯：{{post.lastEdit}}</p>
           <button class="px-1 btn ms-auto shadow-none" *ngIf="user==post.account" (click)="onEdit(post)"><i
               class="fas fa-pen m-1 "></i>編輯商品</button>

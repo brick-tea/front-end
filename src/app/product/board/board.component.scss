@@ -16,9 +16,7 @@ h2 {
 }
 
 .info-bar {
-  display: flex;
-  padding: 0;
-  margin-left: auto;
+  align-items: flex-end;
   justify-content: end;
   align-items: baseline;
   .time {

@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 
-const POSTS_API = 'https://20.210.209.85:8080/post/';
+const POSTS_API = 'https://thebrickteam.com/post/';
 
 @Injectable({
   providedIn: 'root',
