@@ -69,7 +69,7 @@ export class ProductInfoDialog implements OnInit {
       },
     });
     MatDialogRef.afterClosed().subscribe((res) => {
-      this.product = Object.assign(this.product, res);
+      this.product = res; // res: ProductInfo
       this.isChanged = true;
     });
   }

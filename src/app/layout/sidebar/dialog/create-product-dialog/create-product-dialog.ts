@@ -136,8 +136,8 @@ export class CreateProductDialog implements OnInit {
       this.productService.createProduct(this.product).subscribe(
         (res) => {
           console.log(res);
-          this.packImage(res);
-          this.uploadImage(this.packImage(res));
+          //this.packImage(res.productId);
+          this.uploadImage(this.packImage(res.productId));
           // this.dialogRef.close();
           this.isCreated = true;
         },
@@ -179,7 +179,7 @@ export class CreateProductDialog implements OnInit {
         (res) => {
           console.log(res);
           alert('更新成功！');
-          this.dialogRef.close(updateData);
+          this.dialogRef.close(res);
         },
         (err) => {
           console.log(err);

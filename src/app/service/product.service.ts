@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 
-const PRODUCT_API = 'https://20.210.209.85:8080/product/';
+const PRODUCT_API = 'https://thebrickteam.com/product/';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +16,11 @@ export class ProductService {
     private storage: StorageService
   ) {}
 
-  createProduct(product: Product): Observable<string> {
-    return this.http.post<string>(
+  createProduct(product: Product): Observable<ProductInfo> {
+    return this.http.post<ProductInfo>(
       PRODUCT_API,
       product,
-      this.api.getHeader('text')
+      this.api.getHeader('json')
     );
   }
 
@@ -40,8 +40,11 @@ export class ProductService {
   }
 
   /** PATCH API */
-  updateProduct(product: ProductUpdate, productId: string): Observable<string> {
-    return this.http.patch<string>(
+  updateProduct(
+    product: ProductUpdate,
+    productId: string
+  ): Observable<ProductInfo> {
+    return this.http.patch<ProductInfo>(
       PRODUCT_API + productId,
       product,
       this.api.getHeader('text')

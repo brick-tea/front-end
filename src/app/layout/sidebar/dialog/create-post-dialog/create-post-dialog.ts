@@ -85,11 +85,11 @@ export class CreatePostDialog implements OnInit {
         }
       );
     } else {
-      this.postsService.addPost(this.post).subscribe(
+      this.postsService.createPost(this.post).subscribe(
         (res) => {
           console.log(res);
           alert('成功發布！');
-          this.dialogRef.close(true);
+          this.dialogRef.close(res);
         },
         (err) => {
           console.log(err);
