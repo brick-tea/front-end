@@ -13,10 +13,10 @@
         <h3 class="font-weight-normal my-0">{{ post.account }}</h3>
         <div class="info-bar ms-auto d-flex">
           <p class="text-muted time px-1">最後編輯：{{post.lastEdit}}</p>
-          <button class="px-1 btn ms-auto shadow-none" *ngIf="user==post.account" (click)="onEdit(post)"><i
+          <button class="px-1 btn ms-auto shadow-none" *ngIf="user==post.account" (click)="onEdit(i)"><i
               class="fas fa-pen m-1 "></i>編輯商品</button>
 
-          <button class="px-1 btn mx-1 shadow-none delete" *ngIf="user==post.account" (click)="onDelete(post.postId)"><i
+          <button class="px-1 btn mx-1 shadow-none delete" *ngIf="user==post.account" (click)="onDelete(i)"><i
               class="fas fa-trash-alt"></i>刪除</button>
 
         </div>
@@ -41,8 +41,8 @@
       </div>
       <mdb-form-control>
         <input mdbInput type="text" id="comment" class="form-control" #comment
-          (keydown.enter)="onComment(i,post.postId,comment.value)" />
-        <label mdbLabel class="form-label" for="comment">發布回應</label>
+          (keydown.enter)="onComment(i,comment.value)" [disabled]="isSending" />
+        <label mdbLabel class="form-label  py-auto" for="comment">發布回應</label>
       </mdb-form-control>
     </mat-expansion-panel>
 
