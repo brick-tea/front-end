@@ -36,7 +36,7 @@ export class PostsService {
     return this.http.post<CommentInfo>(
       POSTS_API + postId + '/comment',
       comment,
-      this.api.getHeader('text')
+      this.api.getHeader('json')
     );
   }
 
@@ -113,18 +113,7 @@ export interface PostInfo extends Post {
   account: string;
   commentNumbers: number;
   hideNumbers: number;
-  comment: [
-    {
-      commentId: string;
-      postId: string;
-      account: string;
-      content: string;
-      createAt: string;
-      lastEdit: string;
-      display: boolean;
-      parentId: string;
-    }
-  ];
+  comment: CommentInfo[];
   createdAt: string;
   lastEdit: string;
   edit: {

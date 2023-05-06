@@ -37,52 +37,89 @@ export class BoardComponent implements OnInit {
   user: string = this.userService.catchUserAccount();
   allPosts$: Observable<PostInfo[]> = this.postsService.getAllPosts();
   allPosts!: PostInfo[];
-  loadPosts() {
+
+  ngOnInit(): void {
+    this.loadAllPosts();
+  }
+
+  /** Post Operations */
+  loadAllPosts() {
     this.postsService.getAllPosts().subscribe((res) => (this.allPosts = res));
   }
-  ngOnInit(): void {
-    this.loadPosts();
-  }
-  onEdit(post: PostInfo): void {
+  onEdit(postKey: number): void {
+    const postId = this.allPosts[postKey].postId;
+    let editPostKey: number = this.findPostKey(postId); // check if post exist to avoid unnecessary operation
+
     const MatDialogRef = this.dialog.open(CreatePostDialog, {
       width: '40rem',
       height: '35rem',
       disableClose: true,
       data: {
-        post: post as Post,
-        postId: post.postId,
+        post: this.allPosts[postKey] as Post,
+        postId: postId,
       },
     });
     MatDialogRef.afterClosed().subscribe((res) => {
-      if (res) this.loadPosts();
+      this.loadPost(postId);
     });
   }
-  onDelete(postId: string): void {
+  onDelete(key: number): void {
+    const postId = this.allPosts[key].postId;
     if (confirm('確定要刪除？')) {
       this.postsService.deletePost(postId).subscribe(
-        (res) => this.loadPosts(),
+        () => this.loadAllPosts(),
         (err) => console.log(err)
       );
+      this.removePost(postId);
+      return;
     }
   }
 
-  onComment(i: number, postId: string, comment: string) {
+  /** Comment Operations */
+
+  isSending: boolean = false;
+  onComment(postKey: number, comment: string) {
+    this.isSending = true;
     const pack: Comment = { content: comment };
+    const postId = this.allPosts[postKey].postId;
     this.postsService.createComment(postId, pack).subscribe(
       (res) => {
-        console.log(res);
-        this.loadPosts();
+        this.allPosts[postKey].comment.push(res);
+        comment = '';
       }, // wait backend changing response body
-      (err) => console.log(err)
+      (err) => console.error(err),
+      () => (this.isSending = false)
     );
   }
 
-  expandPost(post: PostInfo) {
+  /*expandPost(post: PostInfo) {
     const MatDialogRef = this.dialog.open(PostInfoDialog, {
       height: '40rem',
       width: '40rem',
       disableClose: false,
       data: { post: post },
     });
+  }*/
+
+  private findPostKey(postId: string): number {
+    for (let i = 0; i < this.allPosts.length; i++) {
+      if (this.allPosts[i].postId === postId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  private loadPost(id: string) {
+    const key = this.findPostKey(id);
+    this.postsService.getPost(this.allPosts[key].postId).subscribe(
+      (res) => (this.allPosts[key] = res),
+      (err) => console.error(err)
+    );
+  }
+
+  private removePost(id: string) {
+    const key = this.findPostKey(id);
+    this.allPosts.splice(key, 1);
   }
 }
