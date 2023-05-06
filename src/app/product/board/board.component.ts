@@ -78,14 +78,15 @@ export class BoardComponent implements OnInit {
   /** Comment Operations */
 
   isSending: boolean = false;
-  onComment(postKey: number, comment: string) {
+  onComment(postKey: number, comment: HTMLInputElement) {
     this.isSending = true;
-    const pack: Comment = { content: comment };
+    const content = comment.value;
+    const pack: Comment = { content: content };
     const postId = this.allPosts[postKey].postId;
     this.postsService.createComment(postId, pack).subscribe(
       (res) => {
         this.allPosts[postKey].comment.push(res);
-        comment = '';
+        comment.value = '';
       }, // wait backend changing response body
       (err) => console.error(err),
       () => (this.isSending = false)

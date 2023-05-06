@@ -36,12 +36,13 @@
         </mat-panel-title>
 
       </mat-expansion-panel-header>
-      <div class="comment" *ngFor="let comment of post.comment">
+      <div class="comment py-2 px-2" *ngFor="let comment of post.comment">
         <p>{{comment.account}}: {{comment.content}}</p>
+        <p class="ms-auto">@ {{comment.createAt}}</p>
       </div>
       <mdb-form-control>
-        <input mdbInput type="text" id="comment" class="form-control" #comment
-          (keydown.enter)="onComment(i,comment.value)" [disabled]="isSending" />
+        <input mdbInput type="text" id="comment" class="form-control" #comment (keydown.enter)="onComment(i,comment);"
+          [disabled]="isSending" />
         <label mdbLabel class="form-label  py-auto" for="comment">發布回應</label>
       </mdb-form-control>
     </mat-expansion-panel>
