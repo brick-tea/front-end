@@ -56,10 +56,15 @@ export class ProductService {
     const header = this.api.getHeader('json');
     return this.http.get<ProductInfo[]>(PRODUCT_API + 'my/', header);
   }
-
-  getAllProducts(): Observable<ProductInfo[]> {
+  /**https://thebrickteam.com/product/all/?page=0 */
+  getAllProducts(page?: number): Observable<ProductInfo[]> {
+    let pg: string = '0';
+    if (page !== undefined) {
+      pg = page.toString();
+    }
+    console.log(PRODUCT_API + 'all/?page=' + pg.toString());
     return this.http.get<ProductInfo[]>(
-      PRODUCT_API + 'all/',
+      PRODUCT_API + 'all/?page=' + pg.toString(),
       this.api.getHeader('json')
     );
   }
