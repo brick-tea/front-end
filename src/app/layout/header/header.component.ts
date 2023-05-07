@@ -12,5 +12,8 @@ export class HeaderComponent {
     this.authService.logout();
     this.router.navigate(['/auth']);
   }
+  searchType: string[] = ['Product', 'Post'];
   menuController() {}
+  isSearch: boolean = false;
+  onSearch(search: HTMLInputElement) {}
 }

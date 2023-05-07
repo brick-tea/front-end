@@ -1,41 +1,49 @@
 <div class="page-title">
   <h2>貼文牆</h2>
-  <hr>
+  <hr />
 </div>
 
 <div class="post-block" *ngFor="let post of allPosts; index as i;">
+  <!-- Post Card -->
   <div class="card h-100 flex-grow-1 shadow-0">
     <div class="card-body content">
       <div mat-dialog-title class="p-0 my-2 d-flex align-items-center">
+
         <ng-boring-avatars-beam-avatar class="me-3" name={{post.account}}
           [colors]="['#F6F6EF','#FFFFFF','#8B6262','#4DBCE9','#26ADE4']"
           [inputSize]="30"></ng-boring-avatars-beam-avatar>
         <h3 class="font-weight-normal my-0">{{ post.account }}</h3>
+
+        <!-- Post Operation -->
         <div class="info-bar ms-auto d-flex">
           <p class="text-muted time px-1">最後編輯：{{post.lastEdit}}</p>
-          <button class="px-1 btn ms-auto shadow-none" *ngIf="user==post.account" (click)="onEdit(i)"><i
-              class="fas fa-pen m-1 "></i>編輯商品</button>
 
-          <button class="px-1 btn mx-1 shadow-none delete" *ngIf="user==post.account" (click)="onDelete(i)"><i
-              class="fas fa-trash-alt"></i>刪除</button>
+          <button class="px-1 btn ms-auto shadow-none" *ngIf="user==post.account" (click)="onEdit(i)">
+            <i class="fas fa-pen m-1 "></i>編輯商品</button>
+
+          <button class="px-1 btn mx-1 shadow-none delete" *ngIf="user==post.account" (click)="onDelete(i)">
+            <i class="fas fa-trash-alt"></i>刪除</button>
 
         </div>
-
-
+        <!-- Post Operation -->
       </div>
 
+      <!-- Post Content -->
       <h3 class="fw-bolder my-0">{{ post.title }}</h3>
       <p class="my-1 " style="white-space:pre-wrap;">{{post.content}}</p>
+      <!-- Post Content -->
+
     </div>
 
-
+    <!-- Comment Field -->
     <mat-expansion-panel class="card-footer text-muted comment-block p-0" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title class="justify-content-center border-bottom-2">
           <i class="far fa-comment mx-2"></i>{{post.commentNumbers-post.hideNumbers}}
         </mat-panel-title>
-
       </mat-expansion-panel-header>
+
+      <!-- Comment -->
       <div class="comment py-2 px-2" *ngFor="let comment of post.comment">
         <p>{{comment.account}}: {{comment.content}}</p>
         <p class="ms-auto">@ {{comment.createAt}}</p>
@@ -45,9 +53,15 @@
           [disabled]="isSending" />
         <label mdbLabel class="form-label  py-auto" for="comment">發布回應</label>
       </mdb-form-control>
+      <!-- Comment -->
+
     </mat-expansion-panel>
+    <!-- Comment Field -->
+
 
   </div>
+  <!-- Post Card -->
+
 </div>
 
 
