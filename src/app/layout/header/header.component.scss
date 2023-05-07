@@ -9,3 +9,50 @@ nav {
 .setting-menu {
   margin-right: 3rem;
 }
+.search-class {
+  border: #666 2px solid;
+  border-radius: 0.25rem;
+}
+
+.search {
+  background-color: white;
+  .search-field {
+    height: 2rem;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+    border: #666 1.5px solid;
+    border-right: none;
+  }
+  .icon {
+    height: 2.2rem;
+    width: 2rem;
+    cursor: pointer;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    border-top: #666 1.5px solid;
+    border-bottom: #666 1.5px solid;
+  }
+  .search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0;
+    height: 2.2rem;
+    width: 7rem;
+    border: #666 1.5px solid;
+    // border-left: none;
+    border-radius: 0 0.25rem 0.25rem 0;
+    margin: 0;
+  }
+
+  .search-option {
+    width: 6rem;
+    height: 3rem;
+  }
+  .dropdown-item {
+    display: flex;
+    justify-content: center;
+  }
+}

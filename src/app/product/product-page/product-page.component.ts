@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/service/user-auth.service';
 import { ProductService, ProductInfo } from 'src/app/service/product.service';
@@ -10,7 +10,7 @@ import { ProductInfoDialog } from './product-info-dialog/product-info-dialog';
   templateUrl: './product-page.component.html',
   styleUrls: ['./product-page.component.scss'],
 })
-export class ProductPageComponent {
+export class ProductPageComponent implements OnInit {
   constructor(
     private router: Router,
     public dialog: MatDialog,
@@ -22,11 +22,21 @@ export class ProductPageComponent {
       router.navigate(['/login']);
     }
   }
+  ngOnInit() {}
 
   allProducts$: Observable<ProductInfo[]> =
     this.productService.getAllProducts();
-  loadProductList() {
-    this.productService.getAllProducts().subscribe((res) => console.log(res));
+  loadProductList(page?: number) {
+    this.productService.getAllProducts(page).subscribe(
+      (res) => console.log(res),
+      (err) => {
+        console.error(err);
+        if (err.status === 403) {
+          this.authService.logout();
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    );
   }
 
   expandProduct(product: ProductInfo) {
@@ -38,7 +48,7 @@ export class ProductPageComponent {
     });
     MatDialogRef.afterClosed().subscribe((res) => {
       if (res) {
-        this.allProducts$ = this.productService.getAllProducts();
+        this.loadProductList();
       }
     });
   }

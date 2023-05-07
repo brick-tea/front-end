@@ -26,6 +26,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 /// COMPONENTS
 import { LayoutComponent } from './layout.component';
@@ -76,6 +77,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatAutocompleteModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatSelectModule,
     MatDialogModule,
   ],
   exports: [LayoutComponent],

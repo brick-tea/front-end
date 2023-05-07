@@ -44,7 +44,16 @@ export class BoardComponent implements OnInit {
 
   /** Post Operations */
   loadAllPosts() {
-    this.postsService.getAllPosts().subscribe((res) => (this.allPosts = res));
+    this.postsService.getAllPosts().subscribe(
+      (res) => (this.allPosts = res),
+      (err) => {
+        console.error(err);
+        if (err.status === 403) {
+          this.authService.logout();
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    );
   }
   onEdit(postKey: number): void {
     const postId = this.allPosts[postKey].postId;
