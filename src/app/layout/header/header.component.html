@@ -20,18 +20,24 @@
 
     <!-- Right links -->
     <!-- Search bar -->
-    <div class="d-flex search ">
+    <div class="d-flex search">
       <form class="d-flex input-group w-auto">
-        <input type="search" class="search-field form-control rounded" placeholder="搜尋" #search
+        <input type="search" class="search-field form-control rounded" placeholder="Enter 搜尋" #search
           (keydown.enter)="onSearch(search);" [disabled]="isSearch" />
-        <div mdbDropdown class="dropdown">
-          <button class="btn shadow-0 search-button dropdown-toggle" mdbDropdownToggle type="button">搜尋類別</button>
-          <ul mdbDropdownMenu class="dropdown-menu dropdown-menu-end search-option">
-            <li class="d-flex justify-content-center dropdown-item">商品</li>
-            <li class="d-flex justify-content-center dropdown-item">貼文</li>
-          </ul>
-        </div>
       </form>
+      <div class="icon">
+        <i class="fas fa-search " (click)="onSearch(search)"></i>
+      </div>
+      <div mdbDropdown class="dropdown">
+        <button class="btn shadow-0 search-button dropdown-toggle" mdbDropdownToggle
+          type="button">{{searchArea}}</button>
+        <ul mdbDropdownMenu class="dropdown-menu dropdown-menu-end search-option">
+          <li><button class="d-flex justify-content-center dropdown-item" value="product"
+              (click)="selectOption('product')">商品</button></li>
+          <li><button class="d-flex justify-content-center dropdown-item disabled" value="post"
+              (click)="selectOption('post')">貼文</button></li>
+        </ul>
+      </div>
     </div>
 
     <!-- Search bar -->

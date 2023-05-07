@@ -21,24 +21,47 @@ export class SearchService {
   // tagSearchTag(): Observable<ProductInfo[]> {}
 
   // search/product?q=if%20there%20is%20a%20product&tag=tag_A&tag=tag_B
-  productSearch(content: string, tags: string[]): Observable<ProductInfo[]> {
+  productSearch(
+    content?: string,
+    tags?: string[]
+  ): Observable<ProductInfo[]> | null {
+    const isContent: boolean = !(
+      content === undefined ||
+      content === '' ||
+      content === null
+    );
+    const isTag: boolean = !(
+      tags === undefined ||
+      tags.length === 0 ||
+      tags === null
+    );
+
+    if (!isContent && !isTag) return null;
+
     /// query for content
-    content = content.trim();
-    const words = content.split(' ');
     let contentQuery: string = 'q=';
-    for (let i = 0; i < words.length - 1; i++) {
-      contentQuery += words[i] + '+';
+    if (isContent) {
+      content = content!.trim();
+      const words = content.split(' ');
+      console.log(words);
+      for (let i = 0; i < words.length - 1; i++) {
+        contentQuery = contentQuery + words[i] + '+';
+      }
+      contentQuery = contentQuery + words[words.length - 1];
     }
-    contentQuery += words[words.length];
 
     /// query for tag
-    let tagQuery: string = '';
-    for (let i = 0; i < tags.length; i++) {
-      tagQuery += '&tag=' + tags[i];
+    let tagQuery: string = '&tag=';
+    if (isTag) {
+      for (let i = 0; i < tags!.length - 1; i++) {
+        tagQuery = tagQuery + tags![i] + '&tag=';
+      }
+      tagQuery = tagQuery + tags![tags!.length - 1];
     }
-
+    const query: string = 'product?' + contentQuery + tagQuery;
+    console.log(query);
     return this.http.get<ProductInfo[]>(
-      SEARCH_API + 'product?' + contentQuery + tagQuery,
+      SEARCH_API + query,
       this.apiService.getHeader('json')
     );
   }
