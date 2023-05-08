@@ -1,4 +1,9 @@
 <!--app-product-filter></app-product-filter-->
+<div class="filter d-flex align-items-center justify-content-center" *ngIf="isLoading">
+  <!--div class="spinner-border text-warning" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div-->
+</div>
 <div class="page-title">
   <div class="d-flex align-items-center">
     <i class="fas fa-arrow-left ms-5 px-3 float-left"></i>
@@ -76,9 +81,12 @@
   </li>
 </ul-->
 
+
 <mat-paginator [length]="totalProductNum" [pageSize]="productOfPage" [pageSizeOptions]="[productOfPage]"
   (page)="onPageChange($event)">
 </mat-paginator>
+
+
 <!--i class="far fa-comment"></i>
 
 
