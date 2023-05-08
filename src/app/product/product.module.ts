@@ -18,6 +18,7 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LayoutModule } from '../layout/layout.module';
 import { BoardComponent } from './board/board.component';
@@ -56,6 +57,7 @@ import { NgBoringAvatarsModule } from 'ng-boring-avatars';
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
+    MatPaginatorModule,
     LayoutModule,
     NgBoringAvatarsModule,
   ],

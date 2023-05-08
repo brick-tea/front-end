@@ -25,6 +25,7 @@ export class ProductService {
   }
 
   createProductImage(image: FormData): Observable<string> {
+    console.log(image);
     return this.http.post<string>(
       PRODUCT_API + 'image',
       image,
@@ -50,20 +51,21 @@ export class ProductService {
       this.api.getHeader('text')
     );
   }
-  /** PATCH API */
 
+  /** PATCH API */
   getMyProducts(): Observable<ProductInfo[]> {
     const header = this.api.getHeader('json');
     return this.http.get<ProductInfo[]>(PRODUCT_API + 'my/', header);
   }
+
   /**https://thebrickteam.com/product/all/?page=0 */
-  getAllProducts(page?: number): Observable<ProductInfo[]> {
+  getAllProducts(page?: number): Observable<ProductList> {
     let pg: string = '0';
     if (page !== undefined) {
       pg = page.toString();
     }
     console.log(PRODUCT_API + 'all/?page=' + pg.toString());
-    return this.http.get<ProductInfo[]>(
+    return this.http.get<ProductList>(
       PRODUCT_API + 'all/?page=' + pg.toString(),
       this.api.getHeader('json')
     );
@@ -118,4 +120,9 @@ export interface ProductTag {
 export interface ProductImage {
   productId: string; // ID of the product
   images: File[];
+}
+
+export interface ProductList {
+  totalNumber: number;
+  product: ProductInfo[];
 }

@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { PostInfo } from './posts.service';
-import { ProductInfo } from './product.service';
+import { ProductInfo, ProductList } from './product.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  productSearchResult: Subject<ProductInfo[]> = new Subject<ProductInfo[]>();
-  postSearchResult: Subject<PostInfo[]> = new Subject<PostInfo[]>();
+  productSearchResult: Subject<ProductList> = new Subject<ProductList>();
+  postSearchResult: Subject<ProductList> = new Subject<ProductList>();
 
   constructor() {}
 
-  setProductResults(results: ProductInfo[]): void {
+  setProductResults(results: ProductList): void {
     this.productSearchResult.next(results);
   }
 
-  getProductResults(): Observable<ProductInfo[]> {
+  getProductResults(): Observable<ProductList> {
     return this.productSearchResult.asObservable();
   }
 
-  setPostResults(results: PostInfo[]): void {
+  setPostResults(results: ProductList): void {
     this.postSearchResult.next(results);
   }
 
-  getPostResults(): Observable<PostInfo[]> {
+  getPostResults(): Observable<ProductList> {
     return this.postSearchResult.asObservable();
   }
 }
