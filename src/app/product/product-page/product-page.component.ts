@@ -5,7 +5,6 @@ import { DataService } from 'src/app/service/data.service';
 import {
   ProductService,
   ProductInfo,
-  Product,
   ProductList,
 } from 'src/app/service/product.service';
 import { Observable } from 'rxjs';
@@ -31,6 +30,7 @@ export class ProductPageComponent implements OnInit {
       router.navigate(['/login']);
     }
   }
+  isLoading = false;
   totalProductNum: number = 0;
   productOfPage: number = 21;
   ngOnInit() {
@@ -46,12 +46,14 @@ export class ProductPageComponent implements OnInit {
   viewProducts: ProductInfo[] = []; // display all products or search products
 
   loadProductList(page?: number) {
+    this.isLoading = true;
     this.productService.getAllProducts(page).subscribe(
       (res) => {
         console.log(res);
         this.allProducts = res.product;
         this.viewProducts = res.product;
         this.totalProductNum = res.totalNumber;
+        this.isLoading = false;
       },
       (err) => {
         console.error(err);
@@ -59,6 +61,7 @@ export class ProductPageComponent implements OnInit {
           this.authService.logout();
           this.router.navigate(['/auth/login']);
         }
+        this.isLoading = false;
       }
     );
   }
