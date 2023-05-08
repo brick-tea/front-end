@@ -88,6 +88,7 @@ export class CreateProductDialog implements OnInit {
   productImages: Image[] = [];
 
   onImageUpload(i: number, event: any) {
+    // chose image
     const file: File = event.target.files[0];
     if (file.size > 3 * 1024 * 1024) {
       alert('limit image size 3mb!');
@@ -95,6 +96,7 @@ export class CreateProductDialog implements OnInit {
     }
     this.productImages[i].img = file;
     this.productImages[i].name = file.name;
+    console.log(this.productImages);
   }
   onImageRemove(i: number): void {
     this.productImages[i] = { ...this.initImage };
@@ -104,20 +106,19 @@ export class CreateProductDialog implements OnInit {
     const formData = new FormData();
     formData.append('productId', id);
     for (let i = 0; i < this.productImages.length; i++) {
-      formData.append('images', this.productImages[i].img as Blob);
-    }
-    let productImages: ProductImage = {
-      productId: id,
-      images: [],
-    };
-    for (let i = 0; i < this.productImages.length; i++) {
-      if (this.productImages[i].name !== '')
-        productImages.images.push(this.productImages[i].img!);
-      else productImages.images.push(new File([], '', { type: 'image/jpeg' }));
+      if (this.productImages[i].img !== undefined) {
+        formData.append('images', this.productImages[i].img as Blob);
+      } else
+        formData.append(
+          'images',
+          new File([], '', { type: 'image/jpeg' }) as Blob
+        );
     }
     return formData;
   }
+
   isImageCreated?: boolean = false;
+
   createProduct(): void {
     this.isSending = true;
     this.product = {
@@ -130,8 +131,6 @@ export class CreateProductDialog implements OnInit {
     console.log(this.product);
     if (this.isCreated === true) {
       this.updateProduct();
-      //this.productService.updateProduct(this.product, this.productId);
-      //this.uploadImage(this.packImage(this.productId));
     } else {
       this.productService.createProduct(this.product).subscribe(
         (res) => {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { ProductService, ProductInfo, ProductTag } from './product.service';
+import { ProductService, ProductInfo, ProductList } from './product.service';
 import { PostsService } from './posts.service';
 
 const SEARCH_API = 'https://thebrickteam.com/search/';
@@ -23,8 +23,9 @@ export class SearchService {
   // search/product?q=if%20there%20is%20a%20product&tag=tag_A&tag=tag_B
   productSearch(
     content?: string,
-    tags?: string[]
-  ): Observable<ProductInfo[]> | null {
+    tags?: string[],
+    page?: number
+  ): Observable<ProductList> | null {
     const isContent: boolean = !(
       content === undefined ||
       content === '' ||
@@ -51,16 +52,20 @@ export class SearchService {
     }
 
     /// query for tag
-    let tagQuery: string = '&tag=';
+    let tagQuery: string = '&t=';
     if (isTag) {
       for (let i = 0; i < tags!.length - 1; i++) {
-        tagQuery = tagQuery + tags![i] + '&tag=';
+        tagQuery = tagQuery + tags![i] + '&t=';
       }
       tagQuery = tagQuery + tags![tags!.length - 1];
     }
-    const query: string = 'product?' + contentQuery + tagQuery;
+    let pageQuery = '&p=' + '0';
+    if (page !== undefined) {
+      pageQuery = '&p=' + page.toString();
+    }
+    const query: string = 'product?' + contentQuery + tagQuery + pageQuery;
     console.log(query);
-    return this.http.get<ProductInfo[]>(
+    return this.http.get<ProductList>(
       SEARCH_API + query,
       this.apiService.getHeader('json')
     );

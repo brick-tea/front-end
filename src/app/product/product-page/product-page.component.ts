@@ -1,10 +1,18 @@
 import { Component, Renderer2, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/service/user-auth.service';
-import { ProductService, ProductInfo } from 'src/app/service/product.service';
+import { DataService } from 'src/app/service/data.service';
+import {
+  ProductService,
+  ProductInfo,
+  Product,
+  ProductList,
+} from 'src/app/service/product.service';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ProductInfoDialog } from './product-info-dialog/product-info-dialog';
+import { PageEvent } from '@angular/material/paginator';
+
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
@@ -16,19 +24,35 @@ export class ProductPageComponent implements OnInit {
     public dialog: MatDialog,
     private authService: UserAuthService,
     private productService: ProductService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private dataService: DataService
   ) {
     if (authService.loginStatus() !== true) {
       router.navigate(['/login']);
     }
   }
-  ngOnInit() {}
+  totalProductNum: number = 0;
+  productOfPage: number = 21;
+  ngOnInit() {
+    this.loadProductList();
+    this.dataService.getProductResults().subscribe((data) => {
+      if (data.product.length > 0) {
+        this.viewProducts = data.product;
+        this.totalProductNum = data.totalNumber;
+      } else this.viewProducts = this.allProducts;
+    });
+  }
+  allProducts: ProductInfo[] = []; // all products
+  viewProducts: ProductInfo[] = []; // display all products or search products
 
-  allProducts$: Observable<ProductInfo[]> =
-    this.productService.getAllProducts();
   loadProductList(page?: number) {
     this.productService.getAllProducts(page).subscribe(
-      (res) => console.log(res),
+      (res) => {
+        console.log(res);
+        this.allProducts = res.product;
+        this.viewProducts = res.product;
+        this.totalProductNum = res.totalNumber;
+      },
       (err) => {
         console.error(err);
         if (err.status === 403) {
@@ -51,6 +75,10 @@ export class ProductPageComponent implements OnInit {
         this.loadProductList();
       }
     });
+  }
+  onPageChange(e: PageEvent) {
+    console.log(e);
+    this.loadProductList(e.pageIndex);
   }
 }
 

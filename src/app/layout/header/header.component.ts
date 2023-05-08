@@ -27,9 +27,10 @@ export class HeaderComponent {
   isSearch: boolean = false;
   onSearch(search: HTMLInputElement) {
     if (this.searchArea === 'product') {
-      this.searchService
-        .productSearch(search.value)
-        ?.subscribe((res) => console.log(res));
+      this.searchService.productSearch(search.value)?.subscribe((res) => {
+        console.log(res);
+        this.dataService.setProductResults(res);
+      });
     } else if (this.searchArea === 'post') {
     }
   }
