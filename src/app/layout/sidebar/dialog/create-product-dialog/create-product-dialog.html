@@ -32,7 +32,6 @@
       <!-- Product status -->
       <h3>商品狀態</h3>
       <div class="status">
-
         <div class="form-check">
           <input mdbRadio class="form-check-input" type="radio" name="status" id="sellingRadio" [checked]="true"
             formControlName="status" value="selling" />
@@ -56,11 +55,12 @@
         <mat-chip-option *ngFor="let tag of tags" (click)="selectTag(tag.tagName)"
           [selected]="tag.tagName==this.productForm.value.tagName">{{tag.tagName}}</mat-chip-option>
       </mat-chip-listbox>
+      <!-- Product tags -->
     </form>
 
-    <h3 *ngIf="!isCreated">附加圖片（可選）</h3>
 
-    <!-- display upload icon -->
+    <!-- Image upload -->
+    <h3 *ngIf="!isCreated">附加圖片（第一張是貼文圖片預覽）</h3>
     <ul class="p-0">
       <li class="upload-image" *ngFor="let image of productImages; index as i;">
         <input type="file" accept="image/jpg, image/jpeg, image/png" id="image{{i}}" #uploadImage
@@ -80,6 +80,8 @@
         </button>
       </li>
     </ul>
+    <!-- Image upload -->
+
     <!-- display upload icon -->
     <p *ngIf="!productForm.valid">請完成貼文！</p>
 

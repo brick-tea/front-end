@@ -21,13 +21,18 @@
     <!-- Right links -->
     <!-- Search bar -->
     <div class="d-flex search">
+      <!--mdb-form-control>
+        <input mdbInput class="form-control" id="formControlDisabled" type="text" placeholder="Disabled input"
+          aria-label="disabled input example" [disabled]="isSearch" (keydown.enter)="onSearch(search);" #search />
+        <label mdbLabel class="form-label" for="formControlDisabled">Disabled</label>
+        <button class="icon" [disabled]="isSearch" (click)="onSearch(search)">
+          <i class="fas fa-search"></i>
+        </button>
+      </mdb-form-control-->
       <form class="d-flex input-group w-auto">
-        <input type="search" class="search-field form-control rounded" placeholder="Enter 搜尋" #search
-          (keydown.enter)="onSearch(search);" [disabled]="isSearch" />
+        <input type="search" class="search-field form-control rounded" placeholder="切換至商品頁搜尋" #search
+          (keydown.enter)="onSearch(search);" [disabled]="isSearch" [disabled]="isSearch" />
       </form>
-      <div class="icon">
-        <i class="fas fa-search " (click)="onSearch(search)"></i>
-      </div>
       <div mdbDropdown class="dropdown">
         <button class="btn shadow-0 search-button dropdown-toggle" mdbDropdownToggle
           type="button">{{searchArea}}</button>
@@ -51,13 +56,13 @@
         </a>
         <ul mdbDropdownMenu class="dropdown-menu dropdown-menu-lg-end">
           <li>
-            <a class="dropdown-item">Profile</a>
+            <a class="dropdown-item">訂單資訊</a>
           </li>
           <li>
-            <a class="dropdown-item">Settings</a>
+            <a class="dropdown-item">個人檔案</a>
           </li>
           <li>
-            <a class="dropdown-item" (click)="logout()">Logout</a>
+            <a class="dropdown-item" (click)="logout()">登出</a>
           </li>
         </ul>
       </li>

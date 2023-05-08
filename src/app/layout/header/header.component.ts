@@ -26,11 +26,16 @@ export class HeaderComponent {
   menuController() {}
   isSearch: boolean = false;
   onSearch(search: HTMLInputElement) {
+    this.isSearch = true;
     if (this.searchArea === 'product') {
-      this.searchService.productSearch(search.value)?.subscribe((res) => {
-        console.log(res);
-        this.dataService.setProductResults(res);
-      });
+      this.searchService.productSearch(search.value)?.subscribe(
+        (res) => {
+          console.log(res);
+          this.dataService.setProductResults(res);
+        },
+        (err) => {},
+        () => (this.isSearch = false)
+      );
     } else if (this.searchArea === 'post') {
     }
   }

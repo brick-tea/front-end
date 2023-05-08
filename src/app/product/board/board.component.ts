@@ -50,7 +50,7 @@ export class BoardComponent implements OnInit {
         console.error(err);
         if (err.status === 403) {
           this.authService.logout();
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth']);
         }
       }
     );
