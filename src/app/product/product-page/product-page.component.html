@@ -1,53 +1,22 @@
 <!--app-product-filter></app-product-filter-->
 <div class="filter d-flex align-items-center justify-content-center" *ngIf="isLoading">
+  <!-- Loading effect -->
   <!--div class="spinner-border text-warning" role="status">
     <span class="visually-hidden">Loading...</span>
   </div-->
 </div>
 <div class="page-title pb-0">
   <div class="d-flex align-items-center">
-    <i class="fas fa-arrow-left ms-5 px-3 float-left"></i>
     <h2 class="mb-0 mx-auto">商品牆</h2>
   </div>
 
   <hr class="mb-0">
 </div>
 
-
-<!--div class="wrapper">
-  <div class="card m-2 product" *ngFor="let product of (allProducts$|async); index as i">
-    <div class="bg-image hover-overlay image" mdbRipple rippleColor="light">
-      <img *ngIf="product.image1; else empty" src="{{'data:image/jpg;base64,' + product.image1}}" class="img-thumbnail"
-        style="height: 10rem;" />
-      <ng-template #empty>
-        <div class="image"></div>
-      </ng-template>
-      <a href="#!">
-        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-      </a>
-    </div>
-    <div class="card-body content">
-      <div mdbDropdown class="dropdown d-flex justify-content-end">
-        <button class="option btn " type="button " id="dropdownMenuButton" aria-expanded="false" mdbDropdownToggle>
-          <i class="fas fa-ellipsis-h"></i>
-        </button>
-        <ul mdbDropdownMenu class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-
-      <h5 class="fw-bolder card-title my-0">{{ product.title }}</h5>
-      <p class="my-1 ">$ {{product.price}}</p>
-
-    </div>
-  </div>
-</div-->
-
 <mat-grid-list cols="3" rowHeight="340px">
   <mat-grid-tile *ngFor="let product of viewProducts;" [colspan]="1">
     <div class="card m-2 product flex-grow-1" (click)="expandProduct(product)">
+      <!-- Preview Image -->
       <div class="bg-image hover-overlay image" mdbRipple rippleColor="light">
         <img *ngIf="product.image1; else empty" src="{{'data:image/jpg;base64,' + product.image1}}"
           class="img-thumbnail w-auto" style="max-height: 10rem;" />
@@ -58,7 +27,11 @@
           <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
         </a>
       </div>
+      <!-- Preview Image -->
+      <!-- Product Info -->
       <div class="card-body content">
+        <p class="my-0 d-flex align-items-baseline account"><i class="fas fa-user ps-0 pe-2"></i> {{product.account}}
+        </p>
         <h5 class="fw-bolder card-title my-0">{{ product.title }}</h5>
         <p class="my-1">$ {{product.price}}</p>
       </div>

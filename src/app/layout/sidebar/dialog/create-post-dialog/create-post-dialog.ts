@@ -25,7 +25,6 @@ export class CreatePostDialog implements OnInit {
   post: Post = {
     title: '',
     content: '',
-    status: '',
     productsId: [],
   };
   ngOnInit(): void {
