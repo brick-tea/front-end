@@ -4,13 +4,13 @@
     <span class="visually-hidden">Loading...</span>
   </div-->
 </div>
-<div class="page-title">
+<div class="page-title pb-0">
   <div class="d-flex align-items-center">
     <i class="fas fa-arrow-left ms-5 px-3 float-left"></i>
     <h2 class="mb-0 mx-auto">商品牆</h2>
   </div>
 
-  <hr>
+  <hr class="mb-0">
 </div>
 
 
@@ -60,7 +60,7 @@
       </div>
       <div class="card-body content">
         <h5 class="fw-bolder card-title my-0">{{ product.title }}</h5>
-        <p class="my-1 ">$ {{product.price}}</p>
+        <p class="my-1">$ {{product.price}}</p>
       </div>
       <div class="card-footer text-muted time">最後編輯：{{product.lastEdit}}</div>
     </div>
@@ -68,31 +68,6 @@
 </mat-grid-list>
 
 
-
-<!--ul class="pagination justify-content-center">
-  <li class="page-item" [ariaDisabled]="">
-    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-  </li>
-  <li class="page-item" *ngFor="let page of getTotalPages(); index as i">
-    <a class="page-link" href="#">{{page}}</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="#">Next</a>
-  </li>
-</ul-->
-
-
 <mat-paginator [length]="totalProductNum" [pageSize]="productOfPage" [pageSizeOptions]="[productOfPage]"
   (page)="onPageChange($event)">
 </mat-paginator>
-
-
-<!--i class="far fa-comment"></i>
-
-
-<!-- Grid List Example-->
-<!--mat-grid-list cols="3" rowHeight="100px">
-    <mat-grid-tile *ngFor="let tile of tiles" [colspan]="1" [rowspan]="tile.rows" [style.background]="tile.color">
-      {{tile.text}}
-    </mat-grid-tile>
-  </mat-grid-list-->
