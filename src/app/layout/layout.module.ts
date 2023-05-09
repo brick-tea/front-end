@@ -80,6 +80,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSelectModule,
     MatDialogModule,
   ],
-  exports: [LayoutComponent],
+  exports: [LayoutComponent, HeaderComponent],
 })
 export class LayoutModule {}
