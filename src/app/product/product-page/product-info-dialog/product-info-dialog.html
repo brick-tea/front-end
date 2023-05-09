@@ -11,8 +11,8 @@
     <div class="info">
       <div class="info-bar">
         <p class="text-muted time">最後編輯：{{product.lastEdit}}</p>
-        <button class="btn ms-auto shadow-none" *ngIf="user==product.account" (click)="onEdit()"><i
-            class="fas fa-pen m-1"></i>編輯商品</button>
+        <button class="btn ms-auto shadow-none" *ngIf="user==product.account" (click)="onEdit()"
+          [disabled]="product.sellStatus==='pending'"><i class="fas fa-pen m-1"></i>編輯商品</button>
         <button class="btn mx-1 shadow-none delete" *ngIf="user==product.account" (click)="onDelete()"><i
             class="fas fa-trash-alt"></i>刪除</button>
 

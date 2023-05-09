@@ -42,6 +42,7 @@ export class CreateProductDialog implements OnInit {
   ngOnInit() {
     if (this.data) {
       /// in edit mode
+      console.log('edit mode');
       this.isCreated = true;
       this.productBox = this.data.product as Product;
     } else {
@@ -131,21 +132,26 @@ export class CreateProductDialog implements OnInit {
     if (this.isCreated === true) {
       this.updateProduct();
     } else {
-      this.productService.createProduct(this.product).subscribe(
-        (res) => {
-          console.log(res);
-          this.productId = res.productId;
-          this.uploadImage(this.packImage(res.productId));
-          // this.dialogRef.close();
-          this.isCreated = true;
-        },
-        (err) => {
-          console.log(err);
-          this.isCreated = false;
-          this.isSending = false;
-          this.isFailure = true;
-        }
-      );
+      console.log('create new product');
+      if (this.productId !== '') {
+        this.uploadImage(this.packImage(this.productId));
+      } else {
+        this.productService.createProduct(this.product).subscribe(
+          (res) => {
+            console.log(res);
+            this.productId = res.productId;
+            this.uploadImage(this.packImage(res.productId));
+            // this.dialogRef.close();
+            this.isCreated = true;
+          },
+          (err) => {
+            console.log(err);
+            this.isCreated = false;
+            this.isSending = false;
+            this.isFailure = true;
+          }
+        );
+      }
     }
   }
 
@@ -167,6 +173,9 @@ export class CreateProductDialog implements OnInit {
     );
   }
   updateProduct() {
+    console.log('update product');
+    console.log(this.data.productId);
+
     const updateData: ProductUpdate = {
       ...this.product,
     };

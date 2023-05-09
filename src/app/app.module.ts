@@ -27,12 +27,14 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { UserAuthModule } from './user-auth/user-auth.module';
 import { LayoutModule } from './layout/layout.module';
+import { ProfileComponent } from './user-dashboard/profile/profile.component';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
 @NgModule({
   declarations: [
     AppComponent,
+    ProfileComponent,
     //WelcomePageComponent,
     //UserAuthComponent,
   ],
