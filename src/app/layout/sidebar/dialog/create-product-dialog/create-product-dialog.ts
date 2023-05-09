@@ -118,6 +118,7 @@ export class CreateProductDialog implements OnInit {
   }
 
   isImageCreated?: boolean = false;
+  productId: string = '';
 
   createProduct(): void {
     this.isSending = true;
@@ -135,7 +136,7 @@ export class CreateProductDialog implements OnInit {
       this.productService.createProduct(this.product).subscribe(
         (res) => {
           console.log(res);
-          //this.packImage(res.productId);
+          this.productId = res.productId;
           this.uploadImage(this.packImage(res.productId));
           // this.dialogRef.close();
           this.isCreated = true;
@@ -155,7 +156,8 @@ export class CreateProductDialog implements OnInit {
       (res) => {
         console.log(res);
         alert('發布成功！');
-        this.dialogRef.close();
+        location.reload();
+        this.dialogRef.close(this.productId);
         this.isImageCreated = true;
       },
       (err) => {
