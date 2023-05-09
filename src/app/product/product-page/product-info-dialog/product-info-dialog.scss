@@ -13,12 +13,21 @@ $danger: #dc4c64;
     margin: 0 !important;
     padding-top: 1rem;
   }
+  .order {
+    width: 6rem;
+    padding: 0.4rem;
+    font-size: medium;
+    background-color: #74bfbe;
+    box-shadow: 0 4px 9px -4px #74bfbe;
+  }
   .info {
     .info-bar {
       display: flex;
       .time {
+        display: flex;
+        align-items: center;
         font-size: small;
-        // text-align: end;
+        margin-bottom: 0;
       }
       .delete {
         &:hover {
@@ -30,6 +39,11 @@ $danger: #dc4c64;
     .img {
       max-height: 15rem;
       margin: 0 auto;
+    }
+    .status {
+      font-size: smaller;
+      font-weight: 500;
+      color: #666;
     }
   }
 }

@@ -95,14 +95,13 @@ export interface Product {
 }
 
 export interface ProductUpdate extends Product {
-  sellStatus: boolean;
+  // sellStatus: boolean;
 }
 
 /** use GET method to get */
 export interface ProductInfo extends ProductUpdate {
   productId: string;
   account: string;
-  sellStatus: true;
 
   image1: Blob;
   image2: Blob;
@@ -110,6 +109,7 @@ export interface ProductInfo extends ProductUpdate {
 
   postTime: string;
   lastEdit: string;
+  sellStatus: string;
   visible: true;
 }
 export interface ProductTag {

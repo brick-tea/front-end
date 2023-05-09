@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from './product-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
@@ -23,10 +24,15 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { LayoutModule } from '../layout/layout.module';
 import { BoardComponent } from './board/board.component';
 import { ProductFilterComponent } from './product-page/product-filter/product-filter.component';
-import { ProductInfoDialog } from './product-page/product-info-dialog/product-info-dialog';
+import {
+  ProductInfoDialog,
+  OrderProductDialog,
+} from './product-page/product-info-dialog/product-info-dialog';
 import { PostInfoDialog } from './board/post-info-dialog/post-info-dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgBoringAvatarsModule } from 'ng-boring-avatars';
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     ProductPageComponent,
@@ -34,10 +40,13 @@ import { NgBoringAvatarsModule } from 'ng-boring-avatars';
     ProductFilterComponent,
     ProductInfoDialog,
     PostInfoDialog,
+    OrderProductDialog,
   ],
   imports: [
     CommonModule,
     ProductRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     MdbDropdownModule,
     MdbAccordionModule,
     MdbCarouselModule,
@@ -54,6 +63,7 @@ import { NgBoringAvatarsModule } from 'ng-boring-avatars';
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
+    MatButtonModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,

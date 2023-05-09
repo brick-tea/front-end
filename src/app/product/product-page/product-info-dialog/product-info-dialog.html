@@ -2,6 +2,12 @@
 <div class="wrapper d-flex flex-column">
   <h2 mat-dialog-title>{{product.title}}</h2>
   <div mat-dialog-content class="flex-grow-1" style="max-height: none !important;">
+
+    <button *ngIf="product.sellStatus!=='sold' && user!==product.account" class="btn btn-warning order" mdbRipple
+      (click)="order(product.productId)" [disabled]="product.sellStatus==='pending'">我要買！</button>
+    <p *ngIf="product.sellStatus==='pending'" style="color: orange;">已被預訂</p>
+    <p *ngIf="product.sellStatus==='sold'" style="color: red;">已售出</p>
+
     <div class="info">
       <div class="info-bar">
         <p class="text-muted time">最後編輯：{{product.lastEdit}}</p>
@@ -11,8 +17,8 @@
             class="fas fa-trash-alt"></i>刪除</button>
 
       </div>
+      <p class="status">商品狀態：{{product.status}}</p>
       <p style="white-space: pre-wrap;">{{product.content}}</p>
-      <p class="font-weight-bolder">商品狀態：{{product.status}}</p>
 
       <mdb-carousel *ngIf="imageNum>1" [controls]="true" [indicators]="true" [interval]="0" [dark]="true">
         <mdb-carousel-item *ngIf="product.image1!==null">
