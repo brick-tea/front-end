@@ -20,6 +20,7 @@ export class OrderManangerComponent implements OnInit {
   getBuyStatus() {
     this.trade.getBuyStatus().subscribe((res) => {
       console.log(res);
+
       this.buyProducts = res;
     });
   }
