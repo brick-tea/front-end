@@ -28,6 +28,8 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { UserAuthModule } from './user-auth/user-auth.module';
 import { LayoutModule } from './layout/layout.module';
 import { ProfileComponent } from './user-dashboard/profile/profile.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { OrderManangerComponent } from './user-dashboard/order-mananger/order-mananger.component';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -35,6 +37,8 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     ProfileComponent,
+    UserDashboardComponent,
+    OrderManangerComponent,
     //WelcomePageComponent,
     //UserAuthComponent,
   ],
