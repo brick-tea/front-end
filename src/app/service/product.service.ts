@@ -45,6 +45,7 @@ export class ProductService {
     product: ProductUpdate,
     productId: string
   ): Observable<ProductInfo> {
+    console.log(product);
     return this.http.patch<ProductInfo>(
       PRODUCT_API + productId,
       product,
