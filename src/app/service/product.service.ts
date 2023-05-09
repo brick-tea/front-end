@@ -48,11 +48,11 @@ export class ProductService {
     return this.http.patch<ProductInfo>(
       PRODUCT_API + productId,
       product,
-      this.api.getHeader('text')
+      this.api.getHeader('json')
     );
   }
 
-  /** PATCH API */
+  /** GET API */
   getMyProducts(): Observable<ProductInfo[]> {
     const header = this.api.getHeader('json');
     return this.http.get<ProductInfo[]>(PRODUCT_API + 'my/', header);

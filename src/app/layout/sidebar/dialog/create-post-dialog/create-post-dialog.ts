@@ -88,6 +88,7 @@ export class CreatePostDialog implements OnInit {
         (res) => {
           console.log(res);
           alert('成功發布！');
+          location.reload();
           this.dialogRef.close(res);
         },
         (err) => {
