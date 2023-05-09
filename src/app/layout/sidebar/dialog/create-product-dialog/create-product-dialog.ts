@@ -27,11 +27,10 @@ export class CreateProductDialog implements OnInit {
   productBox: Product = {
     title: '',
     content: '',
-    status: 'selling',
+    status: '',
     price: 0,
     tagName: '',
   };
-  productSellStatus: boolean = false;
 
   productForm!: FormGroup;
 
@@ -45,7 +44,6 @@ export class CreateProductDialog implements OnInit {
       /// in edit mode
       this.isCreated = true;
       this.productBox = this.data.product as Product;
-      this.productSellStatus = this.data.product.sellStatus;
     } else {
       for (let i = 0; i < 3; i++) {
         this.productImages.push({ ...this.initImage });
@@ -125,7 +123,7 @@ export class CreateProductDialog implements OnInit {
     this.product = {
       title: this.productForm.value.title ?? '',
       content: this.productForm.value.content ?? '',
-      status: this.productForm.value.status ?? 'selling',
+      status: this.productForm.value.status ?? '',
       price: this.productForm.value.price ?? 0,
       tagName: this.productForm.value.tagName ?? '',
     };
@@ -170,9 +168,9 @@ export class CreateProductDialog implements OnInit {
   }
   updateProduct() {
     const updateData: ProductUpdate = {
-      sellStatus: this.productSellStatus,
       ...this.product,
     };
+    console.log(updateData);
 
     this.productService
       .updateProduct(updateData, this.data.productId)

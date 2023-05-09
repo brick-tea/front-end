@@ -11,6 +11,9 @@ import {
 } from 'src/app/service/product.service';
 import { UserService } from 'src/app/service/user.service';
 import { CreateProductDialog } from 'src/app/layout/sidebar/dialog/create-product-dialog/create-product-dialog';
+import { TradeService, OrderForm } from 'src/app/service/trade.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+
 @Component({
   selector: 'app-product-info-dialog',
   templateUrl: './product-info-dialog.html',
@@ -29,7 +32,7 @@ export class ProductInfoDialog implements OnInit {
     private userService: UserService,
     private productService: ProductService,
     public dialogRef: MatDialogRef<ProductInfoDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: InfoDialogData,
     public dialog: MatDialog,
     private renderer: Renderer2
   ) {
@@ -69,8 +72,10 @@ export class ProductInfoDialog implements OnInit {
       },
     });
     MatDialogRef.afterClosed().subscribe((res) => {
-      this.product = res; // res: ProductInfo
-      this.isChanged = true;
+      if (res !== undefined) {
+        this.product = res; // res: ProductInfo
+        this.isChanged = true;
+      }
     });
   }
   onDelete() {
@@ -88,8 +93,74 @@ export class ProductInfoDialog implements OnInit {
       );
     }
   }
+  order(productId: string) {
+    const MatDialogRef = this.dialog.open(OrderProductDialog, {
+      width: '20rem',
+      height: '20rem',
+      disableClose: false,
+      data: {
+        ordered: false,
+        productId: this.product.productId,
+      },
+    });
+    MatDialogRef.afterClosed().subscribe((res) => {
+      // res.ordered: is user order product
+      if (res) {
+        console.log(res);
+        this.product.sellStatus = 'pending';
+      }
+    });
+  }
 }
 
-export interface DialogData {
+export interface InfoDialogData {
   product: ProductInfo;
 }
+
+@Component({
+  selector: 'order-product-dialog',
+  templateUrl: 'order-product-dialog.html',
+})
+export class OrderProductDialog {
+  constructor(
+    public dialogRef: MatDialogRef<OrderProductDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: OrderDialogData,
+    private trade: TradeService,
+    private fb: FormBuilder
+  ) {}
+  orderForm: FormGroup = this.fb.group({
+    contact: ['', Validators.required],
+    note: ['', Validators.maxLength(30)],
+  });
+  isSending: boolean = false;
+  isFailure: boolean = false;
+  onSubmit(): void {
+    this.isSending = true;
+    const form: OrderForm = {
+      productId: this.data.productId,
+      contact: this.orderForm.value.contact ?? '',
+      note: this.orderForm.value.note ?? '',
+    };
+    this.trade.orderProduct(form).subscribe(
+      (res) => {
+        this.dialogRef.close(true);
+      },
+      (err) => {
+        this.isFailure = true;
+      }
+    );
+  }
+  onNoClick(): void {
+    this.dialogRef.close(false);
+  }
+}
+
+interface OrderDialogData {
+  productId: string;
+  ordered: boolean;
+}
+/**{
+  "productId": "string",
+  "contact": "string",
+  "note": "string"
+} */

@@ -1,0 +1,23 @@
+<div class="wrapper" style="background-color:white; height:20rem; display: grid;">
+  <h2 mat-dialog-title> 登記購買 </h2>
+  <div mat-dialog-content class="container">
+    <form [formGroup]="orderForm" novalidate>
+      <mdb-form-control>
+        <input mdbInput mdbValidate type="text" id="contact" class="form-control my-2" formControlName="contact" />
+        <label mdbLabel class="form-label" for="contact">聯絡方式</label>
+      </mdb-form-control>
+      <mdb-form-control [formGroup]="orderForm" novalidate>
+        <input mdbInput mdbValidate type="text" id="note" class="form-control my-2" formControlName="note" />
+        <label mdbLabel class="form-label" for="note">備註（30字內）</label>
+      </mdb-form-control>
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="mt-auto">
+    <button mat-button (click)="onNoClick()">取消</button>
+    <button mat-button type="submit" [disabled]="!orderForm.valid || isSending" (click)="onSubmit()">發布</button>
+  </div>
+  <ng-container *ngIf="isFailure">
+    <p class="text-danger">發布失敗，請重試</p>
+  </ng-container>
+</div>

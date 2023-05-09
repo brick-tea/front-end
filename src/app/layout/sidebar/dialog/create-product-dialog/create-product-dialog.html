@@ -1,18 +1,10 @@
 <div class="dialog">
   <h2 mat-dialog-title>上傳商品</h2>
   <div mat-dialog-content>
-    <div class="form-check" *ngIf="isCreated">
-      <input mdbCheckbox class="form-check-input" type="checkbox" value="" id="sell_status"
-        [(ngModel)]="productSellStatus" />
-      <label class="form-check-label" for="sell_status">
-        已售出
-      </label>
-    </div>
-
     <form [formGroup]="productForm" novalidate>
       <mdb-form-control>
         <input mdbValidate mdbInput type="text" id="title" class="form-control title" formControlName="title"
-          required />
+          maxlength="15" required />
         <label mdbLabel class="form-label" for="title">商品名稱</label>
       </mdb-form-control>
 
@@ -31,24 +23,12 @@
 
       <!-- Product status -->
       <h3>商品狀態</h3>
-      <div class="status">
-        <div class="form-check">
-          <input mdbRadio class="form-check-input" type="radio" name="status" id="sellingRadio" [checked]="true"
-            formControlName="status" value="selling" />
-          <label class="form-check-label" for="sellingRadio">販售中</label>
-        </div>
-
-        <div class="form-check">
-          <input mdbRadio class="form-check-input" type="radio" name="status" id="waitingRadio" formControlName="status"
-            value="temp_sold" />
-          <label class="form-check-label" for="waitingRadio">暫售</label>
-        </div>
-
-        <div class="form-check">
-          <input mdbRadio class="form-check-input" type="radio" name="status" id="soldRadio" formControlName="status"
-            value="sold" />
-          <label class="form-check-label" for="soldRadio"> 在架 </label>
-        </div>
+      <div class="status mt-2">
+        <mdb-form-control>
+          <input mdbValidate mdbInput type="text" id="status" class="form-control status" formControlName="status"
+            maxlength="30" autocomplete="false" required />
+          <label mdbLabel class="form-label" for="status">二手、極新...</label>
+        </mdb-form-control>
       </div>
       <!-- Product tags -->
       <mat-chip-listbox>
