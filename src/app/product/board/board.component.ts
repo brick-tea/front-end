@@ -34,6 +34,7 @@ export class BoardComponent implements OnInit {
       router.navigate(['/login']);
     }
   }
+  BEAM_COLORS = '3b3e37,e19563,066699,d39088,f0ddB5'; // avatar colors set
   user: string = this.userService.catchUserAccount();
   allPosts$: Observable<PostInfo[]> = this.postsService.getAllPosts();
   allPosts!: PostInfo[];

@@ -33,6 +33,8 @@ export class PostInfoDialog implements OnInit {
       }
     });
   }
+  BEAM_COLORS = '3b3e37,e19563,066699,d39088,f0ddB5'; // avatar colors set
+
   user: string = this.userService.catchUserAccount();
   post!: PostInfo;
   isLoad: boolean = false;
