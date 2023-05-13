@@ -1,0 +1,24 @@
+.wrapper {
+  width: 100%;
+  .inner-nav {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3rem;
+    margin-right: 10rem;
+    .btn {
+      width: 6rem;
+      box-shadow: none;
+      margin: 0 0.5rem;
+      border-radius: 0;
+      background-color: #fbefd9;
+      color: #e4a11b;
+    }
+    .btn-active {
+      color: #fbfbfb;
+      background-color: #e4a11b;
+    }
+  }
+  hr {
+    border: 2px solid #e4a11b;
+  }
+}

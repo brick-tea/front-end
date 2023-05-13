@@ -1,0 +1,32 @@
+<div class="wrapper mx-5">
+  <h3>我的訂購</h3>
+  <hr />
+  <!--{{buyProducts| json}}-->
+  <ul>
+    <div *ngFor="let status of buyProducts; index as i;">
+      <li>
+        <p>商品代號：{{status.orderId}}</p>
+        <p>買家：{{status.sellerId}}</p>
+        <p>聯絡方式：{{status.contact}}</p>
+        <p>備註：{{status.note}}</p>
+      </li>
+      <hr>
+    </div>
+  </ul>
+  <h3>我的商品</h3>
+  <hr />
+  <ul>
+    <div *ngFor="let status of sellProducts; index as i;">
+      <li>
+        <p>商品代號：{{status.orderId}}</p>
+        <p>買家：{{status.sellerId}}</p>
+        <p>聯絡方式：{{status.contact}}</p>
+        <p>備註：{{status.note}}</p>
+      </li>
+      <hr>
+    </div>
+  </ul>
+
+</div>
+
+<!-- ｛｛ multistep.value| json}} -->
