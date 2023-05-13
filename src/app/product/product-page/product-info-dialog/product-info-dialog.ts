@@ -64,7 +64,7 @@ export class ProductInfoDialog implements OnInit {
   onEdit() {
     const MatDialogRef = this.dialog.open(CreateProductDialog, {
       width: '40rem',
-      height: '35rem',
+      height: '40rem',
       disableClose: true,
       data: {
         product: this.product as ProductUpdate,

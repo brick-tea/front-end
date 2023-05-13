@@ -49,17 +49,17 @@
 
     <ul class="nav-bar d-flex align-items-center">
       <li mdbDropdown class="nav-item dropdown  setting-menu">
-        <a class="nav-link dropdown-toggle mt-3" role="button" mdbDropdownToggle>
-          <ng-boring-avatars-beam-avatar class="mx-2" name="Account"
-            [colors]="['#F6F6EF','#FFFFFF','#8B6262','#4DBCE9','#26ADE4']"
-            [inputSize]="30"></ng-boring-avatars-beam-avatar>
+        <a class="nav-link dropdown-toggle mt-3 d-flex align-items-center" role="button" mdbDropdownToggle>
+          <img class="me-2" src="https://source.boringavatars.com/beam/30/{{account}}?colors={{BEAM_COLORS}}"
+            alt="account">
+          <p class="mb-0 me-1">{{account}}</p>
         </a>
         <ul mdbDropdownMenu class="dropdown-menu dropdown-menu-lg-end">
           <li>
-            <a class="dropdown-item" [routerLink]="['/order']">訂單資訊</a>
+            <a class="dropdown-item" [routerLink]="['/user/manage']">商品管理</a>
           </li>
           <li>
-            <a class="dropdown-item" [routerLink]="['/profile']">個人檔案</a>
+            <a class="dropdown-item" [routerLink]="['/user/profile']">個人檔案</a>
           </li>
           <li>
             <a class="dropdown-item" (click)="logout()">登出</a>

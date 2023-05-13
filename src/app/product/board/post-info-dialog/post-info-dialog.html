@@ -1,8 +1,8 @@
 <!--h2 mat-dialog-title>選擇發布</h2-->
 <div class="wrapper d-flex flex-column">
   <div mat-dialog-title class="d-flex">
-    <ng-boring-avatars-beam-avatar class="mx-2" [name]="post.account"
-      [colors]="['#F6F6EF','#FFFFFF','#8B6262','#4DBCE9','#26ADE4']" [inputSize]="30"></ng-boring-avatars-beam-avatar>
+    <img class="me-3" src="https://source.boringavatars.com/beam/30/{{post.account}}?colors={{BEAM_COLORS}}"
+      alt={{post.account}}>
     <h2>{{post.account}}</h2>
   </div>
   <div mat-dialog-content class="flex-grow-1" style="max-height: none !important;">

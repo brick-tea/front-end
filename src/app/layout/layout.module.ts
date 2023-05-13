@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgBoringAvatarsModule } from 'ng-boring-avatars';
 
 /// MDBOOTSTRAP
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
@@ -53,6 +52,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CommonModule,
     RouterModule,
     LayoutRoutingModule,
+
     FormsModule,
     ReactiveFormsModule,
     MdbDropdownModule,
@@ -69,7 +69,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-    NgBoringAvatarsModule,
     MatButtonModule,
     MatChipsModule,
     MatFormFieldModule,

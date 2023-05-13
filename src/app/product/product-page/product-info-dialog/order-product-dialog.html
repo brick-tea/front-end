@@ -15,7 +15,7 @@
 
   <div mat-dialog-actions class="mt-auto">
     <button mat-button (click)="onNoClick()">取消</button>
-    <button mat-button type="submit" [disabled]="!orderForm.valid || isSending" (click)="onSubmit()">發布</button>
+    <button mat-button type="submit" [disabled]="!orderForm.valid || isSending" (click)="onSubmit()">下訂！</button>
   </div>
   <ng-container *ngIf="isFailure">
     <p class="text-danger">發布失敗，請重試</p>

@@ -30,7 +30,6 @@ import {
 } from './product-page/product-info-dialog/product-info-dialog';
 import { PostInfoDialog } from './board/post-info-dialog/post-info-dialog';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NgBoringAvatarsModule } from 'ng-boring-avatars';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
@@ -69,7 +68,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatGridListModule,
     MatPaginatorModule,
     LayoutModule,
-    NgBoringAvatarsModule,
   ],
   exports: [ProductPageComponent],
 })

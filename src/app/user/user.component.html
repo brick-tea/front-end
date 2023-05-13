@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <app-header></app-header>
+
+  <div class="inner-nav">
+    <a class="btn btn-warning" [routerLink]="['my-order']" routerLinkActive="btn-active">訂單</a>
+    <a class="btn btn-warning" [routerLink]="['my-product']" routerLinkActive="btn-active">商品</a>
+  </div>
+  <hr class="mt-0 d-block" />
+
+  <router-outlet></router-outlet>
+</div>
