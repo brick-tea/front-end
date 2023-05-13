@@ -15,7 +15,7 @@
 
 <mat-grid-list cols="3" rowHeight="340px">
   <mat-grid-tile *ngFor="let product of viewProducts;" [colspan]="1">
-    <div class="card m-2 product flex-grow-1" (click)="expandProduct(product)">
+    <div *ngIf="product.sellStatus!=='sold'" class="card m-2 product flex-grow-1" (click)="expandProduct(product)">
       <!-- Preview Image -->
       <div class="bg-image hover-overlay image" mdbRipple rippleColor="light">
         <img *ngIf="product.image1; else empty" src="{{'data:image/jpg;base64,' + product.image1}}"
