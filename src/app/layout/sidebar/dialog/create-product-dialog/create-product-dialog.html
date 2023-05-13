@@ -69,7 +69,10 @@
 
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">取消</button>
-    <button mat-button type="submit" [disabled]="!productForm.valid || isSending" (click)="createProduct()">發布</button>
+    <button mat-button type="submit" *ngIf="!isCreated" [disabled]="!productForm.valid || isSending"
+      (click)="createProduct()">發布</button>
+    <button mat-button type="submit" *ngIf="isCreated" [disabled]="!productForm.valid || isSending"
+      (click)="createProduct()">儲存修改</button>
   </div>
   <ng-container *ngIf="isFailure">
     <p class="text-danger">發布失敗，請重試</p>
