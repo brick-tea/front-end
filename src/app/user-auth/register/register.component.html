@@ -10,28 +10,28 @@
           <!-- Email input -->
           <div>
             <div class="input-group mb-3">
-              <input type="text" id="loginid" class="form-control" placeholder="Student ID" formControlName="account"
+              <input type="text" id="loginid" class="form-control field" placeholder="學號" formControlName="account"
                 required />
               <span class="input-group-text">@gms.ndhu.edu.tw</span>
             </div>
             <!-- Password input -->
             <mdb-form-control class="form-outline mb-3">
               <input mdbInput type="password" class="form-control" formControlName="password" required />
-              <label mdbLabel class="form-label" for="loginPassword">Password</label>
+              <label mdbLabel class="form-label" for="loginPassword">請輸入密碼</label>
             </mdb-form-control>
             <!-- Nickname input-->
             <mdb-form-control class="form-outline mb-3">
               <input mdbInput type="text" id="nickname" class="form-control" formControlName="nickname" />
-              <label mdbLabel class="form-label" for="nickname">Nickname</label>
+              <label mdbLabel class="form-label" for="nickname">請輸入姓名</label>
             </mdb-form-control>
           </div>
 
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-block mx-auto mb-4"
-            [disabled]="!signUpForm.valid">Register</button>
+          <button type="submit" class="btn btn-warning btn-block mx-auto mb-4 fs-6"
+            [disabled]="!signUpForm.valid">註冊</button>
           <!-- Register buttons -->
           <div class="text-center">
-            <p>Already have a account? <a class="active" (click)="toLog.emit()">Login</a></p>
+            <p>已經有帳號了？ <a class="active fw-bolder" style="color:#E4A11B" (click)="toLog.emit()">登入！</a></p>
           </div>
         </form>
       </div>

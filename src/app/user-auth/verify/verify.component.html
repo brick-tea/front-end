@@ -1,33 +1,56 @@
 <div class="wrapper">
-  <h1>帳號驗證</h1>
-  <p>帳號： {{account}} </p>
-  <a class="back-link" [routerLink]="['/auth']">帳號錯誤？<b>重新登入</b></a>
+  <div class="title">
+    <h1>帳號驗證</h1>
+    <p>帳號： {{account}} </p>
+    <a *ngIf="!verifyMode" class="back-link" [routerLink]="['/auth']">帳號錯誤？<b>重新登入</b></a>
+  </div>
 
-  <form class="verify my-5" autocomplete="off">
+  <div class="verify my-1" autocomplete="off">
 
     <input type="text" [(ngModel)]="code[0]" name='item_0' maxlength="1" (keypress)="valLimit($event)"
       (keyup)="moveFocus($event, '', item_0,item_1)" (paste)="item_0.blur(); onPaste($event)" class="verify-code"
-      #item_0 autofocus />
+      autocomplete="off" #item_0 autofocus />
     <input type="text" [(ngModel)]="code[1]" name="item_1" maxlength="1" (keypress)="valLimit($event)"
       (keyup)="moveFocus($event,  item_0, item_1,item_2)" (paste)="item_1.blur(); onPaste($event)" class="verify-code"
-      #item_1 />
+      autocomplete="off" #item_1 />
     <input type="text" [(ngModel)]="code[2]" name="item_2" maxlength="1" (keypress)="valLimit($event)"
       (keyup)="moveFocus($event,  item_1, item_2,item_3)" (paste)="item_2.blur();onPaste($event)" class="verify-code"
-      #item_2 />
+      autocomplete="off" #item_2 />
     <input type="text" [(ngModel)]="code[3]" name="item_3" maxlength="1" (keypress)="valLimit($event)"
       (keyup)="moveFocus($event,  item_2, item_3,item_4)" (paste)="item_3.blur();onPaste($event)" class="verify-code"
-      #item_3 />
+      autocomplete="off" #item_3 />
     <input type="text" [(ngModel)]="code[4]" name="item_4" maxlength="1" (keypress)="valLimit($event)"
       (keyup)="moveFocus($event,  item_3, item_4,item_5)" (paste)="item_4.blur();onPaste($event)" class="verify-code"
-      #item_4 />
+      autocomplete="off" #item_4 />
     <input type="text" [(ngModel)]="code[5]" name="item_5" maxlength="1" (keypress)="valLimit($event)"
       (keyup)="moveFocus($event,  item_4, item_5,'')" (paste)="item_5.blur();onPaste($event)" class="verify-code"
-      #item_5 />
+      autocomplete="off" #item_5 />
+
+    <div *ngIf="verifyMode && resetForm">
+      <form [formGroup]="resetForm" class="reset">
+        <mdb-form-control class="form-outline mb-3">
+          <input mdbInput type="password" id="password" class="form-control password" formControlName="password"
+            required />
+          <label mdbLabel class="form-label" for="password">輸入新密碼</label>
+        </mdb-form-control>
+        <mdb-form-control class="form-outline mb-3">
+          <input mdbInput type="password" id="passwordCheck" class="form-control password"
+            formControlName="passwordCheck" required />
+          <label mdbLabel class="form-label" for="passwordCheck">確認密碼</label>
+          <mdb-error
+            *ngIf="passwordCheck?.invalid && (passwordCheck?.dirty || passwordCheck?.touched)">密碼不一致！</mdb-error>
+
+        </mdb-form-control>
+      </form>
+
+    </div>
 
 
+    <button *ngIf="!verifyMode" type="submit" id='verify-submit' class="btn btn-light"
+      (click)="verify()">submit</button>
+    <button *ngIf="verifyMode && resetForm" type="submit" class="btn btn-warning d-block submit-btn"
+      [disabled]="!resetForm.valid" (click)="resetPassword()">驗證</button>
+  </div>
 
-    <button type="submit" id='verify-submit' class="btn btn-light" (click)="verify()">submit</button>
-
-  </form>
 
 </div>
