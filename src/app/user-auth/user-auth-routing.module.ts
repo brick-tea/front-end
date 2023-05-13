@@ -2,6 +2,7 @@ import { UserAuthComponent } from './user-auth.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VerifyComponent } from './verify/verify.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const USER_AUTH_ROUTES: Routes = [
   {
@@ -11,6 +12,10 @@ const USER_AUTH_ROUTES: Routes = [
   {
     path: 'verify',
     component: VerifyComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
   },
   {
     path: 'home',

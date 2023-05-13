@@ -4,7 +4,7 @@
     <!-- switch to login page -->
     <ng-container *ngIf="logMode; else registerMode">
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab">Login</a>
+        <a class="switch-btn nav-link " id="tab-login" data-mdb-toggle="pill" role="tab">Login</a>
       </li>
       <li class="nav-item" role="presentation">
         <a class="nav-link" id="tab-register" data-mdb-toggle="pill" role="tab" (click)="logMode=false">Register</a>
@@ -16,7 +16,7 @@
         <a class="nav-link " id="tab-login" data-mdb-toggle="pill" role="tab" (click)="logMode=true">Login</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="tab-register" data-mdb-toggle="pill" role="tab">Register</a>
+        <a class="switch-btn nav-link" id="tab-register" data-mdb-toggle="pill" role="tab">Register</a>
       </li>
     </ng-template>
   </ul>

@@ -41,6 +41,15 @@ export class UserAuthService {
     return this.http.post(AUTH_API + 'verify', verifyForm);
   }
 
+  /** forgot password */
+  sendForgotMail(mail: string, account: string): Observable<any> {
+    this.user.saveUserAccount(account);
+    return this.http.post(AUTH_API + 'forget', { email: mail });
+  }
+  verifyForgot(form: resetForm): Observable<resetResponse> {
+    return this.http.post<resetResponse>(AUTH_API + 'verifyForget', form);
+  }
+
   logout() {
     // const log: any = this.http.post(AUTH_API + 'logout');
     this.storage.clearAll();
@@ -49,4 +58,14 @@ export class UserAuthService {
   setToken(token: string) {
     this.storage.set(this.storage.accessToken, token);
   }
+}
+
+export interface resetForm {
+  email: string;
+  newPassword: string;
+  code: string;
+}
+export interface resetResponse {
+  status: string;
+  token: string;
 }

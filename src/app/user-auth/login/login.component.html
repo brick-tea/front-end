@@ -10,7 +10,7 @@
           <!-- Email input -->
           <div>
             <div class="input-group mb-3">
-              <input type="text" id="loginid" class="form-control" placeholder="Student ID" formControlName="account"
+              <input type="text" id="loginid" class="form-control" placeholder="學號" formControlName="account"
                 required />
               <span class="input-group-text">@gms.ndhu.edu.tw</span>
             </div>
@@ -18,26 +18,26 @@
             <mdb-form-control class="form-outline mb-4">
               <input mdbInput type="password" id="loginPassword" class="form-control" formControlName="password"
                 required />
-              <label mdbLabel class="form-label" for="loginPassword">Password</label>
+              <label mdbLabel class="form-label" for="loginPassword">請輸入密碼</label>
             </mdb-form-control>
           </div>
 
 
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-block mx-auto mb-4" [disabled]="!loginForm.valid">Sign
-            in</button>
+          <button type="submit" class="btn btn-warning btn-block mx-auto mb-4 fs-6"
+            [disabled]="!loginForm.valid">登入！</button>
 
           <!-- 2 column grid layout -->
           <div class="row mb-4">
 
             <div class="col-md-6 d-flex justify-content-center mx-auto">
               <!-- Simple link -->
-              <a routerLink="/varify">Forgot password?</a>
+              <a routerLink="forgot-password" style="color:#E4A11B">忘記密碼？</a>
             </div>
           </div>
           <!-- Register buttons -->
           <div class="text-center">
-            <p>Not a member? <a class="active" (click)="toReg.emit()">Register</a></p>
+            <p>還沒有帳號嗎？<a class="active" style="color:#E4A11B" (click)="toReg.emit()">註冊</a></p>
           </div>
         </form>
       </div>
