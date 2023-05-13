@@ -1,1 +1,46 @@
-<p>product-manage works!</p>
+<!--app-product-filter></app-product-filter-->
+<div class="filter d-flex align-items-center justify-content-center" *ngIf="isLoading">
+
+</div>
+
+<mat-grid-list cols="3" rowHeight="340px">
+  <mat-grid-tile *ngFor="let product of viewProducts;" [colspan]="1">
+    <div class="card m-2 product flex-grow-1" (click)="expandProduct(product)">
+      <!-- Preview Image -->
+      <div class="bg-image hover-overlay image" mdbRipple rippleColor="light">
+        <img *ngIf="product.image1; else empty" src="{{'data:image/jpg;base64,' + product.image1}}"
+          class="img-thumbnail w-auto" style="max-height: 10rem;" />
+        <ng-template #empty>
+          <div class="image"></div>
+        </ng-template>
+        <a>
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
+      </div>
+      <!-- Preview Image -->
+      <!-- Product Info -->
+      <div class="card-body content">
+
+        <h5 class="fw-bolder card-title my-0">{{ product.title }}</h5>
+        <p class="my-1">$ {{product.price}}</p>
+        <ng-container *ngIf="product.sellStatus==='pending'; else agree;">
+          <p class="my-1" style="color:#74bfbe; width:7rem; ">已被預訂</p>
+        </ng-container><ng-template #agree>
+          <ng-container *ngIf="product.sellStatus==='sold'; else decline;">
+            <p class="my-1" style="color:#af0707; width:7rem;">已售出</p>
+          </ng-container>
+        </ng-template>
+        <ng-template #decline>
+          <p class="my-1" style="color:#25CB4E; width:7rem;">架上</p>
+        </ng-template>
+
+      </div>
+      <div class="card-footer text-muted time">最後編輯：{{product.lastEdit}}</div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+<mat-paginator [length]="totalProductNum" [pageSize]="productOfPage" [pageSizeOptions]="[productOfPage]"
+  (page)="onPageChange($event)">
+</mat-paginator>
