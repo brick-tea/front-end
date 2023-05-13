@@ -4,11 +4,26 @@
   <!--{{buyProducts| json}}-->
   <ul>
     <div *ngFor="let status of buyProducts; index as i;">
-      <li>
-        <p>商品代號：{{status.orderId}}</p>
-        <p>買家：{{status.sellerId}}</p>
-        <p>聯絡方式：{{status.contact}}</p>
-        <p>備註：{{status.note}}</p>
+      <li class="d-flex">
+        <div>
+          <p>商品代號：{{status.orderId}}</p>
+          <p>名稱：{{status.productTitle}}</p>
+          <p>賣家：{{status.sellerId}}</p>
+          <p>聯絡方式：{{status.contact}}</p>
+          <p>備註：{{status.note}}</p>
+        </div>
+
+        <ng-container *ngIf="status.isAgree==='pending'; else agree;">
+          <p class=" options ms-auto my-auto" style="color:#af0707; width:7rem; text-align: center;">等待回應中</p>
+        </ng-container><ng-template #agree>
+          <ng-container *ngIf="status.isAgree==='sold'; else decline;">
+            <p class="options ms-auto my-auto" style="color:#af0707; width:7rem; text-align: center;">對方已接受</p>
+          </ng-container>
+        </ng-template>
+        <ng-template #decline>
+          <p class="options ms-auto my-auto" style="color:#af0707; width:7rem; text-align: center;">對方已拒絕</p>
+        </ng-template>
+
       </li>
       <hr>
     </div>
@@ -17,11 +32,29 @@
   <hr />
   <ul>
     <div *ngFor="let status of sellProducts; index as i;">
-      <li>
-        <p>商品代號：{{status.orderId}}</p>
-        <p>買家：{{status.sellerId}}</p>
-        <p>聯絡方式：{{status.contact}}</p>
-        <p>備註：{{status.note}}</p>
+      <li class="d-flex">
+        <div>
+          <p>商品代號：{{status.orderId}}</p>
+          <p>名稱：{{status.productTitle}}</p>
+          <p>買家：{{status.sellerId}}</p>
+          <p>聯絡方式：{{status.contact}}</p>
+          <p>備註：{{status.note}}</p>
+        </div>
+        <div class="options ms-auto my-auto" *ngIf="status.isAgree==='pending'; else agree;">
+          <button class="my-1 btn btn-success btn-rounded d-block accept"
+            (click)="replyOrder(status.orderId, true)">答應要求！</button>
+          <button class="my-1 btn btn-danger btn-rounded d-block reject" (click)="replyOrder(status.orderId, false)"
+            style=" background-color:#af0707;">拒絕</button>
+        </div>
+        <ng-template #agree>
+          <ng-container *ngIf="status.isAgree==='sold'; else decline;">
+            <p class="options ms-auto my-auto" style="color:#af0707; width:7rem; text-align: center;">已接受訂單</p>
+          </ng-container>
+        </ng-template>
+        <ng-template #decline>
+          <p class="options ms-auto my-auto" style="color:#af0707; width:7rem; text-align: center;">已拒絕訂單</p>
+        </ng-template>
+
       </li>
       <hr>
     </div>

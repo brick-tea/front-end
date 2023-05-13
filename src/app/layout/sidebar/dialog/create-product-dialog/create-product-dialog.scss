@@ -12,12 +12,16 @@ textarea {
   resize: none;
 }
 
-.dialog {
+.wrapper {
   background-color: #ffffff;
   height: 100%;
-  display: flex;
+  display: grid !important;
+  grid-template-rows: 1fr 7fr 1fr;
   flex-direction: column;
-  justify-content: space-between;
+  //justify-content: space-between;
+}
+.dialog{
+  max-height: 80vh;
 }
 .title {
   color: #4e6766;
@@ -70,4 +74,7 @@ textarea {
 }
 .tag {
   background-color: #4e98a0;
+}
+.actions {
+  margin-top: auto;
 }
