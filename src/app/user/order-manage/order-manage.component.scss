@@ -10,4 +10,17 @@ ul {
   hr {
     margin: 0.5rem 0;
   }
+  li {
+    padding-left: 10rem;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #a7a7a766;
+    }
+  }
+  .options {
+    margin-right: 20rem;
+    .btn {
+      width: 7rem;
+    }
+  }
 }

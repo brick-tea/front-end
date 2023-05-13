@@ -1,6 +1,8 @@
-<div class="dialog">
-  <h2 mat-dialog-title>上傳商品</h2>
-  <div mat-dialog-content>
+<div class="wrapper d-flex">
+  <h2 mat-dialog-title *ngIf="!isCreated">上傳商品</h2>
+  <h2 mat-dialog-title *ngIf="isCreated">修改商品</h2>
+
+  <div mat-dialog-content class="dialog">
     <form [formGroup]="productForm" novalidate>
       <mdb-form-control>
         <input mdbValidate mdbInput type="text" id="title" class="form-control title" formControlName="title"
@@ -67,7 +69,7 @@
 
   </div>
 
-  <div mat-dialog-actions>
+  <div mat-dialog-actions class="actions">
     <button mat-button (click)="onNoClick()">取消</button>
     <button mat-button type="submit" *ngIf="!isCreated" [disabled]="!productForm.valid || isSending"
       (click)="createProduct()">發布</button>

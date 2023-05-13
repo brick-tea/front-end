@@ -26,6 +26,13 @@ export class TradeService {
       this.api.getHeader('json')
     );
   }
+  replyOrder(reply: OrderReply): Observable<string> {
+    return this.http.post<string>(
+      ORDER_API + 'confirm/',
+      reply,
+      this.api.getHeader('text')
+    );
+  }
 }
 export interface OrderForm {
   productId: string;
@@ -38,8 +45,14 @@ export interface OrderStatus {
   buyerId: string;
   sellerId: string;
   productId: string;
+  productTitle: string;
   contact: string;
   note: string;
   isAgree: string;
   createdAt: string;
+}
+
+export interface OrderReply {
+  orderId: string;
+  answer: boolean;
 }

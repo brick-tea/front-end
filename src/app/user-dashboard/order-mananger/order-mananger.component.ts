@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TradeService, OrderStatus } from 'src/app/service/trade.service';
+import {
+  TradeService,
+  OrderStatus,
+  OrderReply,
+} from 'src/app/service/trade.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -7,25 +11,10 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './order-mananger.component.html',
   styleUrls: ['./order-mananger.component.scss'],
 })
-export class OrderManangerComponent implements OnInit {
-  constructor(private trade: TradeService, private user: UserService) {}
-  buyProducts: OrderStatus[] = [];
-  sellProducts: OrderStatus[] = [];
-  getSellStatus() {
-    this.trade.getSellStatus().subscribe((res) => {
-      console.log(res);
-      this.sellProducts = res;
-    });
-  }
-  getBuyStatus() {
-    this.trade.getBuyStatus().subscribe((res) => {
-      console.log(res);
+export class OrderManangerComponent {
+  /** ABANDONED */
+}
 
-      this.buyProducts = res;
-    });
-  }
-  ngOnInit() {
-    this.getSellStatus();
-    this.getBuyStatus();
-  }
+interface OrderInfo extends OrderStatus {
+  title: string;
 }
