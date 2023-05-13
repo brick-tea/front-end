@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { UserAuthService } from 'src/app/service/user-auth.service';
 
 const MAIL_POSFIX = 'gms.ndhu.edu.tw';
@@ -15,11 +13,10 @@ export class ForgotPasswordComponent {
   @Output() toLog = new EventEmitter();
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private router: Router,
+
     private auth: UserAuthService
   ) {}
-  isSend: boolean = true;
+  isSend: boolean = false;
   verifyMode = 'forgot';
 
   form = this.formBuilder.group({
