@@ -30,19 +30,19 @@
         </button>
       </mdb-form-control-->
       <form class="d-flex input-group w-auto">
-        <input type="search" class="search-field form-control rounded" placeholder="切換至商品頁搜尋" #search
+        <input type="search" class="search-field form-control rounded" placeholder="搜尋商品" #search
           (keydown.enter)="onSearch(search);" [disabled]="isSearch" [disabled]="isSearch" />
       </form>
-      <div mdbDropdown class="dropdown">
-        <button class="btn shadow-0 search-button dropdown-toggle" mdbDropdownToggle
-          type="button">{{searchArea}}</button>
-        <ul mdbDropdownMenu class="dropdown-menu dropdown-menu-end search-option">
+      <!--div mdbDropdown class="dropdown"-->
+      <button class="btn shadow-0 search-button " type="button">{{searchArea}}</button>
+      <!--class="dropdown-toggle" mdbDropdownToggle-->
+      <!--ul mdbDropdownMenu class="dropdown-menu dropdown-menu-end search-option">
           <li><button class="d-flex justify-content-center dropdown-item" value="product"
               (click)="selectOption('product')">商品</button></li>
           <li><button class="d-flex justify-content-center dropdown-item disabled" value="post"
               (click)="selectOption('post')">貼文</button></li>
-        </ul>
-      </div>
+        </ul-->
+
     </div>
 
     <!-- Search bar -->

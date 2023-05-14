@@ -1,5 +1,5 @@
 import { Component, Renderer2, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Route, Router, ActivatedRoute } from '@angular/router';
 import { UserAuthService } from 'src/app/service/user-auth.service';
 import { DataService } from 'src/app/service/data.service';
 import {
@@ -24,7 +24,8 @@ export class ProductPageComponent implements OnInit {
     private authService: UserAuthService,
     private productService: ProductService,
     private renderer: Renderer2,
-    private dataService: DataService
+    private dataService: DataService,
+    private route: ActivatedRoute
   ) {
     if (authService.loginStatus() !== true) {
       router.navigate(['/login']);
@@ -34,16 +35,23 @@ export class ProductPageComponent implements OnInit {
   totalProductNum: number = 0;
   productOfPage: number = 21;
   ngOnInit() {
-    this.loadProductList();
-    this.dataService.getProductResults().subscribe((data) => {
-      if (data.product.length > 0) {
-        this.viewProducts = data.product;
-        this.totalProductNum = data.totalNumber;
-      } else this.viewProducts = this.allProducts;
+    // this.loadProductList();
+    this.route.queryParams.subscribe((params) => {
+      const onSearch: boolean = params['onSearch'];
+      if (onSearch) this.loadSearchResults();
+      else this.loadProductList();
     });
   }
   allProducts: ProductInfo[] = []; // all products
   viewProducts: ProductInfo[] = []; // display all products or search products
+  loadSearchResults() {
+    this.dataService.getProductResults().subscribe((data) => {
+      if (data.product.length > 0) {
+        this.viewProducts = data.product;
+        this.totalProductNum = data.totalNumber;
+      } // else this.viewProducts = this.allProducts;
+    });
+  }
 
   loadProductList(page?: number) {
     this.isLoading = true;
