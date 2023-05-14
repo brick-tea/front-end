@@ -20,6 +20,7 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { LayoutModule } from '../layout/layout.module';
 import { BoardComponent } from './board/board.component';
@@ -63,6 +64,7 @@ import { MatButtonModule } from '@angular/material/button';
     MdbTooltipModule,
     MdbValidationModule,
     MatButtonModule,
+    MatChipsModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
