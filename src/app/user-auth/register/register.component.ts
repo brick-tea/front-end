@@ -43,7 +43,8 @@ export class RegisterComponent {
       },
 
       (err) => {
-        alert('Something went wrong');
+        if (err.status === 409) alert('帳號已註冊！');
+        else alert('Something went wrong');
         console.log(err);
       }
     );
