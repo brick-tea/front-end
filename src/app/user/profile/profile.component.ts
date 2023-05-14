@@ -60,6 +60,7 @@ export class ProfileComponent implements OnInit {
         this.buildForm();
         this.isSending = false;
         this.updateStatus = true;
+        alert('更新成功！');
       },
       (err) => {
         this.isSending = false;
