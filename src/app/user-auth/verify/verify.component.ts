@@ -37,7 +37,7 @@ export class VerifyComponent implements OnInit {
     if (this.account == 'null') {
       alert('無帳號資料，請先登入。');
       this.router.navigate(['/auth']);
-    }
+    } else if (this.auth.loginStatus()) this.router.navigate(['home']);
     this.code = ['', '', '', '', '', ''];
     console.log('verifyForm');
     this.resetForm = this.fb.group({
@@ -149,11 +149,20 @@ export class VerifyComponent implements OnInit {
     this.verifyForm.code = verifyCode;
     let form = JSON.stringify(this.verifyForm);
     form = JSON.parse(form);
-    this.auth.verify(form).subscribe((res) => {
-      console.log(res);
-      alert('Verify Successful!\nPlease login again');
-      this.router.navigate(['/auth']);
-    });
+    this.auth.verify(form).subscribe(
+      (res) => {
+        console.log(res);
+        alert('Verify Successful!\nPlease login again');
+        this.router.navigate(['/auth']);
+      },
+      (err) => {
+        if (err.status === 409) {
+          alert('帳號已存在，請登入！');
+          this.router.navigate(['/auth']);
+        }
+        console.log(err);
+      }
+    );
   }
   resetPassword() {
     let verifyCode: string = '';
