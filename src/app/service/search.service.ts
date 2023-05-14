@@ -71,13 +71,6 @@ export class SearchService {
     );
   }
 
-  private parseSearchString(content: string): string {
-    let query: string = '';
-    // remove spaces from search string
-
-    return query;
-  }
-
   postSearch() {}
 
   globalSearch() {}

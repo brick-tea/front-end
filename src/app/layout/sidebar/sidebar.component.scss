@@ -10,10 +10,21 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto;
     cursor: pointer;
   }
   li:hover {
     background-color: $bg-color;
+    border-radius: 30px;
+    width: 12rem;
+  }
+  .link-active {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    background-color: #e2d8e6;
+    border-radius: 30px;
+    width: 12rem;
   }
   a {
     display: flex;

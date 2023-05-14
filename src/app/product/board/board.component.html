@@ -6,7 +6,7 @@
 <div class="post-block" *ngFor="let post of allPosts; index as i;">
   <!-- Post Card -->
   <div class="card h-100 flex-grow-1 shadow-0">
-    <div class="card-body content">
+    <div class="card-body content pb-2">
       <div mat-dialog-title class="p-0 my-2 d-flex align-items-center">
         <img class="me-3" src="https://source.boringavatars.com/beam/30/{{post.account}}?colors={{BEAM_COLORS}}"
           alt={{post.account}}>
@@ -28,9 +28,27 @@
       </div>
 
       <!-- Post Content -->
-      <h3 class="fw-bolder my-0">{{ post.title }}</h3>
-      <p class="my-1 " style="white-space:pre-wrap;">{{post.content}}</p>
+      <div>
+        <h3 class="fw-bolder my-0">{{ post.title }}</h3>
+        <p class="my-1 " style="white-space:pre-wrap;">{{post.content}}</p>
+      </div>
       <!-- Post Content -->
+      <div>
+        <a class="py-1 pe-3 expand mb-1 btn-rounded" mdbRipple (click)="expandAction(i)">關聯商品<i
+            class="ms-2 fas fa-caret-down"></i></a>
+        <hr class="m-0" />
+        <ng-container *ngIf="isExpand[i] && post.productsId.length===0">
+          <p style="color:#dc4c64;">沒有商品</p>
+        </ng-container>
+        <ul class="ps-0 mb-1" *ngIf="isExpand[i] && post.productList">
+          <li *ngFor="let product of post.productList">
+            <a class="link-item" (click)="expandProduct(product, i)" class="ps-3"
+              style="font-size: xx-small; border-bottom: 1px solid;">{{product.title}}（展開）</a>
+
+          </li>
+        </ul>
+      </div>
+
 
     </div>
 

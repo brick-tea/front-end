@@ -79,6 +79,18 @@ export class ProductService {
     );
   }
 
+  getProductList(ids: string[]): Observable<ProductInfo[]> {
+    let query = '';
+    for (let id of ids) {
+      query = query + '&ids=' + id;
+    }
+    console.log(query);
+    return this.http.get<ProductInfo[]>(
+      PRODUCT_API + 'list/?' + query,
+      this.api.getHeader('json')
+    );
+  }
+
   getTags(): Observable<ProductTag[]> {
     return this.http.get<ProductTag[]>(
       PRODUCT_API + 'tags',
