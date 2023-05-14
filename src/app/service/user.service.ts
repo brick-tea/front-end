@@ -7,6 +7,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { ApiService } from './api.service';
+import { Observable, tap } from 'rxjs';
 
 const USER_API = 'https://thebrickteam.com/user/';
 
@@ -39,22 +40,31 @@ export class UserService implements OnInit {
     this.getUserInfo();
   }
 
-  private getUserInfo() {
-    this.http.get(USER_API + 'profile' + this.api.getHeader('json')).subscribe(
-      (res) => {
-        console.log(res);
-        this.profile = res;
-        this.saveUserAccount(this.profile['account']);
-        this.saveUserName(this.profile['nickname']);
-        this.saveUserMajor(this.profile['major']);
-        this.saveUserGrade(this.profile['grade'] as string); // api response number
-        // createAt
-      },
-      (err) => {
-        console.log(err);
-        alert('Error loading profile');
-      }
-    );
+  getUserInfo(): Observable<UserInfo> {
+    return this.http
+      .get<UserInfo>(USER_API + 'profile', this.api.getHeader('json'))
+      .pipe(
+        tap((res) => {
+          this.saveUserAccount(res.account);
+          this.saveUserName(res.nickname);
+          this.saveUserMajor(res.major);
+        })
+      );
+  }
+  uploadUserInfo(profile: UserUpdate): Observable<UserInfo> {
+    return this.http
+      .patch<UserInfo>(
+        USER_API + 'profile',
+        profile,
+        this.api.getHeader('json')
+      )
+      .pipe(
+        tap((res) => {
+          this.saveUserAccount(res.account);
+          this.saveUserName(res.nickname);
+          this.saveUserMajor(res.major);
+        })
+      );
   }
 
   /* store data catch */
@@ -94,4 +104,17 @@ export class UserService implements OnInit {
   }
 
   // user information API
+}
+export interface UserInfo {
+  account: string;
+  email: string;
+  nickname: string;
+  major: string;
+  grade: 0;
+  createdAt: string;
+}
+export interface UserUpdate {
+  nickname: string;
+  major: string;
+  grade: 0;
 }
