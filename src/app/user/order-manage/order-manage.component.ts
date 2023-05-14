@@ -44,6 +44,7 @@ export class OrderManageComponent {
         console.log(res);
         if (answer) alert('已接受訂單！');
         else alert('訂單已拒絕！');
+        this.getSellStatus();
       },
       (err) => console.log(err)
     );
