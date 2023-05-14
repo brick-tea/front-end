@@ -11,12 +11,15 @@ import {
   Comment,
   CommentInfo,
 } from 'src/app/service/posts.service';
+import { ProductService, ProductInfo } from 'src/app/service/product.service';
 import { UserAuthService } from 'src/app/service/user-auth.service';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PostInfoDialog } from './post-info-dialog/post-info-dialog';
 import { UserService } from 'src/app/service/user.service';
 import { CreatePostDialog } from 'src/app/layout/sidebar/dialog/create-post-dialog/create-post-dialog';
+import { ProductInfoDialog } from 'src/app/product/product-page/product-info-dialog/product-info-dialog';
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -28,7 +31,8 @@ export class BoardComponent implements OnInit {
     public dialog: MatDialog,
     private authService: UserAuthService,
     private userService: UserService,
-    private postsService: PostsService
+    private postsService: PostsService,
+    private productService: ProductService
   ) {
     if (authService.loginStatus() !== true) {
       router.navigate(['/login']);
@@ -37,7 +41,8 @@ export class BoardComponent implements OnInit {
   BEAM_COLORS = '3b3e37,e19563,066699,d39088,f0ddB5'; // avatar colors set
   user: string = this.userService.catchUserAccount();
   allPosts$: Observable<PostInfo[]> = this.postsService.getAllPosts();
-  allPosts!: PostInfo[];
+  allPosts!: PostWithPrducts[];
+  isExpand: boolean[] = [];
 
   ngOnInit(): void {
     this.loadAllPosts();
@@ -56,6 +61,45 @@ export class BoardComponent implements OnInit {
       }
     );
   }
+
+  loadProductList(index: number) {
+    //console.log(this.allPosts[index]);
+    if (this.allPosts[index].productsId.length === 0) {
+      this.allPosts[index].isLoad = true;
+      return;
+    }
+    this.productService
+      .getProductList(this.allPosts[index].productsId)
+      .subscribe((res) => {
+        this.allPosts[index].productList = res;
+        this.allPosts[index].isLoad = true;
+      });
+  }
+
+  expandAction(i: number) {
+    if (this.isExpand[i] === undefined || this.isExpand[i] === false) {
+      /** Action */
+      if (this.allPosts[i].isLoad !== true) {
+        this.loadProductList(i);
+      }
+
+      this.isExpand[i] = true;
+    } else this.isExpand[i] = false;
+  }
+  expandProduct(product: ProductInfo, postIndex: number) {
+    const MatDialogRef = this.dialog.open(ProductInfoDialog, {
+      height: '40rem',
+      width: '40rem',
+      disableClose: true,
+      data: { product: product },
+    });
+    MatDialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.loadProductList(postIndex);
+      }
+    });
+  }
+
   onEdit(postKey: number): void {
     const postId = this.allPosts[postKey].postId;
     let editPostKey: number = this.findPostKey(postId); // check if post exist to avoid unnecessary operation
@@ -133,4 +177,9 @@ export class BoardComponent implements OnInit {
     const key = this.findPostKey(id);
     this.allPosts.splice(key, 1);
   }
+}
+
+interface PostWithPrducts extends PostInfo {
+  productList?: ProductInfo[];
+  isLoad?: boolean;
 }
