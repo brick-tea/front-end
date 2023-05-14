@@ -15,11 +15,11 @@
           [disabled]="product.sellStatus==='pending'"><i class="fas fa-pen m-1"></i>編輯商品</button>
         <button class="btn mx-1 shadow-none delete" *ngIf="user==product.account" (click)="onDelete()"><i
             class="fas fa-trash-alt"></i>刪除</button>
-
       </div>
       <p class="status mb-1">商品狀態：{{product.status}}</p>
       <p class="status mb-2">商品價格：${{product.price}}</p>
       <p style="white-space: pre-wrap;">{{product.content}}</p>
+      <p style="color: #385687; font-weight:bolder ">#{{product.tagName}}</p>
 
       <mdb-carousel *ngIf="imageNum>1" [controls]="true" [indicators]="true" [interval]="0" [dark]="true">
         <mdb-carousel-item *ngIf="product.image1!==null">
